@@ -25,7 +25,7 @@ wsl --install Ubuntu
 > Shell - shellscript bash sh shell zsh
 
 ```
-wget -qO- https://github.com/devcontainers/features/raw/main/src/node/install.sh | bash
+wget -qO- https://github.com/devcontainers/features/raw/main/src/node/install.sh | sudo bash
 ```
 
 **Python (python)**
@@ -33,7 +33,7 @@ wget -qO- https://github.com/devcontainers/features/raw/main/src/node/install.sh
 > Shell - shellscript bash sh shell zsh
 
 ```
-wget -qO- https://github.com/devcontainers/features/raw/main/src/python/install.sh | bash
+wget -qO- https://github.com/devcontainers/features/raw/main/src/python/install.sh | sudo bash
 ```
 
 - https://github.com/devcontainers/features/tree/main/src/node
