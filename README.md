@@ -60,13 +60,10 @@ Remove-Item -Path $env:USERPROFILE\.vscode -Recurse
 > Shell - shellscript bash sh shell zsh
 
 ```sh
-code --install-extension bierner.github-markdown-preview
 code --install-extension bradlc.vscode-tailwindcss
 code --install-extension dbaeumer.vscode-eslint
 code --install-extension esbenp.prettier-vscode
 code --install-extension GitHub.copilot
-code --install-extension lkrms.inifmt
-code --install-extension p42ai.refactor
 code --install-extension Prisma.prisma
 code --install-extension streetsidesoftware.code-spell-checker
 ```
