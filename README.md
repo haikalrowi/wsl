@@ -65,5 +65,6 @@ code --install-extension dbaeumer.vscode-eslint
 code --install-extension esbenp.prettier-vscode
 code --install-extension GitHub.copilot
 code --install-extension Prisma.prisma
+code --install-extension semanticdiff.semanticdiff
 code --install-extension streetsidesoftware.code-spell-checker
 ```
