@@ -1,4 +1,4 @@
-```
+```md
 wsl --shutdown; wsl --unregister Ubuntu; Remove-Item -Path $env:APPDATA\Code -Recurse; Remove-Item -Path $env:USERPROFILE\.vscode -Recurse
 ```
 
@@ -8,15 +8,15 @@ Commands I use often.
 
 ## WSL (CLI)
 
-```
+```md
 wsl --shutdown
 ```
 
-```
+```md
 wsl --unregister Ubuntu
 ```
 
-```
+```md
 wsl --install Ubuntu
 ```
 
@@ -26,34 +26,53 @@ wsl --install Ubuntu
 
 **Node.js (via nvm), yarn and pnpm (node)**
 
-> Shell - shellscript bash sh shell zsh
+> shellscript bash sh shell zsh
 
-```
+```md
 wget -qO- https://github.com/devcontainers/features/raw/main/src/node/install.sh | sudo bash
 ```
 
+https://github.com/devcontainers/features/tree/main/src/node
+
 **Python (python)**
 
-> Shell - shellscript bash sh shell zsh
+> shellscript bash sh shell zsh
 
-```
+```md
 wget -qO- https://github.com/devcontainers/features/raw/main/src/python/install.sh | sudo bash
 ```
 
-- https://github.com/devcontainers/features/tree/main/src/node
-- https://github.com/devcontainers/features/tree/main/src/python
+https://github.com/devcontainers/features/tree/main/src/python
+
+**CockroachDB**
+
+> shellscript bash sh shell zsh
+
+```md
+VERSION="cockroach-v24.1.7.linux-amd64" && \
+wget https://binaries.cockroachdb.com/${VERSION}.tgz && \
+tar -xvzf ${VERSION}.tgz && \
+sudo cp ${VERSION}/cockroach /usr/local/bin/ && \
+sudo mkdir -p /usr/local/lib/cockroach && \
+sudo cp -i ${VERSION}/lib/libgeos.so /usr/local/lib/cockroach/ && \
+sudo cp -i ${VERSION}/lib/libgeos_c.so /usr/local/lib/cockroach/ && \
+rm -rf ${VERSION}.tgz ${VERSION} && \
+which cockroach
+```
+
+https://www.cockroachlabs.com/docs/v24.3/install-cockroachdb-linux#install-binary
 
 ## Visual Studio Code
 
-> PowerShell - powershell ps ps1
+> powershell ps ps1
 
-```
+```md
 Remove-Item -Path $env:APPDATA\Code -Recurse
 ```
 
-> PowerShell - powershell ps ps1
+> powershell ps ps1
 
-```
+```md
 Remove-Item -Path $env:USERPROFILE\.vscode -Recurse
 ```
 
@@ -61,14 +80,14 @@ Remove-Item -Path $env:USERPROFILE\.vscode -Recurse
 
 **Install extensions**
 
-> Shell - shellscript bash sh shell zsh
+> shellscript bash sh shell zsh
 
-```
-code --install-extension bradlc.vscode-tailwindcss &
-code --install-extension dbaeumer.vscode-eslint &
-code --install-extension esbenp.prettier-vscode &
-code --install-extension GitHub.copilot &
-code --install-extension Prisma.prisma &
-code --install-extension semanticdiff.semanticdiff &
-code --install-extension streetsidesoftware.code-spell-checker &
+```md
+code --install-extension bradlc.vscode-tailwindcss & \
+code --install-extension dbaeumer.vscode-eslint & \
+code --install-extension esbenp.prettier-vscode & \
+code --install-extension GitHub.copilot & \
+code --install-extension Prisma.prisma & \
+code --install-extension semanticdiff.semanticdiff & \
+code --install-extension streetsidesoftware.code-spell-checker & \
 ```
