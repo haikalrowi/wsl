@@ -1,7 +1,3 @@
-```md
-wsl --shutdown; wsl --unregister Ubuntu; Remove-Item -Path $env:APPDATA\Code -Recurse; Remove-Item -Path $env:USERPROFILE\.vscode -Recurse
-```
-
 # wsl
 
 Commands I use often.
@@ -49,7 +45,7 @@ https://github.com/devcontainers/features/tree/main/src/python
 > shellscript bash sh shell zsh
 
 ```md
-VERSION="cockroach-v24.1.7.linux-amd64" && \
+export VERSION="cockroach-v24.1.7.linux-amd64" && \
 wget https://binaries.cockroachdb.com/${VERSION}.tgz && \
 tar -xvzf ${VERSION}.tgz && \
 sudo cp ${VERSION}/cockroach /usr/local/bin/ && \
@@ -90,4 +86,20 @@ code --install-extension GitHub.copilot & \
 code --install-extension Prisma.prisma & \
 code --install-extension semanticdiff.semanticdiff & \
 code --install-extension streetsidesoftware.code-spell-checker &
+```
+
+##
+
+```md
+wsl --shutdown; wsl --unregister Ubuntu; Remove-Item -Path $env:APPDATA\Code -Recurse; Remove-Item -Path $env:USERPROFILE\.vscode -Recurse
+```
+
+```md
+export PROJECT_NAME="my-app" && \
+pnpx create-next-app@15 $PROJECT_NAME --yes --turbopack && \
+cd $PROJECT_NAME && \
+pnpm add --save-dev --save-exact prettier@3 && \
+pnpm add --save-dev prettier-plugin-organize-imports@4 && \
+pnpm add --save-dev prettier-plugin-tailwindcss@0.6 && \
+echo '{ "plugins": ["prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"] }' > .prettierrc
 ```
