@@ -25,7 +25,7 @@ wsl --install Ubuntu
 > shellscript bash sh shell zsh
 
 ```md
-wget -qO- https://github.com/devcontainers/features/raw/main/src/node/install.sh | sudo bash
+wget -qO- https://github.com/devcontainers/features/raw/main/src/node/install.sh | sudo env VERSION=20 bash -
 ```
 
 https://github.com/devcontainers/features/tree/main/src/node
