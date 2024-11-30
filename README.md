@@ -79,7 +79,7 @@ wsl --shutdown; wsl --unregister Ubuntu; Remove-Item -Path $env:APPDATA\Code -Re
 > shellscript bash sh shell zsh
 
 ```md
-export PROJECT_NAME="my-app" && \
+PROJECT_NAME="my-app" && \
 pnpx create-next-app@15 $PROJECT_NAME --yes --turbopack && \
 cd $PROJECT_NAME && \
 pnpm add --save-dev --save-exact prettier@3 && \
