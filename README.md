@@ -1,31 +1,11 @@
-# wsl
-
-Commands I use often.
-
-## WSL (CLI)
-
-```md
-wsl --shutdown
-```
-
-```md
-wsl --unregister Ubuntu
-```
-
-```md
-wsl --install Ubuntu
-```
-
-- [Basic commands for WSL | Microsoft Learn](https://learn.microsoft.com/en-us/windows/wsl/basic-commands)
-
-## WSL (Ubuntu)
+# WSL
 
 **Node.js (via nvm), yarn and pnpm (node)**
 
 > shellscript bash sh shell zsh
 
 ```md
-wget -qO- https://github.com/devcontainers/features/raw/main/src/node/install.sh | sudo env VERSION=20 bash -
+wget -qO - https://github.com/devcontainers/features/raw/main/src/node/install.sh | sudo bash
 ```
 
 https://github.com/devcontainers/features/tree/main/src/node
@@ -35,7 +15,7 @@ https://github.com/devcontainers/features/tree/main/src/node
 > shellscript bash sh shell zsh
 
 ```md
-wget -qO- https://github.com/devcontainers/features/raw/main/src/python/install.sh | sudo bash
+wget -qO - https://github.com/devcontainers/features/raw/main/src/python/install.sh | sudo bash
 ```
 
 https://github.com/devcontainers/features/tree/main/src/python
@@ -45,7 +25,7 @@ https://github.com/devcontainers/features/tree/main/src/python
 > shellscript bash sh shell zsh
 
 ```md
-export VERSION="cockroach-v24.1.7.linux-amd64" && \
+VERSION="cockroach-v21.2.17.linux-amd64" && \
 wget https://binaries.cockroachdb.com/${VERSION}.tgz && \
 tar -xvzf ${VERSION}.tgz && \
 sudo cp ${VERSION}/cockroach /usr/local/bin/ && \
@@ -58,7 +38,7 @@ which cockroach
 
 https://www.cockroachlabs.com/docs/v24.3/install-cockroachdb-linux#install-binary
 
-## Visual Studio Code
+# Visual Studio Code
 
 > powershell ps ps1
 
@@ -72,7 +52,7 @@ Remove-Item -Path $env:APPDATA\Code -Recurse
 Remove-Item -Path $env:USERPROFILE\.vscode -Recurse
 ```
 
-- [Uninstall Visual Studio Code](https://code.visualstudio.com/docs/setup/uninstall#_clean-uninstall)
+https://code.visualstudio.com/docs/setup/uninstall#_clean-uninstall
 
 **Install extensions**
 
@@ -88,11 +68,15 @@ code --install-extension semanticdiff.semanticdiff & \
 code --install-extension streetsidesoftware.code-spell-checker &
 ```
 
-##
+# More
+
+> powershell ps ps1
 
 ```md
 wsl --shutdown; wsl --unregister Ubuntu; Remove-Item -Path $env:APPDATA\Code -Recurse; Remove-Item -Path $env:USERPROFILE\.vscode -Recurse
 ```
+
+> shellscript bash sh shell zsh
 
 ```md
 export PROJECT_NAME="my-app" && \
