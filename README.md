@@ -79,7 +79,7 @@ https://code.visualstudio.com/docs/setup/uninstall#_clean-uninstall
 > PROJECT_NAME="my-app" && \
 > pnpx create-next-app@15 $PROJECT_NAME --yes --turbopack && \
 > cd $PROJECT_NAME && \
-> pnpm add --save-dev --save-exact prettier@3 && \
+> pnpm add --save-dev prettier@3 && \
 > pnpm add --save-dev prettier-plugin-organize-imports@4 && \
 > pnpm add --save-dev prettier-plugin-tailwindcss@0.6 && \
 > echo '{ "plugins": ["prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"] }' > .prettierrc
@@ -91,6 +91,6 @@ https://code.visualstudio.com/docs/setup/uninstall#_clean-uninstall
 > ```
 >
 > ```md
-> pnpm add prisma --save-dev &&
+> pnpm add --save-dev prisma@6 && \
 > npx prisma init --datasource-provider sqlite --url file:./dev.db
 > ```
