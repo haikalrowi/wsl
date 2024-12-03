@@ -87,3 +87,9 @@ pnpm add --save-dev prettier-plugin-organize-imports@4 && \
 pnpm add --save-dev prettier-plugin-tailwindcss@0.6 && \
 echo '{ "plugins": ["prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"] }' > .prettierrc
 ```
+
+> shellscript bash sh shell zsh
+
+```md
+rm -rf .next/ node_modules/ pnpm-lock.yaml && pnpm install
+```
