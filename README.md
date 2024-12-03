@@ -86,6 +86,7 @@ pnpm add --save-dev --save-exact prettier@3 && \
 pnpm add --save-dev prettier-plugin-organize-imports@4 && \
 pnpm add --save-dev prettier-plugin-tailwindcss@0.6 && \
 echo '{ "plugins": ["prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"] }' > .prettierrc
+echo 'pnpm-lock.yaml' > .prettierignore
 ```
 
 > shellscript bash sh shell zsh
