@@ -89,3 +89,8 @@ https://code.visualstudio.com/docs/setup/uninstall#_clean-uninstall
 > ```md
 > rm -rf .next/ node_modules/ pnpm-lock.yaml && pnpm install
 > ```
+>
+> ```md
+> pnpm add prisma --save-dev &&
+> npx prisma init --datasource-provider sqlite --url file:./dev.db
+> ```
