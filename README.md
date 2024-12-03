@@ -92,5 +92,6 @@ https://code.visualstudio.com/docs/setup/uninstall#_clean-uninstall
 >
 > ```md
 > pnpm add --save-dev prisma@6 && \
-> npx prisma init --datasource-provider sqlite --url file:./dev.db --with-model
+> npx prisma init --datasource-provider sqlite --url file:./dev.db --with-model && \
+> npx prisma generate
 > ```
