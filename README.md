@@ -90,8 +90,8 @@
 > shellscript bash sh shell zsh
 >
 > ```md
-> PROJECT_NAME="my-app" && \
-> pnpx create-next-app@15 $PROJECT_NAME --yes --turbopack && \
+> PROJECT_NAME="./my-app" && \
+> pnpm dlx create-next-app@15 $PROJECT_NAME --yes --turbopack && \
 > cd $PROJECT_NAME && \
 > pnpm add --save-dev prettier@3 && \
 > pnpm add --save-dev prettier-plugin-organize-imports@4 && \
@@ -105,7 +105,12 @@
 > ```
 >
 > ```md
+> pnpm dlx shadcn@latest init && \
+> pnpm dlx shadcn@latest add --all
+> ```
+>
+> ```md
 > pnpm add --save-dev prisma@6 && \
-> npx prisma init --datasource-provider sqlite --url file:./dev.db --with-model && \
-> npx prisma generate
+> pnpm exec prisma init --datasource-provider sqlite --url file:./dev.db --with-model && \
+> pnpm exec prisma generate
 > ```
