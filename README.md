@@ -7,8 +7,8 @@
 > ```md
 > wget -qO - https://github.com/devcontainers/features/raw/main/src/node/install.sh | sudo bash
 > ```
-
-https://github.com/devcontainers/features/tree/main/src/node
+>
+> https://github.com/devcontainers/features/tree/main/src/node
 
 **Python (python)**
 
@@ -17,8 +17,8 @@ https://github.com/devcontainers/features/tree/main/src/node
 > ```md
 > wget -qO - https://github.com/devcontainers/features/raw/main/src/python/install.sh | sudo bash
 > ```
-
-https://github.com/devcontainers/features/tree/main/src/python
+>
+> https://github.com/devcontainers/features/tree/main/src/python
 
 **CockroachDB**
 
@@ -35,8 +35,22 @@ https://github.com/devcontainers/features/tree/main/src/python
 > rm -rf ${VERSION}.tgz ${VERSION} && \
 > which cockroach
 > ```
+>
+> https://www.cockroachlabs.com/docs/v24.3/install-cockroachdb-linux#install-binary
 
-https://www.cockroachlabs.com/docs/v24.3/install-cockroachdb-linux#install-binary
+**pnpm**
+
+> shellscript bash sh shell zsh
+>
+> ```md
+> curl -fsSL https://get.pnpm.io/install.sh | sh - && \
+> source ~/.bashrc && \
+> pnpm env use --global lts
+> ```
+>
+> https://pnpm.io/installation#on-posix-systems
+>
+> https://pnpm.io/cli/env#use
 
 # Visual Studio Code
 
@@ -49,8 +63,8 @@ https://www.cockroachlabs.com/docs/v24.3/install-cockroachdb-linux#install-binar
 > ```md
 > Remove-Item -Path $env:USERPROFILE\.vscode -Recurse
 > ```
-
-https://code.visualstudio.com/docs/setup/uninstall#_clean-uninstall
+>
+> https://code.visualstudio.com/docs/setup/uninstall#_clean-uninstall
 
 **Install extensions**
 
