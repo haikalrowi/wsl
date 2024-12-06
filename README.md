@@ -89,28 +89,46 @@
 
 > shellscript bash sh shell zsh
 >
-> ```md
-> PROJECT_NAME="./my-app" && \
-> pnpm dlx create-next-app@15 $PROJECT_NAME --yes --turbopack && \
-> cd $PROJECT_NAME && \
-> pnpm add --save-dev prettier@3 && \
-> pnpm add --save-dev prettier-plugin-organize-imports@4 && \
-> pnpm add --save-dev prettier-plugin-tailwindcss@0.6 && \
-> echo '{ "plugins": ["prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"] }' > .prettierrc
-> echo 'pnpm-lock.yaml' > .prettierignore
-> ```
+> **Next.js**
+>
+> > ```md
+> > PROJECT_NAME="./my-app" && \
+> > pnpm dlx create-next-app@15 $PROJECT_NAME --yes --turbopack && \
+> > cd $PROJECT_NAME && \
+> > pnpm add --save-dev prettier@3 && \
+> > pnpm add --save-dev prettier-plugin-organize-imports@4 && \
+> > pnpm add --save-dev prettier-plugin-tailwindcss@0.6 && \
+> > echo '{ "plugins": ["prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"] }' > .prettierrc
+> > echo 'pnpm-lock.yaml' > .prettierignore
+> > ```
+> >
+> > https://nextjs.org/docs/app/api-reference/cli/create-next-app
+> >
+> > https://prettier.io/docs/en/install
+> >
+> > https://github.com/simonhaenisch/prettier-plugin-organize-imports
+> >
+> > https://github.com/tailwindlabs/prettier-plugin-tailwindcss
 >
 > ```md
 > rm -rf .next/ node_modules/ pnpm-lock.yaml && pnpm install
 > ```
 >
-> ```md
-> pnpm dlx shadcn@latest init && \
-> pnpm dlx shadcn@latest add --all
-> ```
+> **shadcn/ui**
 >
-> ```md
-> pnpm add --save-dev prisma@6 && \
-> pnpm exec prisma init --datasource-provider sqlite --url file:./dev.db --with-model && \
-> pnpm exec prisma generate
-> ```
+> > ```md
+> > pnpm dlx shadcn@latest init && \
+> > pnpm dlx shadcn@latest add --all
+> > ```
+> >
+> > https://ui.shadcn.com/docs/cli
+>
+> **Prisma**
+>
+> > ```md
+> > pnpm add --save-dev prisma@6 && \
+> > pnpm exec prisma init --datasource-provider sqlite --url file:./dev.db --with-model && \
+> > pnpm exec prisma generate
+> > ```
+> >
+> > https://www.prisma.io/docs/orm/reference/prisma-cli-reference#init
