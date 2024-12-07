@@ -109,10 +109,10 @@
 > > https://github.com/simonhaenisch/prettier-plugin-organize-imports
 > >
 > > https://github.com/tailwindlabs/prettier-plugin-tailwindcss
->
-> ```md
-> rm -rf .next/ node_modules/ pnpm-lock.yaml && pnpm install
-> ```
+> >
+> > ```md
+> > rm -rf .next/ node_modules/ pnpm-lock.yaml && pnpm install
+> > ```
 >
 > **shadcn/ui**
 >
