@@ -1,5 +1,14 @@
 # WSL
 
+**.wslconfig**
+
+> ```md
+> [wsl2]
+> kernelCommandLine="sysctl.vm.swappiness=10"
+> swap=4294967296
+> networkingMode=mirrored
+> ```
+
 **Node.js (via nvm), yarn and pnpm (node)**
 
 > shellscript bash sh shell zsh
