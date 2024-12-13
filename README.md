@@ -86,6 +86,7 @@
 > code --install-extension Prisma.prisma & \
 > code --install-extension semanticdiff.semanticdiff & \
 > code --install-extension streetsidesoftware.code-spell-checker &
+> wait
 > ```
 
 # More
