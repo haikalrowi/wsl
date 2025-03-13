@@ -109,7 +109,7 @@
 > pnpm dlx shadcn@latest add button
 > ```
 >
-> https://ui.shadcn.com/docs/cli
+> - https://ui.shadcn.com/docs/cli
 
 ### prisma/prisma
 
@@ -122,4 +122,4 @@
 > pnpm exec prisma migrate reset --force
 > ```
 >
-> https://www.prisma.io/docs/orm/reference/prisma-cli-reference#init
+> - https://www.prisma.io/docs/orm/reference/prisma-cli-reference#init
