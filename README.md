@@ -105,8 +105,9 @@
 > > shellscript bash sh shell zsh
 >
 > ```md
-> pnpm dlx shadcn@latest init --defaults &&
-> pnpm dlx shadcn@latest add button
+> pnpm add --save-dev shadcn@2.4 &&
+> pnpm exec shadcn init &&
+> pnpm exec shadcn add button
 > ```
 >
 > - https://ui.shadcn.com/docs/cli
