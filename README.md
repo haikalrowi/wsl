@@ -82,7 +82,7 @@
 >
 > ```md
 > PROJECT_NAME="./my-app" &&
-> pnpm dlx create-next-app@15 $PROJECT_NAME --yes &&
+> pnpm dlx create-next-app@15 $PROJECT_NAME &&
 > cd $PROJECT_NAME &&
 > pnpm add --save-dev prettier@3 &&
 > pnpm add --save-dev prettier-plugin-organize-imports@4 &&
@@ -111,6 +111,16 @@
 > ```
 >
 > - https://ui.shadcn.com/docs/cli
+
+### supabase/supabase
+
+> > shellscript bash sh shell zsh
+>
+> ```md
+> pnpm exec shadcn add https://supabase.com/ui/r/supabase-client-nextjs.json
+> ```
+>
+> - https://supabase.com/ui/docs/nextjs/client
 
 ### prisma/prisma
 
