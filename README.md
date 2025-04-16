@@ -2,7 +2,13 @@
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/haikalrowi/wsl)
 
+<details>
+
+<summary>
+
 ## inside your windows
+
+</summary>
 
 ### .wslconfig
 
@@ -45,7 +51,15 @@
 >
 > - https://code.visualstudio.com/docs/setup/uninstall#_clean-uninstall
 
+</details>
+
+<details>
+
+<summary>
+
 ## inside your wsl
+
+</summary>
 
 ### pnpm and node.js
 
@@ -60,7 +74,15 @@
 > - https://pnpm.io/installation#on-posix-systems
 > - https://pnpm.io/cli/env#use
 
+</details>
+
+<details>
+
+<summary>
+
 ## inside your vscode
+
+</summary>
 
 ### install extensions
 
@@ -134,3 +156,5 @@
 > ```
 >
 > - https://www.prisma.io/docs/orm/reference/prisma-cli-reference#init
+
+</details>
