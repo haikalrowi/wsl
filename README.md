@@ -2,6 +2,13 @@
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/haikalrowi/wsl)
 
+|                                        |                                |                               |                         |
+| -------------------------------------- | ------------------------------ | ----------------------------- | ----------------------- |
+| http://req.new (https://httpie.io/app) |                                |                               |                         |
+|                                        | https://prettier.io/playground |                               |                         |
+|                                        |                                | https://play.tailwindcss.com/ |                         |
+|                                        |                                |                               | https://privatebin.net/ |
+
 <details>
 
 <summary>
