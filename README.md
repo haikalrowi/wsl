@@ -2,12 +2,12 @@
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/haikalrowi/wsl)
 
-|                                        |                                |                               |                         |
-| -------------------------------------- | ------------------------------ | ----------------------------- | ----------------------- |
-| http://req.new (https://httpie.io/app) |                                |                               |                         |
-|                                        | https://prettier.io/playground |                               |                         |
-|                                        |                                | https://play.tailwindcss.com/ |                         |
-|                                        |                                |                               | https://privatebin.net/ |
+|                                                                                                        |
+| ------------------------------------------------------------------------------------------------------ |
+| [![httpie](https://avatars.githubusercontent.com/u/24454777?s=50)](https://req.new)                    |
+| [![prettier](https://avatars.githubusercontent.com/u/25822731?s=50)](https://prettier.io/playground)   |
+| [![tailwindcss](https://avatars.githubusercontent.com/u/67109815?s=50)](https://play.tailwindcss.com/) |
+| [![privatebin](https://avatars.githubusercontent.com/u/20367028?s=50)](https://privatebin.net/)        |
 
 <details>
 
