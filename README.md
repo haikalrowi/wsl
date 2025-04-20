@@ -135,10 +135,12 @@
 >
 > ```md
 > pnpm add --save-dev shadcn@2.4 &&
+> pnpm add --save-dev tw-animate-css@1 &&
 > pnpm exec shadcn init &&
 > pnpm exec shadcn add button
 > ```
 >
+> - https://ui.shadcn.com/docs/tailwind-v4#changelog
 > - https://ui.shadcn.com/docs/cli
 
 ### supabase/supabase
