@@ -2,12 +2,12 @@
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/haikalrowi/wsl)
 
-|                                                                                                        |                                                                               |
-| ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
-| [![httpie](https://avatars.githubusercontent.com/u/24454777?s=50)](https://req.new)                    | [![t3chat](https://t3.chat/favicon.ico)](https://t3.chat)                     |
-| [![prettier](https://avatars.githubusercontent.com/u/25822731?s=50)](https://prettier.io/playground)   | [![cobalt](https://cobalt.tools/icons/maskable/48.png)](https://cobalt.tools) |
-| [![tailwindcss](https://avatars.githubusercontent.com/u/67109815?s=50)](https://play.tailwindcss.com/) |                                                                               |
-| [![privatebin](https://avatars.githubusercontent.com/u/20367028?s=50)](https://privatebin.net/)        |                                                                               |
+|                                                                                                        |                                                                                             |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
+| [![httpie](https://avatars.githubusercontent.com/u/24454777?s=50)](https://req.new)                    | [![t3chat](https://t3.chat/favicon.ico)](https://t3.chat)                                   |
+| [![prettier](https://avatars.githubusercontent.com/u/25822731?s=50)](https://prettier.io/playground)   | [![cobalt](https://cobalt.tools/icons/maskable/48.png)](https://cobalt.tools)               |
+| [![tailwindcss](https://avatars.githubusercontent.com/u/67109815?s=50)](https://play.tailwindcss.com/) | [![deepl](https://avatars.githubusercontent.com/u/83310993?s=50)](https://www.deepl.com/en) |
+| [![privatebin](https://avatars.githubusercontent.com/u/20367028?s=50)](https://privatebin.net/)        |                                                                                             |
 
 <details>
 
