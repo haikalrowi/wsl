@@ -134,8 +134,7 @@
 > > shellscript bash sh shell zsh
 >
 > ```md
-> pnpm add --save-dev shadcn@2.4 &&
-> pnpm add --save-dev tw-animate-css@1 &&
+> pnpm add --save-dev shadcn@2 &&
 > pnpm exec shadcn init &&
 > pnpm exec shadcn add button
 > ```
