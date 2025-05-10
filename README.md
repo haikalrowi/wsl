@@ -128,7 +128,7 @@
 > > shellscript bash sh shell zsh
 >
 > ```
-> echo "publicHoistPattern[]=*eslint-plugin-*" > .npmrc
+> echo "public-hoist-pattern[]=*eslint-plugin-*" > .npmrc
 > ```
 >
 > > shellscript bash sh shell zsh
