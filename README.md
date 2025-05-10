@@ -116,7 +116,7 @@
 > pnpm add --save-dev prettier@3 &&
 > pnpm add --save-dev prettier-plugin-organize-imports@4 &&
 > pnpm add --save-dev prettier-plugin-tailwindcss@0.6 &&
-> echo '{ "plugins": ["prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"] }' > .prettierrc &&
+> echo "{\"plugins\":[\"prettier-plugin-organize-imports\",\"prettier-plugin-tailwindcss\"]}" > .prettierrc &&
 > echo 'pnpm-lock.yaml' > .prettierignore
 > ```
 >
@@ -124,6 +124,14 @@
 > - https://prettier.io/docs/install
 > - https://github.com/simonhaenisch/prettier-plugin-organize-imports
 > - https://github.com/tailwindlabs/prettier-plugin-tailwindcss
+>
+> > shellscript bash sh shell zsh
+>
+> ```
+> echo "publicHoistPattern[]=*eslint-plugin-*" > .npmrc
+> ```
+>
+> > shellscript bash sh shell zsh
 >
 > ```md
 > rm -rf .next/ node_modules/ pnpm-lock.yaml && pnpm install
