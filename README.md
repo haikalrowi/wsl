@@ -125,16 +125,40 @@
 > - https://github.com/simonhaenisch/prettier-plugin-organize-imports
 > - https://github.com/tailwindlabs/prettier-plugin-tailwindcss
 >
+> ---
+>
 > > shellscript bash sh shell zsh
 >
 > ```
 > echo "public-hoist-pattern[]=*eslint-plugin-*" > .npmrc
 > ```
 >
+> ---
+>
 > > shellscript bash sh shell zsh
 >
 > ```md
-> rm -rf .next/ node_modules/ pnpm-lock.yaml && pnpm install
+> pnpm add --save-dev husky@9
+> pnpm exec husky init
+> ```
+>
+> - https://typicode.github.io/husky/get-started.html
+>
+> ---
+>
+> > shellscript bash sh shell zsh
+>
+> ```md
+> rm -rf node_modules/ pnpm-lock.yaml && pnpm install
+> ```
+>
+> ---
+>
+> > shellscript bash sh shell zsh
+>
+> ```md
+> pnpm pkg set scripts.dev="rm -rf .next/ && next dev"
+> pnpm pkg set scripts.build="rm -rf .next/ && next build"
 > ```
 
 ### shadcn-ui/ui
