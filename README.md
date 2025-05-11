@@ -157,7 +157,7 @@
 > > shellscript bash sh shell zsh
 >
 > ```md
-> pnpm pkg set scripts.dev="rm -rf .next/ && next dev" &&
+> pnpm pkg set scripts.dev="rm -rf .next/ && next dev --turbopack" &&
 > pnpm pkg set scripts.build="rm -rf .next/ && next build"
 > ```
 
