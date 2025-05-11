@@ -138,7 +138,7 @@
 > > shellscript bash sh shell zsh
 >
 > ```md
-> pnpm add --save-dev husky@9
+> pnpm add --save-dev husky@9 &&
 > pnpm exec husky init
 > ```
 >
@@ -157,7 +157,7 @@
 > > shellscript bash sh shell zsh
 >
 > ```md
-> pnpm pkg set scripts.dev="rm -rf .next/ && next dev"
+> pnpm pkg set scripts.dev="rm -rf .next/ && next dev" &&
 > pnpm pkg set scripts.build="rm -rf .next/ && next build"
 > ```
 
