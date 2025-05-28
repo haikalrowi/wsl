@@ -140,17 +140,6 @@
 > > shellscript bash sh shell zsh
 >
 > ```md
-> pnpm add --save-dev husky@9 &&
-> pnpm exec husky init
-> ```
->
-> - https://typicode.github.io/husky/get-started.html
->
-> ---
->
-> > shellscript bash sh shell zsh
->
-> ```md
 > rm -rf node_modules/ pnpm-lock.yaml && pnpm install
 > ```
 >
@@ -162,6 +151,27 @@
 > pnpm pkg set scripts.dev="rm -rf .next/ && next dev --turbopack" &&
 > pnpm pkg set scripts.build="rm -rf .next/ && next build"
 > ```
+>
+> ---
+>
+> > shellscript bash sh shell zsh
+>
+> ```md
+> pnpm install next-international@1
+> ```
+>
+> - https://next-international.vercel.app/docs/app-setup
+>
+> ---
+>
+> > shellscript bash sh shell zsh
+>
+> ```md
+> pnpm add --save-dev husky@9 &&
+> pnpm exec husky init
+> ```
+>
+> - https://typicode.github.io/husky/get-started.html
 
 ### shadcn-ui/ui
 
