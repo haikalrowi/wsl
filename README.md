@@ -38,6 +38,10 @@
 > wsl --shutdown; wsl --unregister Ubuntu; Remove-Item -Path $env:APPDATA\Code -Recurse; Remove-Item -Path $env:USERPROFILE\.vscode -Recurse
 > ```
 >
+> <details>
+>
+> <summary>read more</summary>
+>
 > **reset wsl**
 >
 > ```md
@@ -47,6 +51,8 @@
 > ```md
 > wsl --unregister Ubuntu
 > ```
+>
+> - https://learn.microsoft.com/en-us/windows/wsl/basic-commands
 >
 > **remove vscode user data**
 >
@@ -59,6 +65,8 @@
 > ```
 >
 > - https://code.visualstudio.com/docs/setup/uninstall#_clean-uninstall
+>
+> </details>
 
 </details>
 
