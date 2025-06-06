@@ -186,7 +186,7 @@
 > > shellscript bash sh shell zsh
 >
 > ```md
-> pnpm dlx shadcn@2.5 add button
+> pnpm dlx shadcn@2.6 add button
 > ```
 >
 > - https://ui.shadcn.com/docs/tailwind-v4#changelog
