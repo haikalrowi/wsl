@@ -148,7 +148,7 @@
 > > shellscript bash sh shell zsh
 >
 > ```md
-> rm -rf node_modules/ pnpm-lock.yaml && pnpm install
+> rm -rf node_modules/ pnpm-lock.yaml && pnpm install && pnpm outdated
 > ```
 >
 > ---
