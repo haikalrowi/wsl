@@ -96,7 +96,7 @@
 > > shellscript bash sh shell zsh
 >
 > ```md
-> DFCU="./devcontainers-features-common-utils" &&
+> DFCU="./.devcontainers-features-common-utils" &&
 > mkdir $DFCU &&
 > cd $DFCU &&
 > curl -LO https://github.com/devcontainers/features/raw/refs/heads/main/src/common-utils/install.sh &&
