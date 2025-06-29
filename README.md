@@ -91,6 +91,21 @@
 > - https://pnpm.io/installation#on-posix-systems
 > - https://pnpm.io/cli/env#use
 
+### ghcr.io/devcontainers/features/common-utils
+
+> > shellscript bash sh shell zsh
+>
+> ```md
+> DFCU="./devcontainers-features-common-utils" &&
+> mkdir $DFCU &&
+> cd $DFCU &&
+> curl -LO https://github.com/devcontainers/features/raw/refs/heads/main/src/common-utils/install.sh &&
+> curl -LO https://github.com/devcontainers/features/raw/refs/heads/main/src/common-utils/main.sh &&
+> sudo INSTALLZSH="false" CONFIGUREZSHASDEFAULTSHELL="false" INSTALLOHMYZSH="false" INSTALLOHMYZSHCONFIG="false" UPGRADEPACKAGES="false" sh install.sh
+> ```
+>
+> - https://github.com/devcontainers/features/tree/main/src/common-utils
+
 </details>
 
 <details>
