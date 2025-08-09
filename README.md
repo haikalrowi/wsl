@@ -96,7 +96,7 @@
 > > shellscript bash sh shell zsh
 >
 > ```md
-> DFCU="./.devcontainers-features-common-utils" &&
+> DFCU="./.dfcu" &&
 > mkdir $DFCU &&
 > cd $DFCU &&
 > curl -LO https://github.com/devcontainers/features/raw/refs/heads/main/src/common-utils/install.sh &&
@@ -105,6 +105,16 @@
 > ```
 >
 > - https://github.com/devcontainers/features/tree/main/src/common-utils
+
+### bun
+
+> > shellscript bash sh shell zsh
+>
+> ```md
+> curl -fsSL https://bun.com/install | bash
+> ```
+>
+> - https://bun.com/docs/installation
 
 </details>
 
@@ -124,8 +134,7 @@
 > code --install-extension bradlc.vscode-tailwindcss &
 > code --install-extension dbaeumer.vscode-eslint &
 > code --install-extension esbenp.prettier-vscode &
-> code --install-extension Prisma.prisma &
-> code --install-extension semanticdiff.semanticdiff &
+> code --install-extension fill-labs.dependi &
 > code --install-extension streetsidesoftware.code-spell-checker &
 > wait
 > ```
@@ -135,7 +144,7 @@
 > > shellscript bash sh shell zsh
 >
 > ```md
-> PROJECT_NAME="./my-app" &&
+> PROJECT_NAME="./" &&
 > pnpm dlx create-next-app@15 $PROJECT_NAME &&
 > cd $PROJECT_NAME &&
 > pnpm add --save-dev prettier@3 &&
@@ -150,23 +159,11 @@
 > - https://github.com/simonhaenisch/prettier-plugin-organize-imports
 > - https://github.com/tailwindlabs/prettier-plugin-tailwindcss
 >
-> ---
->
 > > shellscript bash sh shell zsh
 >
 > ```
 > echo "public-hoist-pattern[]=*eslint-plugin-*" > .npmrc
 > ```
->
-> ---
->
-> > shellscript bash sh shell zsh
->
-> ```md
-> rm -rf node_modules/ pnpm-lock.yaml && pnpm install && pnpm outdated
-> ```
->
-> ---
 >
 > > shellscript bash sh shell zsh
 >
@@ -175,7 +172,13 @@
 > pnpm pkg set scripts.build="rm -rf .next/ && next build"
 > ```
 >
-> ---
+> > shellscript bash sh shell zsh
+>
+> ```md
+> rm -rf node_modules/ pnpm-lock.yaml && pnpm install && pnpm outdated
+> ```
+>
+>  <s>
 >
 > > shellscript bash sh shell zsh
 >
@@ -185,7 +188,7 @@
 >
 > - https://next-international.vercel.app/docs/app-setup
 >
-> ---
+> </s>
 >
 > > shellscript bash sh shell zsh
 >
@@ -201,7 +204,7 @@
 > > shellscript bash sh shell zsh
 >
 > ```md
-> pnpm dlx shadcn@2.6 add button
+> pnpm dlx shadcn@2 add button
 > ```
 >
 > - https://ui.shadcn.com/docs/tailwind-v4#changelog
@@ -217,6 +220,8 @@
 >
 > - https://supabase.com/ui/docs/nextjs/client
 
+<s>
+
 ### prisma/prisma
 
 > > shellscript bash sh shell zsh
@@ -229,5 +234,7 @@
 > ```
 >
 > - https://www.prisma.io/docs/orm/reference/prisma-cli-reference#init
+
+</s>
 
 </details>
