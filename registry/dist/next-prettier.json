@@ -3,9 +3,9 @@
   "name": "next-prettier",
   "type": "registry:item",
   "dependencies": [
-    "prettier@3",
-    "prettier-plugin-organize-imports@4",
-    "prettier-plugin-tailwindcss@0.6"
+    "prettier@^3",
+    "prettier-plugin-organize-imports@^4",
+    "prettier-plugin-tailwindcss@^0.6"
   ],
   "files": [
     {
