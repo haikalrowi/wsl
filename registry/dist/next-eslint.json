@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "next-eslint",
+  "type": "registry:item",
+  "files": [
+    {
+      "path": "./src/next-eslint/.npmrc",
+      "content": "public-hoist-pattern[]=*eslint-plugin-*\n",
+      "type": "registry:file",
+      "target": "~/.npmrc"
+    }
+  ]
+}

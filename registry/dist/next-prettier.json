@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "next-prettier",
+  "type": "registry:item",
+  "dependencies": [
+    "prettier@3",
+    "prettier-plugin-organize-imports@4",
+    "prettier-plugin-tailwindcss@0.6"
+  ],
+  "files": [
+    {
+      "path": "./src/next-prettier/.prettierrc",
+      "content": "{\n  \"plugins\": [\"prettier-plugin-organize-imports\", \"prettier-plugin-tailwindcss\"]\n}\n",
+      "type": "registry:file",
+      "target": "~/.prettierrc"
+    },
+    {
+      "path": "./src/next-prettier/.prettierignore",
+      "content": "",
+      "type": "registry:file",
+      "target": "~/.prettierignore"
+    }
+  ]
+}
