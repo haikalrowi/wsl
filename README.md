@@ -145,13 +145,9 @@
 >
 > ```md
 > PROJECT_NAME="./" &&
-> pnpm dlx create-next-app@15 $PROJECT_NAME &&
+> pnpm dlx create-next-app@^15 $PROJECT_NAME &&
 > cd $PROJECT_NAME &&
-> pnpm add --save-dev prettier@3 &&
-> pnpm add --save-dev prettier-plugin-organize-imports@4 &&
-> pnpm add --save-dev prettier-plugin-tailwindcss@0.6 &&
-> echo "{\"plugins\":[\"prettier-plugin-organize-imports\",\"prettier-plugin-tailwindcss\"]}" > .prettierrc &&
-> echo 'pnpm-lock.yaml' > .prettierignore
+> pnpm dlx shadcn add https://github.com/haikalrowi/wsl/raw/refs/heads/main/registry/dist/next-prettier.json
 > ```
 >
 > - https://nextjs.org/docs/app/api-reference/cli/create-next-app
@@ -162,7 +158,7 @@
 > > shellscript bash sh shell zsh
 >
 > ```
-> echo "public-hoist-pattern[]=*eslint-plugin-*" > .npmrc
+> pnpm dlx shadcn add https://github.com/haikalrowi/wsl/raw/refs/heads/main/registry/dist/next-eslint.json
 > ```
 >
 > > shellscript bash sh shell zsh
@@ -183,7 +179,7 @@
 > > shellscript bash sh shell zsh
 >
 > ```md
-> pnpm install next-international@1
+> pnpm install next-international@^1
 > ```
 >
 > - https://next-international.vercel.app/docs/app-setup
@@ -193,7 +189,7 @@
 > > shellscript bash sh shell zsh
 >
 > ```md
-> pnpm add --save-dev husky@9 &&
+> pnpm add --save-dev husky@^9 &&
 > pnpm exec husky init
 > ```
 >
@@ -204,7 +200,7 @@
 > > shellscript bash sh shell zsh
 >
 > ```md
-> pnpm dlx shadcn@2 add button
+> pnpm dlx shadcn add button
 > ```
 >
 > - https://ui.shadcn.com/docs/tailwind-v4#changelog
@@ -219,22 +215,5 @@
 > ```
 >
 > - https://supabase.com/ui/docs/nextjs/client
-
-<s>
-
-### prisma/prisma
-
-> > shellscript bash sh shell zsh
->
-> ```md
-> pnpm add --save-dev prisma@6 &&
-> pnpm exec prisma init --datasource-provider sqlite --url file:./dev.db --with-model &&
-> pnpm exec prisma migrate dev --name init &&
-> pnpm exec prisma migrate reset --force
-> ```
->
-> - https://www.prisma.io/docs/orm/reference/prisma-cli-reference#init
-
-</s>
 
 </details>
