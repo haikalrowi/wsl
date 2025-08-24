@@ -145,7 +145,7 @@
 >
 > ```md
 > PROJECT_NAME="./" &&
-> pnpm dlx create-next-app@15 $PROJECT_NAME --reset-preferences &&
+> pnpm dlx create-next-app@15 $PROJECT_NAME &&
 > cd $PROJECT_NAME &&
 > pnpm add --save-dev prettier@3 &&
 > pnpm add --save-dev prettier-plugin-organize-imports@4 &&
