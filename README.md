@@ -163,8 +163,8 @@
 > > shellscript bash sh shell zsh
 >
 > ```md
-> pnpm pkg set scripts.dev="rm -rf .next/ && next dev --turbopack" &&
-> pnpm pkg set scripts.build="rm -rf .next/ && next build"
+> pnpm pkg set scripts.predev="rm -rf .next/" &&
+> pnpm pkg set scripts.prebuild="rm -rf .next/"
 > ```
 >
 > > shellscript bash sh shell zsh
