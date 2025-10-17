@@ -134,7 +134,6 @@
 > code --install-extension bradlc.vscode-tailwindcss &
 > code --install-extension dbaeumer.vscode-eslint &
 > code --install-extension esbenp.prettier-vscode &
-> code --install-extension fill-labs.dependi &
 > code --install-extension streetsidesoftware.code-spell-checker &
 > wait
 > ```
