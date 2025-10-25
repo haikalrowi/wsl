@@ -128,9 +128,13 @@
 > rm -rf .next/ && pnpm run build && pnpm run start
 > ```
 >
+> <s>
+>
 > ```
 > pnpm dlx shadcn add https://github.com/haikalrowi/wsl/raw/refs/heads/main/registry/dist/next-eslint.json
 > ```
+>
+> </s>
 >
 > ```md
 > pnpm pkg set scripts.predev="rm -rf .next/" &&
@@ -141,7 +145,7 @@
 > rm -rf node_modules/ pnpm-lock.yaml && pnpm install && pnpm outdated
 > ```
 >
->  <s>
+> <s>
 >
 > ```md
 > pnpm install next-international@^1
