@@ -11,13 +11,7 @@
 | [![omatsuri](https://omatsuri.app/assets/favicon.ico)](https://omatsuri.app)                          | [![imagekit](https://imagekit.io/icons/icon-48x48.png)](https://imagekit.io/tools)          |
 | [![grep](https://grep.app/icon.png)](https://grep.app)                                                |
 
-<details>
-
-<summary>
-
 ## inside your windows
-
-</summary>
 
 ### .wslconfig
 
@@ -30,9 +24,7 @@
 
 ### reset wsl and remove vscode user data
 
-> > powershell ps ps1
->
-> **one line copy paste**
+> **one line copy paste (powershell ps ps1)**
 >
 > ```md
 > wsl --shutdown; wsl --unregister Ubuntu; Remove-Item -Path $env:APPDATA\Code -Recurse; Remove-Item -Path $env:USERPROFILE\.vscode -Recurse
@@ -68,20 +60,10 @@
 >
 > </details>
 
-</details>
-
-<details>
-
-<summary>
-
 ## inside your wsl
 
-</summary>
+### pnpm and node.js (shellscript bash sh shell zsh)
 
-### pnpm and node.js
-
-> > shellscript bash sh shell zsh
->
 > ```md
 > curl -fsSL https://get.pnpm.io/install.sh | sh - &&
 > source ~/.bashrc &&
@@ -91,10 +73,8 @@
 > - https://pnpm.io/installation#on-posix-systems
 > - https://pnpm.io/cli/env#use
 
-### ghcr.io/devcontainers/features/common-utils
+### ghcr.io/devcontainers/features/common-utils (shellscript bash sh shell zsh)
 
-> > shellscript bash sh shell zsh
->
 > ```md
 > DFCU="./.dfcu" &&
 > mkdir $DFCU &&
@@ -106,30 +86,18 @@
 >
 > - https://github.com/devcontainers/features/tree/main/src/common-utils
 
-### bun
+### bun (shellscript bash sh shell zsh)
 
-> > shellscript bash sh shell zsh
->
 > ```md
 > curl -fsSL https://bun.com/install | bash
 > ```
 >
 > - https://bun.com/docs/installation
 
-</details>
-
-<details>
-
-<summary>
-
 ## inside your vscode
 
-</summary>
+### install extensions (shellscript bash sh shell zsh)
 
-### install extensions
-
-> > shellscript bash sh shell zsh
->
 > ```md
 > code --install-extension bradlc.vscode-tailwindcss &
 > code --install-extension dbaeumer.vscode-eslint &
@@ -138,13 +106,11 @@
 > wait
 > ```
 
-### vercel/next.js
+### vercel/next.js (shellscript bash sh shell zsh)
 
-> > shellscript bash sh shell zsh
->
 > ```md
 > PROJECT_NAME="./" &&
-> pnpm dlx create-next-app@^15 $PROJECT_NAME &&
+> pnpm dlx create-next-app@^16 $PROJECT_NAME &&
 > cd $PROJECT_NAME &&
 > pnpm dlx shadcn add https://github.com/haikalrowi/wsl/raw/refs/heads/main/registry/dist/next-prettier.json
 > ```
@@ -154,28 +120,28 @@
 > - https://github.com/simonhaenisch/prettier-plugin-organize-imports
 > - https://github.com/tailwindlabs/prettier-plugin-tailwindcss
 >
-> > shellscript bash sh shell zsh
+> ```md
+> rm -rf .next/ && pnpm run dev
+> ```
+>
+> ```md
+> rm -rf .next/ && pnpm run build && pnpm run start
+> ```
 >
 > ```
 > pnpm dlx shadcn add https://github.com/haikalrowi/wsl/raw/refs/heads/main/registry/dist/next-eslint.json
 > ```
->
-> > shellscript bash sh shell zsh
 >
 > ```md
 > pnpm pkg set scripts.predev="rm -rf .next/" &&
 > pnpm pkg set scripts.prebuild="rm -rf .next/"
 > ```
 >
-> > shellscript bash sh shell zsh
->
 > ```md
 > rm -rf node_modules/ pnpm-lock.yaml && pnpm install && pnpm outdated
 > ```
 >
 >  <s>
->
-> > shellscript bash sh shell zsh
 >
 > ```md
 > pnpm install next-international@^1
@@ -185,8 +151,6 @@
 >
 > </s>
 >
-> > shellscript bash sh shell zsh
->
 > ```md
 > pnpm add --save-dev husky@^9 &&
 > pnpm exec husky init
@@ -194,10 +158,8 @@
 >
 > - https://typicode.github.io/husky/get-started.html
 
-### shadcn-ui/ui
+### shadcn-ui/ui (shellscript bash sh shell zsh)
 
-> > shellscript bash sh shell zsh
->
 > ```md
 > pnpm dlx shadcn add button
 > ```
@@ -205,14 +167,10 @@
 > - https://ui.shadcn.com/docs/tailwind-v4#changelog
 > - https://ui.shadcn.com/docs/cli
 
-### supabase/supabase
+### supabase/supabase (shellscript bash sh shell zsh)
 
-> > shellscript bash sh shell zsh
->
 > ```md
 > pnpm exec shadcn add https://supabase.com/ui/r/supabase-client-nextjs.json
 > ```
 >
 > - https://supabase.com/ui/docs/nextjs/client
-
-</details>
