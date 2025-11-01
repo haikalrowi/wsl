@@ -1,5 +1,6 @@
 import { I18nProviderClient } from "@/locales/client";
 import { Metadata } from "next";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
 
 // import { Geist } from "next/font/google";
@@ -24,7 +25,9 @@ export default async function Layout({
   return (
     <html lang={locale}>
       <body>
-        <I18nProviderClient locale={locale}>{children}</I18nProviderClient>
+        <I18nProviderClient locale={locale}>
+          <NuqsAdapter>{children}</NuqsAdapter>
+        </I18nProviderClient>
       </body>
     </html>
   );
