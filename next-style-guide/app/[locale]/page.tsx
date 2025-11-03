@@ -1,20 +1,45 @@
 "use client";
 
 import { useConfig } from "@/hooks/use-config";
-import { useDataApp } from "@/hooks/use-data-app";
-import { useMutationApp } from "@/hooks/use-mutation-app";
 import { useNavigation } from "@/hooks/use-navigation";
 import { useStoreApp } from "@/hooks/use-store-app";
+import { reposOwnerRepoSchema } from "@/lib/data-schemas";
+import { openapi } from "@/openapi";
+import useSWR from "swr";
+import useSWRMutation from "swr/mutation";
 
 function Component() {
   const { t, locale, changeLocale } = useConfig();
-  const { pathname, params: params, router } = useNavigation();
+  const { pathname, params, router } = useNavigation();
   const { searchParams, store } = useStoreApp();
-  const { data, isValidating, mutate } = useDataApp();
-  const { trigger, isMutating, data: data2 } = useMutationApp();
+  const { data, isValidating, mutate } = useSWR(
+    openapi.app.getSWRKey("get:/repos/{owner}/{repo}", {
+      owner: "vercel",
+      repo: "swr",
+    }),
+    (key) =>
+      openapi.app.api
+        .reposOwnerRepoGet(key.arg)
+        .then(reposOwnerRepoSchema.parse)
+        .then(openapi.app.getResponseData)
+        .catch(openapi.app.getResponseError),
+  );
+  const {
+    trigger,
+    isMutating,
+    data: data2,
+  } = useSWRMutation(
+    openapi.app.getSWRKey("get:/repos/{owner}/{repo}", {}),
+    (_, { arg }: { arg: { owner: string; repo: string } }) =>
+      openapi.app.api
+        .reposOwnerRepoGet({ ...arg })
+        .then(reposOwnerRepoSchema.parse)
+        .then(openapi.app.getResponseData)
+        .catch(openapi.app.getResponseError),
+  );
 
   return (
-    <div>
+      <div>
       {/*  */}
       <div>
         <p></p>
