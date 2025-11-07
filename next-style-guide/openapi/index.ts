@@ -1,13 +1,14 @@
-import appJson from "@/openapi/app.openapi.json";
-import * as z from "zod";
-import { Configuration, DefaultApi, ResponseError } from "./app";
-
-type AppPaths = (typeof appJson)["paths"];
+import {
+  Configuration as AppConfiguration,
+  DefaultApi,
+  type BaseAPI,
+} from "./app";
+import { PetApi, Configuration as PetstoreConfiguration } from "./petstore";
 
 export const openapi = {
   app: {
-    api: new DefaultApi(
-      new Configuration({
+    defaultApi: new DefaultApi(
+      new AppConfiguration({
         basePath: "https://api.github.com",
         middleware: [
           {
@@ -22,28 +23,14 @@ export const openapi = {
         ],
       }),
     ),
-    getSWRKey<
-      Key extends `${keyof AppPaths[keyof AppPaths]}:${keyof AppPaths}`,
-      Argument,
-    >(key: Key, arg: Argument) {
-      return { key, arg };
-    },
-    getResponseData<T>(data: T) {
-      return { data, error: null };
-    },
-    getResponseError(error: unknown) {
-      if (error instanceof ResponseError) {
-        const schema = z.object({
-          message: z.string(),
-          documentation_url: z.string(),
-        });
-        return error.response
-          .json()
-          .then(schema.parse)
-          .then((error) => ({ data: null, error }));
-      } else {
-        throw error;
-      }
-    },
+  },
+  petstore: {
+    petApi: new PetApi(
+      new PetstoreConfiguration({
+        basePath: "https://petstore.swagger.io/v2",
+      }),
+    ),
   },
 };
+
+export { BaseAPI };

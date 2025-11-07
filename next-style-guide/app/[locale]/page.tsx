@@ -1,46 +1,33 @@
 "use client";
 
 import { useConfig } from "@/hooks/use-config";
+import { useData } from "@/hooks/use-data";
+import { useMutation } from "@/hooks/use-mutation";
 import { useNavigation } from "@/hooks/use-navigation";
 import { useStoreApp } from "@/hooks/use-store-app";
 import { reposOwnerRepoSchema } from "@/lib/data-schemas";
 import { openapi } from "@/openapi";
-import useSWR from "swr";
-import useSWRMutation from "swr/mutation";
 
 function Component() {
   const { t, locale, changeLocale } = useConfig();
   const { pathname, params, router } = useNavigation();
   const { searchParams, store } = useStoreApp();
-  const { data, isValidating, mutate } = useSWR(
-    openapi.app.getSWRKey("get:/repos/{owner}/{repo}", {
-      owner: "vercel",
-      repo: "swr",
-    }),
-    (key) =>
-      openapi.app.api
-        .reposOwnerRepoGet(key.arg)
-        .then(reposOwnerRepoSchema.parse)
-        .then(openapi.app.getResponseData)
-        .catch(openapi.app.getResponseError),
+  const { data: dataRepo, isValidating } = useData(
+    openapi.app.defaultApi,
+    openapi.app.defaultApi.reposOwnerRepoGet,
+    [{ owner: "vercel", repo: "swr" }],
+    reposOwnerRepoSchema.parse,
   );
   const {
-    trigger,
+    data: dataPet,
     isMutating,
-    data: data2,
-  } = useSWRMutation(
-    openapi.app.getSWRKey("get:/repos/{owner}/{repo}", {}),
-    (_, { arg }: { arg: { owner: string; repo: string } }) =>
-      openapi.app.api
-        .reposOwnerRepoGet({ ...arg })
-        .then(reposOwnerRepoSchema.parse)
-        .then(openapi.app.getResponseData)
-        .catch(openapi.app.getResponseError),
-  );
+    trigger,
+  } = useMutation(openapi.petstore.petApi, openapi.petstore.petApi.getPetById, [
+    { petId: 1 },
+  ]);
 
   return (
-      <div>
-      {/*  */}
+    <div className="[&_button]:[all:revert]">
       <div>
         <p></p>
         <ul>
@@ -54,6 +41,8 @@ function Component() {
 export default function Page() {
   return (
     <div>
+      {/*  */}
+      {/* <Component /> */}
       {/*  */}
       <div>
         <p></p>
