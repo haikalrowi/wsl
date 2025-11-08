@@ -1,12 +1,14 @@
 "use client";
 
-import { PageClient } from "./page-client";
+import { Form, PageClient } from "./page-client";
 
 export default function Page() {
   return (
     <div>
       {/*  */}
       <PageClient />
+      {/*  */}
+      <Form />
       {/*  */}
       <div>
         <p></p>
