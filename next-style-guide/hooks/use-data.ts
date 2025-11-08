@@ -5,21 +5,21 @@ export function useData<
   Context,
   Input extends unknown[],
   Output,
-  ProcessedOutput = Output,
+  ValidateOutput = Output,
 >(
-  context: Context,
-  process: (...args: Input) => Promise<Output>,
-  input: Input,
-  processOutput?: (output: Output) => ProcessedOutput,
+  x: [
+    context: Context,
+    process: (...args: Input) => Promise<Output>,
+    input: Input,
+    validateOutput?: (output: Output) => ValidateOutput,
+  ],
 ) {
   return useSWR(
     {
-      process,
-      input,
+      process: x[1],
+      input: x[2],
     },
-    () =>
-      //
-      process.call(context, ...input).then(processOutput),
+    () => x[1].call(x[0], ...x[2]).then(x[3]),
   );
 }
 
@@ -27,20 +27,20 @@ export function useDataImmutable<
   Context,
   Input extends unknown[],
   Output,
-  ProcessedOutput = Output,
+  ValidateOutput = Output,
 >(
-  context: Context,
-  process: (...args: Input) => Promise<Output>,
-  input: Input,
-  processOutput?: (output: Output) => ProcessedOutput,
+  x: [
+    context: Context,
+    process: (...args: Input) => Promise<Output>,
+    input: Input,
+    validateOutput?: (output: Output) => ValidateOutput,
+  ],
 ) {
   return useSWRImmutable(
     {
-      process,
-      input,
+      process: x[1],
+      input: x[2],
     },
-    () =>
-      //
-      process.call(context, ...input).then(processOutput),
+    () => x[1].call(x[0], ...x[2]).then(x[3]),
   );
 }

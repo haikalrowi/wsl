@@ -4,20 +4,21 @@ export function useMutation<
   Context,
   Input extends unknown[],
   Output,
-  ProcessedOutput = Output,
+  ValidateOutput = Output,
 >(
-  context: Context,
-  process: (...args: Input) => Promise<Output>,
-  input: Input,
-  processOutput?: (output: Output) => ProcessedOutput,
+  x: [
+    context: Context,
+    process: (...args: Input) => Promise<Output>,
+    input: Input,
+    validateOutput?: (output: Output) => ValidateOutput,
+  ],
 ) {
   return useSWRMutation(
     {
-      process,
-      input,
+      process: x[1],
+      input: x[2],
     },
     (_, { arg }: { arg?: Input }) =>
-      //
-      process.call(context, ...(arg ? arg : input)).then(processOutput),
+      x[1].call(x[0], ...(arg ? arg : x[2])).then(x[3]),
   );
 }

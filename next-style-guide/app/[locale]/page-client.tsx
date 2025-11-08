@@ -1,7 +1,7 @@
 "use client";
 
 import { useConfig } from "@/hooks/use-config";
-import { useData } from "@/hooks/use-data";
+import { useDataImmutable } from "@/hooks/use-data";
 import { useMutation } from "@/hooks/use-mutation";
 import { useNavigation } from "@/hooks/use-navigation";
 import { useStoreApp } from "@/hooks/use-store-app";
@@ -27,7 +27,7 @@ export function Form() {
 
   return (
     <form
-      className="mx-auto flex w-64 flex-col [&_button]:[all:revert]"
+      className="mx-auto flex w-96 flex-col p-2 [&_button,input,textarea]:[all:revert]"
       onSubmit={form.handleSubmit(console.log)}
     >
       <Controller
@@ -44,7 +44,7 @@ export function Form() {
         names={["title", "description"]}
         control={form.control}
         render={(fields) => (
-          <button type="submit" disabled={!fields[0] || !fields[1]}>
+          <button type="submit" disabled={fields.some((item) => !item)}>
             submit
           </button>
         )}
@@ -57,28 +57,112 @@ export function PageClient() {
   const { t, locale, changeLocale } = useConfig();
   const { pathname, params, router } = useNavigation();
   const { searchParams, store } = useStoreApp();
-  const { data: dataRepo, isValidating } = useData(
+  const dataRepo = useDataImmutable([
     openapi.app.defaultApi,
     openapi.app.defaultApi.reposOwnerRepoGet,
     [{ owner: "vercel", repo: "swr" }],
     reposOwnerRepoSchema.parse,
-  );
-  const {
-    data: dataPet,
-    isMutating,
-    trigger,
-  } = useMutation(openapi.petstore.petApi, openapi.petstore.petApi.getPetById, [
-    { petId: 1 },
+  ]);
+  const dataPet = useMutation([
+    openapi.petstore.petApi,
+    openapi.petstore.petApi.getPetById,
+    [{ petId: 1 }],
   ]);
 
+  {
+    {
+      console.log(1);
+    }
+  }
+
   return (
-    <div className="[&_button]:[all:revert]">
+    <div className="mx-auto w-96 p-2 [&_button,input]:[all:revert]">
       {/*  */}
       <div>
-        <p></p>
-        <ul>
-          <li></li>
-        </ul>
+        <p>{t("hello")}</p>
+        <button
+          onClick={() => {
+            changeLocale(({ en: "ja", ja: "en" } as const)[locale]);
+          }}
+        >
+          {"changeLocale(...);"}
+        </button>
+      </div>
+      {/*  */}
+      <div>
+        <button
+          onClick={() => {
+            router.push("/");
+          }}
+        >
+          {'router.push("/");'}
+        </button>
+      </div>
+      {/*  */}
+      <div>
+        <input
+          value={searchParams.name}
+          onChange={(e) => {
+            searchParams.set({ name: e.target.value });
+          }}
+        />
+        <button
+          onClick={() => {
+            searchParams.set((s) => ({ age: s.age + 1 }));
+          }}
+        >
+          {"age+1"}
+        </button>
+        <button
+          onClick={() => {
+            searchParams.set((s) => ({ isAdult: !s.isAdult }));
+          }}
+        >
+          {"!s.isAdult"}
+        </button>
+      </div>
+      {/*  */}
+      <div>
+        <input
+          value={store.id}
+          onChange={(e) => {
+            store.set({ id: e.target.value });
+          }}
+        />
+        <button
+          onClick={() => {
+            store.set((s) => ({ count: s.count + 1 }));
+          }}
+        >
+          {"count+1"}
+        </button>
+        <button
+          onClick={() => {
+            store.set((s) => ({ isActive: !s.isActive }));
+          }}
+        >
+          {"!s.isActive"}
+        </button>
+      </div>
+      {/*  */}
+      <div>
+        <button
+          onClick={() => {
+            dataRepo.mutate();
+          }}
+        >
+          {"dataRepo.mutate();"}
+        </button>
+      </div>
+      {/*  */}
+      <div>
+        <button
+          onClick={() => {
+            dataPet.trigger();
+          }}
+        >
+          {"dataPet.trigger();"}
+        </button>
       </div>
     </div>
   );
