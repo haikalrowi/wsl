@@ -9,7 +9,7 @@ export function useMutation<
   context: Context,
   process: (...args: Input) => Promise<Output>,
   input: Input,
-  processOutput?: (output: unknown) => ProcessedOutput,
+  processOutput?: (output: Output) => ProcessedOutput,
 ) {
   return useSWRMutation(
     {

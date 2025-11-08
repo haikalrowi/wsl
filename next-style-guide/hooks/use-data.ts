@@ -10,7 +10,7 @@ export function useData<
   context: Context,
   process: (...args: Input) => Promise<Output>,
   input: Input,
-  processOutput?: (output: unknown) => ProcessedOutput,
+  processOutput?: (output: Output) => ProcessedOutput,
 ) {
   return useSWR(
     {
@@ -32,7 +32,7 @@ export function useDataImmutable<
   context: Context,
   process: (...args: Input) => Promise<Output>,
   input: Input,
-  processOutput?: (output: unknown) => ProcessedOutput,
+  processOutput?: (output: Output) => ProcessedOutput,
 ) {
   return useSWRImmutable(
     {
