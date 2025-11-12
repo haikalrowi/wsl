@@ -1,14 +1,14 @@
 "use client";
 
 import { useConfig } from "@/hooks/use-config";
-import { useDataImmutable } from "@/hooks/use-data";
-import { useMutation } from "@/hooks/use-mutation";
 import { useNavigation } from "@/hooks/use-navigation";
 import { useStoreApp } from "@/hooks/use-store-app";
 import { reposOwnerRepoSchema } from "@/lib/data-schemas";
 import { openapi } from "@/openapi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm, Watch } from "react-hook-form";
+import useSWRImmutable from "swr/immutable";
+import useSWRMutation from "swr/mutation";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -56,18 +56,27 @@ export function Form() {
 export function PageClient() {
   const { t, locale, changeLocale } = useConfig();
   const { pathname, params, router } = useNavigation();
-  const { searchParams, store } = useStoreApp();
-  const dataRepo = useDataImmutable([
-    openapi.app.defaultApi,
-    openapi.app.defaultApi.reposOwnerRepoGet,
-    [{ owner: "vercel", repo: "swr" }],
-    reposOwnerRepoSchema.parse,
-  ]);
-  const dataPet = useMutation([
-    openapi.petstore.petApi,
-    openapi.petstore.petApi.getPetById,
-    [{ petId: 1 }],
-  ]);
+  const storeApp = useStoreApp();
+  const dataRepo = useSWRImmutable(
+    {
+      this: openapi.app.defaultApi,
+      fetcher: openapi.app.defaultApi.reposOwnerRepoGet,
+      arg: { owner: "vercel", repo: "swr" },
+    },
+    (x) => {
+      return x.fetcher.call(x.this, x.arg).then(reposOwnerRepoSchema.parse);
+    },
+  );
+  const dataPet = useSWRMutation(
+    {
+      this: openapi.petstore.petApi,
+      fetcher: openapi.petstore.petApi.getPetById,
+      arg: { petId: 1 },
+    },
+    (x, y: Pick<typeof x, "arg">) => {
+      return x.fetcher.call(x.this, y.arg || x.arg);
+    },
+  );
 
   {
     {
@@ -101,21 +110,21 @@ export function PageClient() {
       {/*  */}
       <div>
         <input
-          value={searchParams.name}
+          value={storeApp.searchParams.name}
           onChange={(e) => {
-            searchParams.set({ name: e.target.value });
+            storeApp.searchParams.set({ name: e.target.value });
           }}
         />
         <button
           onClick={() => {
-            searchParams.set((s) => ({ age: s.age + 1 }));
+            storeApp.searchParams.set((s) => ({ age: s.age + 1 }));
           }}
         >
           {"age+1"}
         </button>
         <button
           onClick={() => {
-            searchParams.set((s) => ({ isAdult: !s.isAdult }));
+            storeApp.searchParams.set((s) => ({ isAdult: !s.isAdult }));
           }}
         >
           {"!s.isAdult"}
@@ -124,21 +133,21 @@ export function PageClient() {
       {/*  */}
       <div>
         <input
-          value={store.id}
+          value={storeApp.id}
           onChange={(e) => {
-            store.set({ id: e.target.value });
+            storeApp.set({ id: e.target.value });
           }}
         />
         <button
           onClick={() => {
-            store.set((s) => ({ count: s.count + 1 }));
+            storeApp.set((s) => ({ count: s.count + 1 }));
           }}
         >
           {"count+1"}
         </button>
         <button
           onClick={() => {
-            store.set((s) => ({ isActive: !s.isActive }));
+            storeApp.set((s) => ({ isActive: !s.isActive }));
           }}
         >
           {"!s.isActive"}
@@ -158,10 +167,10 @@ export function PageClient() {
       <div>
         <button
           onClick={() => {
-            dataPet.trigger();
+            dataPet.trigger({ petId: 2 });
           }}
         >
-          {"dataPet.trigger();"}
+          {"dataPet.trigger(...);"}
         </button>
       </div>
     </div>

@@ -38,6 +38,6 @@ export function useStoreApp() {
       ...queryStates[0],
       set: queryStates[1],
     },
-    store: useStoreAppImpl(),
+    ...useStoreAppImpl(),
   };
 }
