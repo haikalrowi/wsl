@@ -1,21 +1,19 @@
 "use client";
 
-import { Form, PageClient } from "./page-client";
+import { PageClient } from "./page-client";
 
 export default function Page() {
   return (
-    <div>
+    <main className="mx-auto max-w-xs **:flex **:flex-col **:gap-1 [&_button]:[all:revert] [&_input,select,textarea]:border">
       {/*  */}
       <PageClient />
       {/*  */}
-      <Form />
-      {/*  */}
-      <div>
+      <section>
         <p></p>
         <ul>
           <li></li>
         </ul>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

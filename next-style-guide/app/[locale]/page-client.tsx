@@ -3,7 +3,6 @@
 import { useConfig } from "@/hooks/use-config";
 import { useNavigation } from "@/hooks/use-navigation";
 import { useStoreApp } from "@/hooks/use-store-app";
-import { reposOwnerRepoSchema } from "@/lib/data-schemas";
 import { openapi } from "@/openapi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm, Watch } from "react-hook-form";
@@ -16,9 +15,13 @@ const formSchema = z.object({
   description: z.string(),
 });
 
-export function Form() {
+function Form() {
   const form = useForm({
     defaultValues: {
+      title: "",
+      description: "",
+    },
+    values: {
       title: "",
       description: "",
     },
@@ -26,10 +29,7 @@ export function Form() {
   });
 
   return (
-    <form
-      className="mx-auto flex w-96 flex-col p-2 [&_button,input,textarea]:[all:revert]"
-      onSubmit={form.handleSubmit(console.log)}
-    >
+    <form onSubmit={form.handleSubmit(console.log)}>
       <Controller
         name="title"
         control={form.control}
@@ -64,7 +64,9 @@ export function PageClient() {
       arg: { owner: "vercel", repo: "swr" },
     },
     (x) => {
-      return x.fetcher.call(x.this, x.arg).then(reposOwnerRepoSchema.parse);
+      return x.fetcher
+        .bind(x.this)(x.arg)
+        .then(openapi.app.schema.reposOwnerRepoGet.parse);
     },
   );
   const dataPet = useSWRMutation(
@@ -74,7 +76,7 @@ export function PageClient() {
       arg: { petId: 1 },
     },
     (x, y: Pick<typeof x, "arg">) => {
-      return x.fetcher.call(x.this, y.arg || x.arg);
+      return x.fetcher.bind(x.this)(y.arg || x.arg);
     },
   );
 
@@ -85,7 +87,7 @@ export function PageClient() {
   }
 
   return (
-    <div className="mx-auto w-96 p-2 [&_button,input]:[all:revert]">
+    <section>
       {/*  */}
       <div>
         <p>{t("hello")}</p>
@@ -122,13 +124,15 @@ export function PageClient() {
         >
           {"age+1"}
         </button>
-        <button
-          onClick={() => {
-            storeApp.searchParams.set((s) => ({ isAdult: !s.isAdult }));
+        <select
+          value={`${storeApp.searchParams.isAdult}`}
+          onChange={(e) => {
+            storeApp.searchParams.set({ isAdult: JSON.parse(e.target.value) });
           }}
         >
-          {"!s.isAdult"}
-        </button>
+          <option value="false">{"isAdult:false"}</option>
+          <option value="true">{"isAdult:true"}</option>
+        </select>
       </div>
       {/*  */}
       <div>
@@ -145,13 +149,15 @@ export function PageClient() {
         >
           {"count+1"}
         </button>
-        <button
-          onClick={() => {
-            storeApp.set((s) => ({ isActive: !s.isActive }));
+        <select
+          value={`${storeApp.isActive}`}
+          onChange={(e) => {
+            storeApp.set({ isActive: JSON.parse(e.target.value) });
           }}
         >
-          {"!s.isActive"}
-        </button>
+          <option value="false">{"isActive:false"}</option>
+          <option value="true">{"isActive:true"}</option>
+        </select>
       </div>
       {/*  */}
       <div>
@@ -173,6 +179,8 @@ export function PageClient() {
           {"dataPet.trigger(...);"}
         </button>
       </div>
-    </div>
+      {/*  */}
+      <Form />
+    </section>
   );
 }

@@ -1,9 +1,15 @@
+import * as z from "zod";
 import {
   Configuration as AppConfiguration,
   DefaultApi,
   type BaseAPI,
 } from "./app";
 import { PetApi, Configuration as PetstoreConfiguration } from "./petstore";
+
+type DefaultApiKey = Exclude<
+  keyof InstanceType<typeof DefaultApi>,
+  keyof InstanceType<typeof BaseAPI> | `${string}Raw`
+>;
 
 export const openapi = {
   app: {
@@ -23,6 +29,18 @@ export const openapi = {
         ],
       }),
     ),
+    schema: {
+      reposOwnerRepoGet: z.object({
+        id: z.number(),
+        name: z.string(),
+        html_url: z.string(),
+        owner: z.object({
+          id: z.number(),
+          login: z.string(),
+          html_url: z.string(),
+        }),
+      }),
+    } satisfies Partial<Record<DefaultApiKey, z.ZodType>>,
   },
   petstore: {
     petApi: new PetApi(
@@ -32,5 +50,3 @@ export const openapi = {
     ),
   },
 };
-
-export { BaseAPI };
