@@ -2,14 +2,14 @@
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/haikalrowi/wsl)
 
-|                                                                                                       |                                                                                             |
-| ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| [![httpie](https://avatars.githubusercontent.com/u/24454777?s=48)](https://req.new)                   | [![t3chat](https://t3.chat/favicon.ico)](https://t3.chat)                                   |
-| [![prettier](https://avatars.githubusercontent.com/u/25822731?s=48)](https://prettier.io/playground)  | [![cobalt](https://cobalt.tools/icons/maskable/48.png)](https://cobalt.tools)               |
-| [![tailwindcss](https://avatars.githubusercontent.com/u/67109815?s=48)](https://play.tailwindcss.com) | [![deepl](https://avatars.githubusercontent.com/u/83310993?s=48)](https://www.deepl.com/en) |
-| [![privatebin](https://avatars.githubusercontent.com/u/20367028?s=48)](https://privatebin.net)        | [![eva](https://colors.eva.design/favicon.ico)](https://colors.eva.design)                  |
-| [![omatsuri](https://omatsuri.app/assets/favicon.ico)](https://omatsuri.app)                          | [![imagekit](https://imagekit.io/icons/icon-48x48.png)](https://imagekit.io/tools)          |
-| [![grep](https://grep.app/icon.png)](https://grep.app)                                                |
+|                                                                                                                 |                                                                                                        |
+| --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| [![httpie](https://www.google.com/s2/favicons?sz=48&domain=req.new)](https://req.new)                           | [![t3chat](https://www.google.com/s2/favicons?sz=48&domain=t3.chat)](https://t3.chat)                  |
+| [![prettier](https://www.google.com/s2/favicons?sz=48&domain=prettier.io)](https://prettier.io/playground)      | [![cobalt](https://www.google.com/s2/favicons?sz=48&domain=cobalt.tools)](https://cobalt.tools)        |
+| [![tailwindcss](https://www.google.com/s2/favicons?sz=48&domain=tailwindcss.com)](https://play.tailwindcss.com) | [![deepl](https://www.google.com/s2/favicons?sz=48&domain=www.deepl.com)](https://www.deepl.com)       |
+| [![privatebin](https://www.google.com/s2/favicons?sz=48&domain=pastes.dev)](https://pastes.dev)                 | [![eva](https://www.google.com/s2/favicons?sz=48&domain=colors.eva.design)](https://colors.eva.design) |
+| [![omatsuri](https://www.google.com/s2/favicons?sz=48&domain=omatsuri.app)](https://omatsuri.app)               |                                                                                                        |
+| [![grep](https://www.google.com/s2/favicons?sz=48&domain=grep.app)](https://grep.app)                           |
 
 ## inside your windows
 
