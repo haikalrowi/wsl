@@ -16,7 +16,7 @@
     },
     {
       "path": "./src/next-prettier/.prettierignore",
-      "content": "pnpm-lock.yaml\n",
+      "content": "pnpm-lock.yaml\npackage-lock.json\nbun.lock\nyarn.lock\n",
       "type": "registry:file",
       "target": "~/.prettierignore"
     }
