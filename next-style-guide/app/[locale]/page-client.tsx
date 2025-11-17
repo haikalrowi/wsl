@@ -75,7 +75,7 @@ export function PageClient() {
       fetcher: openapi.petstore.petApi.getPetById,
       arg: { petId: 1 },
     },
-    (x, y: Pick<typeof x, "arg">) => {
+    (x, y: { arg?: typeof x.arg }) => {
       return x.fetcher.bind(x.this)(y.arg || x.arg);
     },
   );
