@@ -137,6 +137,7 @@
 > </s>
 >
 > ```md
+> pnpm pkg set scripts.postinstall="next typegen" &&
 > pnpm pkg set scripts.predev="rm -rf .next/" &&
 > pnpm pkg set scripts.prebuild="rm -rf .next/"
 > ```

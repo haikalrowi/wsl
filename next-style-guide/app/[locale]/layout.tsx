@@ -1,6 +1,7 @@
 import { I18nProviderClient } from "@/locales/client";
 import { Metadata } from "next";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { SWRConfig } from "swr";
 import "./globals.css";
 
 // import { Geist } from "next/font/google";
@@ -26,7 +27,9 @@ export default async function Layout({
     <html lang={locale}>
       <body>
         <I18nProviderClient locale={locale}>
-          <NuqsAdapter>{children}</NuqsAdapter>
+          <NuqsAdapter defaultOptions={{}}>
+            <SWRConfig value={{}}>{children}</SWRConfig>
+          </NuqsAdapter>
         </I18nProviderClient>
       </body>
     </html>
