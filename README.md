@@ -166,7 +166,7 @@
 ### shadcn-ui/ui (shellscript bash sh shell zsh)
 
 > ```md
-> pnpm dlx shadcn add button
+> pnpm dlx shadcn@latest add button
 > ```
 >
 > - https://ui.shadcn.com/docs/tailwind-v4#changelog
