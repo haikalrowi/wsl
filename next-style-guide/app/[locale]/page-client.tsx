@@ -60,23 +60,22 @@ export function PageClient() {
   const dataRepo = useSWRImmutable(
     {
       this: openapi.app.defaultApi,
-      fetcher: openapi.app.defaultApi.reposOwnerRepoGet,
+      fetch: openapi.app.defaultApi.reposOwnerRepoGet,
       arg: { owner: "vercel", repo: "swr" },
+      parse: openapi.app.schema.reposOwnerRepoGet.parse,
     },
     (x) => {
-      return x.fetcher
-        .bind(x.this)(x.arg)
-        .then(openapi.app.schema.reposOwnerRepoGet.parse);
+      return x.fetch.bind(x.this)(x.arg).then(x.parse);
     },
   );
   const dataPet = useSWRMutation(
     {
       this: openapi.petstore.petApi,
-      fetcher: openapi.petstore.petApi.getPetById,
+      fetch: openapi.petstore.petApi.getPetById,
       arg: { petId: 1 },
     },
     (x, y: { arg?: typeof x.arg }) => {
-      return x.fetcher.bind(x.this)(y.arg || x.arg);
+      return x.fetch.bind(x.this)(y.arg || x.arg);
     },
   );
 
