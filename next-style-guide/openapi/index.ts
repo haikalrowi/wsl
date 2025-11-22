@@ -3,8 +3,11 @@ import {
   Configuration as AppConfiguration,
   DefaultApi,
   type BaseAPI,
-} from "./app";
-import { PetApi, Configuration as PetstoreConfiguration } from "./petstore";
+} from "./app/typescript-fetch-client";
+import {
+  PetApi,
+  Configuration as PetstoreConfiguration,
+} from "./petstore/typescript-fetch-client";
 
 type DefaultApiKey = Exclude<
   keyof InstanceType<typeof DefaultApi>,
