@@ -146,6 +146,10 @@
 > rm -rf node_modules/ pnpm-lock.yaml && pnpm install && pnpm outdated
 > ```
 >
+> ```md
+> rm -rf node_modules/ && pnpm install && pnpm outdated
+> ```
+>
 > <s>
 >
 > ```md
