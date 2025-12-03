@@ -7,7 +7,7 @@ const path = require("node:path");
 
 (async () => {
   const jsonSpec = require("../openapi/app/openapi.json");
-  const base = path.resolve("openapi", "app");
+  const basePath = path.resolve("openapi", "app");
 
   {
     const response = await fetch(
@@ -21,8 +21,8 @@ const path = require("node:path");
     const json = await response.json();
     const zipResponse = await fetch(`${json?.link}`);
     const zipArrayBUffer = await zipResponse.arrayBuffer();
-    const file = path.resolve(base, "openapi.json.zip");
-    fs.writeFileSync(file, new Uint8Array(zipArrayBUffer));
-    child_process.spawnSync("unzip", [file, "-d", base]);
+    const filePath = path.resolve(basePath, "openapi.json.zip");
+    fs.writeFileSync(filePath, new Uint8Array(zipArrayBUffer));
+    child_process.spawnSync("unzip", [filePath, "-d", basePath]);
   }
 })();
