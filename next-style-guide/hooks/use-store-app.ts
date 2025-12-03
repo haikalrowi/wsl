@@ -6,7 +6,7 @@ import {
   useQueryStates,
 } from "nuqs";
 import { create } from "zustand";
-import { combine } from "zustand/middleware";
+import { combine, persist } from "zustand/middleware";
 
 const searchParams = {
   name: parseAsString.withDefault("John"),
@@ -14,30 +14,34 @@ const searchParams = {
   isAdult: parseAsBoolean.withDefault(true),
 };
 
-export const serializeApp = createSerializer(searchParams);
-
-export const useStoreAppImpl = create(
-  // persist(
-  combine(
-    {
-      id: "",
-      count: 0,
-      isActive: false,
-    },
-    (set) => ({ set }),
+export const [
+  //
+  serialize,
+  useStoreImpl,
+  useStore,
+] = [
+  createSerializer(searchParams),
+  create(
+    persist(
+      combine(
+        {
+          id: "",
+          count: 0,
+          isActive: false,
+        },
+        (set) => ({ set }),
+      ),
+      { name: "use-store-app" },
+    ),
   ),
-  // { name: "store-app" },
-  // ),
-);
-
-export function useStoreApp() {
-  const searchParamsState = useQueryStates(searchParams);
-
-  return {
-    searchParams: {
-      ...searchParamsState[0],
-      set: searchParamsState[1],
-    },
-    ...useStoreAppImpl(),
-  };
-}
+  function () {
+    const searchParamsState = useQueryStates(searchParams);
+    return {
+      searchParams: {
+        ...searchParamsState[0],
+        set: searchParamsState[1],
+      },
+      ...useStoreImpl(),
+    };
+  },
+];

@@ -2,7 +2,7 @@
 
 import { useConfig } from "@/hooks/use-config";
 import { useNavigation } from "@/hooks/use-navigation";
-import { useStoreApp } from "@/hooks/use-store-app";
+import { useStore as useStoreApp } from "@/hooks/use-store-app";
 import { openapi } from "@/openapi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm, Watch } from "react-hook-form";
@@ -116,13 +116,16 @@ export function PageClient() {
             storeApp.searchParams.set({ name: e.target.value });
           }}
         />
-        <button
-          onClick={() => {
-            storeApp.searchParams.set((s) => ({ age: s.age + 1 }));
-          }}
-        >
-          {"age+1"}
-        </button>
+        <div>
+          <input value={storeApp.searchParams.age} readOnly />
+          <button
+            onClick={() => {
+              storeApp.searchParams.set((s) => ({ age: s.age + 1 }));
+            }}
+          >
+            {"age+1"}
+          </button>
+        </div>
         <select
           value={`${storeApp.searchParams.isAdult}`}
           onChange={(e) => {
@@ -141,13 +144,16 @@ export function PageClient() {
             storeApp.set({ id: e.target.value });
           }}
         />
-        <button
-          onClick={() => {
-            storeApp.set((s) => ({ count: s.count + 1 }));
-          }}
-        >
-          {"count+1"}
-        </button>
+        <div>
+          <input value={storeApp.count} readOnly />
+          <button
+            onClick={() => {
+              storeApp.set((s) => ({ count: s.count + 1 }));
+            }}
+          >
+            {"count+1"}
+          </button>
+        </div>
         <select
           value={`${storeApp.isActive}`}
           onChange={(e) => {
