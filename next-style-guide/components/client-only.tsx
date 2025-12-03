@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 
-export function UseClient(props: React.PropsWithChildren) {
+export function ClientOnly(props: React.PropsWithChildren) {
   return (
     useSyncExternalStore(
       () => () => {},
