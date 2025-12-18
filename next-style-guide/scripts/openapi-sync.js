@@ -20,9 +20,9 @@ const path = require("node:path");
     );
     const json = await response.json();
     const zipResponse = await fetch(`${json?.link}`);
-    const zipArrayBUffer = await zipResponse.arrayBuffer();
+    const zipArrayBuffer = await zipResponse.arrayBuffer();
     const filePath = path.resolve(basePath, "openapi.json.zip");
-    fs.writeFileSync(filePath, new Uint8Array(zipArrayBUffer));
+    fs.writeFileSync(filePath, new Uint8Array(zipArrayBuffer));
     child_process.spawnSync("unzip", [filePath, "-d", basePath]);
   }
 })();
