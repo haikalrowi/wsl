@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5",
-    "next": "16.0.10",
+    "next": "16.1",
     "next-international": "^1",
     "nuqs": "^2",
     "prettier": "^3.6.0",
@@ -34,7 +34,7 @@
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9",
-    "eslint-config-next": "16.0.10",
+    "eslint-config-next": "16.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
