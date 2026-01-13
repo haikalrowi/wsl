@@ -86,106 +86,110 @@ export function PageClient() {
   }
 
   return (
-    <section>
-      {/*  */}
-      <div>
-        <p>{t("hello")}</p>
-        <button
-          onClick={() => {
-            changeLocale(({ en: "ja", ja: "en" } as const)[locale]);
-          }}
-        >
-          {"changeLocale(...);"}
-        </button>
-      </div>
-      {/*  */}
-      <div>
-        <button
-          onClick={() => {
-            router.push("/");
-          }}
-        >
-          {'router.push("/");'}
-        </button>
-      </div>
-      {/*  */}
-      <div>
-        <input
-          value={storeApp.searchParams.name}
-          onChange={(e) => {
-            storeApp.searchParams.set({ name: e.target.value });
-          }}
-        />
+    <>
+      <div className="mx-auto max-w-xs **:flex **:flex-col **:gap-1 [&_button]:[all:revert] [&_input,select,textarea]:border">
+        {/*  */}
         <div>
-          <input value={storeApp.searchParams.age} readOnly />
+          <p>{t("hello")}</p>
           <button
             onClick={() => {
-              storeApp.searchParams.set((s) => ({ age: s.age + 1 }));
+              changeLocale(({ en: "ja", ja: "en" } as const)[locale]);
             }}
           >
-            {"age+1"}
+            {"changeLocale(...);"}
           </button>
         </div>
-        <select
-          value={`${storeApp.searchParams.isAdult}`}
-          onChange={(e) => {
-            storeApp.searchParams.set({ isAdult: JSON.parse(e.target.value) });
-          }}
-        >
-          <option value="false">{"isAdult:false"}</option>
-          <option value="true">{"isAdult:true"}</option>
-        </select>
-      </div>
-      {/*  */}
-      <div>
-        <input
-          value={storeApp.id}
-          onChange={(e) => {
-            storeApp.set({ id: e.target.value });
-          }}
-        />
+        {/*  */}
         <div>
-          <input value={storeApp.count} readOnly />
           <button
             onClick={() => {
-              storeApp.set((s) => ({ count: s.count + 1 }));
+              router.push("/");
             }}
           >
-            {"count+1"}
+            {'router.push("/");'}
           </button>
         </div>
-        <select
-          value={`${storeApp.isActive}`}
-          onChange={(e) => {
-            storeApp.set({ isActive: JSON.parse(e.target.value) });
-          }}
-        >
-          <option value="false">{"isActive:false"}</option>
-          <option value="true">{"isActive:true"}</option>
-        </select>
+        {/*  */}
+        <div>
+          <input
+            value={storeApp.searchParams.name}
+            onChange={(e) => {
+              storeApp.searchParams.set({ name: e.target.value });
+            }}
+          />
+          <div>
+            <input value={storeApp.searchParams.age} readOnly />
+            <button
+              onClick={() => {
+                storeApp.searchParams.set((s) => ({ age: s.age + 1 }));
+              }}
+            >
+              {"age+1"}
+            </button>
+          </div>
+          <select
+            value={`${storeApp.searchParams.isAdult}`}
+            onChange={(e) => {
+              storeApp.searchParams.set({
+                isAdult: JSON.parse(e.target.value),
+              });
+            }}
+          >
+            <option value="false">{"isAdult:false"}</option>
+            <option value="true">{"isAdult:true"}</option>
+          </select>
+        </div>
+        {/*  */}
+        <div>
+          <input
+            value={storeApp.id}
+            onChange={(e) => {
+              storeApp.set({ id: e.target.value });
+            }}
+          />
+          <div>
+            <input value={storeApp.count} readOnly />
+            <button
+              onClick={() => {
+                storeApp.set((s) => ({ count: s.count + 1 }));
+              }}
+            >
+              {"count+1"}
+            </button>
+          </div>
+          <select
+            value={`${storeApp.isActive}`}
+            onChange={(e) => {
+              storeApp.set({ isActive: JSON.parse(e.target.value) });
+            }}
+          >
+            <option value="false">{"isActive:false"}</option>
+            <option value="true">{"isActive:true"}</option>
+          </select>
+        </div>
+        {/*  */}
+        <div>
+          <button
+            onClick={() => {
+              dataRepo.mutate();
+            }}
+          >
+            {"dataRepo.mutate();"}
+          </button>
+        </div>
+        {/*  */}
+        <div>
+          <button
+            onClick={() => {
+              dataPet.trigger({ petId: 2 });
+            }}
+          >
+            {"dataPet.trigger(...);"}
+          </button>
+        </div>
+        {/*  */}
+        <Form />
       </div>
-      {/*  */}
-      <div>
-        <button
-          onClick={() => {
-            dataRepo.mutate();
-          }}
-        >
-          {"dataRepo.mutate();"}
-        </button>
-      </div>
-      {/*  */}
-      <div>
-        <button
-          onClick={() => {
-            dataPet.trigger({ petId: 2 });
-          }}
-        >
-          {"dataPet.trigger(...);"}
-        </button>
-      </div>
-      {/*  */}
-      <Form />
-    </section>
+    </>
   );
 }

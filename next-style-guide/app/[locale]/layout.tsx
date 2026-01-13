@@ -24,14 +24,16 @@ export default async function Layout({
   const { locale } = await params;
 
   return (
-    <html lang={locale}>
-      <body>
-        <I18nProviderClient locale={locale}>
-          <NuqsAdapter defaultOptions={{}}>
-            <SWRConfig value={{}}>{children}</SWRConfig>
-          </NuqsAdapter>
-        </I18nProviderClient>
-      </body>
-    </html>
+    <>
+      <html lang={locale}>
+        <body>
+          <I18nProviderClient locale={locale}>
+            <NuqsAdapter defaultOptions={{}}>
+              <SWRConfig value={{}}>{children}</SWRConfig>
+            </NuqsAdapter>
+          </I18nProviderClient>
+        </body>
+      </html>
+    </>
   );
 }
