@@ -1,4 +1,6 @@
+import { formatISO, parseISO } from "date-fns";
 import {
+  createParser,
   createSerializer,
   parseAsBoolean,
   parseAsInteger,
@@ -8,19 +10,27 @@ import {
 import { create } from "zustand";
 import { combine, persist } from "zustand/middleware";
 
+const parseAsIsoDate2 = createParser({
+  parse(value) {
+    return parseISO(value);
+  },
+  serialize(value) {
+    return formatISO(value, { representation: "date" });
+  },
+});
+
 const searchParams = {
   name: parseAsString.withDefault("John"),
   age: parseAsInteger.withDefault(20),
   isAdult: parseAsBoolean.withDefault(true),
+  date: parseAsIsoDate2.withDefault(new Date()),
 };
 
-export const [
+export const [serialize, useStoreImpl, useStore] = [
   //
-  serialize,
-  useStoreImpl,
-  useStore,
-] = [
   createSerializer(searchParams),
+
+  //
   create(
     persist(
       combine(
@@ -34,8 +44,11 @@ export const [
       { name: "use-store-app" },
     ),
   ),
+
+  //
   function () {
     const searchParamsState = useQueryStates(searchParams);
+
     return {
       searchParams: {
         ...searchParamsState[0],

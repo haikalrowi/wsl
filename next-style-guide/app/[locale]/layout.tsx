@@ -1,3 +1,4 @@
+import { ClientOnly } from "@/components/client-only";
 import { I18nProviderClient } from "@/locales/client";
 import { Metadata } from "next";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
@@ -10,7 +11,7 @@ import "./globals.css";
 //   subsets: ["latin"],
 // });
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "",
@@ -29,7 +30,9 @@ export default async function Layout({
         <body>
           <I18nProviderClient locale={locale}>
             <NuqsAdapter defaultOptions={{}}>
-              <SWRConfig value={{}}>{children}</SWRConfig>
+              <SWRConfig value={{}}>
+                <ClientOnly>{children}</ClientOnly>
+              </SWRConfig>
             </NuqsAdapter>
           </I18nProviderClient>
         </body>

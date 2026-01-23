@@ -6,23 +6,26 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 (async () => {
-  const jsonSpec = require("../openapi/app/openapi.json");
-  const basePath = path.resolve("openapi", "app");
+  //
+  const openapiSpec = require("../openapi/app/openapi.json");
+  const openapiPath = path.resolve("openapi", "app");
 
-  {
-    const response = await fetch(
-      "https://api.openapi-generator.tech/api/gen/clients/typescript-fetch",
-      {
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ spec: jsonSpec }),
-        method: "POST",
-      },
-    );
-    const json = await response.json();
-    const zipResponse = await fetch(`${json?.link}`);
-    const zipArrayBuffer = await zipResponse.arrayBuffer();
-    const filePath = path.resolve(basePath, "openapi.json.zip");
-    fs.writeFileSync(filePath, new Uint8Array(zipArrayBuffer));
-    child_process.spawnSync("unzip", [filePath, "-d", basePath]);
-  }
+  //
+  const fetchedZip = await fetch(
+    "https://api.openapi-generator.tech/api/gen/clients/typescript-fetch",
+    {
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ spec: openapiSpec }),
+      method: "POST",
+    },
+  );
+  const fetchedZipJson = await fetchedZip.json();
+  const fetchedZipLink = await fetch(`${fetchedZipJson?.link}`);
+  const openapiFilePath = path.resolve(openapiPath, "openapi.json.zip");
+  fs.writeFileSync(
+    openapiFilePath,
+    new Uint8Array(await fetchedZipLink.arrayBuffer()),
+  );
+  child_process.spawnSync("unzip", [openapiFilePath, "-d", openapiPath]);
+  fs.rmSync(openapiFilePath, { recursive: true, force: true });
 })();

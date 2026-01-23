@@ -10,8 +10,8 @@ import {
 } from "./petstore/typescript-fetch-client";
 
 type DefaultApiKey = Exclude<
-  keyof InstanceType<typeof DefaultApi>,
-  keyof InstanceType<typeof BaseAPI> | `${string}Raw`
+  keyof typeof DefaultApi.prototype,
+  keyof typeof BaseAPI.prototype | `${string}Raw`
 >;
 
 export const openapi = {
