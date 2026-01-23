@@ -118,7 +118,7 @@
 > PROJECT_NAME="./" &&
 > pnpm dlx create-next-app@^16 $PROJECT_NAME &&
 > cd $PROJECT_NAME &&
-> pnpm dlx shadcn add https://github.com/haikalrowi/wsl/raw/HEAD/registry/dist/next-prettier.json
+> pnpm dlx shadcn@latest add https://github.com/haikalrowi/wsl/raw/HEAD/registry/dist/next-prettier.json
 > ```
 >
 > - https://nextjs.org/docs/app/api-reference/cli/create-next-app
@@ -137,7 +137,7 @@
 > <s>
 >
 > ```
-> pnpm dlx shadcn add https://github.com/haikalrowi/wsl/raw/HEAD/registry/dist/next-eslint.json
+> pnpm dlx shadcn@latest add https://github.com/haikalrowi/wsl/raw/HEAD/registry/dist/next-eslint.json
 > ```
 >
 > </s>
@@ -185,7 +185,7 @@
 ### supabase/supabase (shellscript bash sh shell zsh)
 
 > ```md
-> pnpm exec shadcn add https://supabase.com/ui/r/supabase-client-nextjs.json
+> pnpm exec shadcn@latest add https://supabase.com/ui/r/supabase-client-nextjs.json
 > ```
 >
 > - https://supabase.com/ui/docs/nextjs/client

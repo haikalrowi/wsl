@@ -2,9 +2,9 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "next-prettier",
   "devDependencies": [
-    "prettier@3",
-    "prettier-plugin-organize-imports@4",
-    "prettier-plugin-tailwindcss@0.7"
+    "prettier@^3",
+    "prettier-plugin-organize-imports@^4",
+    "prettier-plugin-tailwindcss@^0.7"
   ],
   "files": [
     {
