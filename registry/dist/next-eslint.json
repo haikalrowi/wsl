@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "next-eslint",
-  "type": "registry:item",
   "files": [
     {
       "path": "./src/next-eslint/.npmrc",
@@ -9,5 +8,6 @@
       "type": "registry:file",
       "target": "~/.npmrc"
     }
-  ]
+  ],
+  "type": "registry:item"
 }

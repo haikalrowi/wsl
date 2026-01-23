@@ -1,11 +1,10 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "next-prettier",
-  "type": "registry:item",
-  "dependencies": [
-    "prettier@^3",
-    "prettier-plugin-organize-imports@^4",
-    "prettier-plugin-tailwindcss@^0.7"
+  "devDependencies": [
+    "prettier@3",
+    "prettier-plugin-organize-imports@4",
+    "prettier-plugin-tailwindcss@0.7"
   ],
   "files": [
     {
@@ -20,5 +19,6 @@
       "type": "registry:file",
       "target": "~/.prettierignore"
     }
-  ]
+  ],
+  "type": "registry:item"
 }
