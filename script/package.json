@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "scripts": {
+    "github-get-commits-by-user": "node ./github/get-commits-by-user.js t3dotgg"
+  }
+}
