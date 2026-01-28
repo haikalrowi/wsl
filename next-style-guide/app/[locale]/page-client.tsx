@@ -1,6 +1,6 @@
 "use client";
 
-import { useStore as useStoreApp } from "@/hooks/use-store-app";
+import { useQuery, useStore } from "@/hooks/use-state-app";
 import { useChangeLocale, useCurrentLocale, useI18n } from "@/locales/client";
 import { openapi } from "@/openapi";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -58,7 +58,8 @@ export function PageClient() {
   const currentLocale = useCurrentLocale();
   const changeLocale = useChangeLocale();
   const router = useRouter();
-  const storeApp = useStoreApp();
+  const [query, setQuery] = useQuery();
+  const store = useStore();
   const dataRepo = useSWRImmutable(
     {
       this: openapi.app.defaultApi,
@@ -117,27 +118,25 @@ export function PageClient() {
           {/*  */}
           <div>
             <input
-              value={storeApp.searchParams.name}
+              value={query.name}
               onChange={(e) => {
-                storeApp.searchParams.set({ name: e.target.value });
+                setQuery({ name: e.target.value });
               }}
             />
             <div>
-              <input value={storeApp.searchParams.age} readOnly />
+              <input value={query.age} readOnly />
               <button
                 onClick={() => {
-                  storeApp.searchParams.set((s) => ({ age: s.age + 1 }));
+                  setQuery((s) => ({ age: s.age + 1 }));
                 }}
               >
                 {"age+1"}
               </button>
             </div>
             <select
-              value={`${storeApp.searchParams.isAdult}`}
+              value={`${query.isAdult}`}
               onChange={(e) => {
-                storeApp.searchParams.set({
-                  isAdult: JSON.parse(e.target.value),
-                });
+                setQuery({ isAdult: JSON.parse(e.target.value) });
               }}
             >
               <option value="false">{"isAdult:false"}</option>
@@ -148,25 +147,25 @@ export function PageClient() {
           {/*  */}
           <div>
             <input
-              value={storeApp.id}
+              value={store.id}
               onChange={(e) => {
-                storeApp.set({ id: e.target.value });
+                store.set({ id: e.target.value });
               }}
             />
             <div>
-              <input value={storeApp.count} readOnly />
+              <input value={store.count} readOnly />
               <button
                 onClick={() => {
-                  storeApp.set((s) => ({ count: s.count + 1 }));
+                  store.set((s) => ({ count: s.count + 1 }));
                 }}
               >
                 {"count+1"}
               </button>
             </div>
             <select
-              value={`${storeApp.isActive}`}
+              value={`${store.isActive}`}
               onChange={(e) => {
-                storeApp.set({ isActive: JSON.parse(e.target.value) });
+                store.set({ isActive: JSON.parse(e.target.value) });
               }}
             >
               <option value="false">{"isActive:false"}</option>
