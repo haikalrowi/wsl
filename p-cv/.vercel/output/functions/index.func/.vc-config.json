@@ -1,5 +1,4 @@
 {
-  "runtime": "nodejs",
-  "handler": "index.mjs",
-  "launcherType": "Nodejs"
+  "runtime": "edge",
+  "entrypoint": "index.mjs"
 }
