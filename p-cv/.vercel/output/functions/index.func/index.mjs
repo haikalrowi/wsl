@@ -12,7 +12,9 @@ export function GET() {
         body: JSON.stringify({ text: text }),
       });
     })
-    .then((r) => r.text())
+    .then((r) => {
+      return r.text();
+    })
     .then((text) => {
       return new Response(text, { headers: { "Content-Type": "text/html" } });
     });
