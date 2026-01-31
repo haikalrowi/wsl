@@ -1,1 +1,23 @@
-<div class="markdown-heading"><h1 class="heading-element">p-cv</h1><a id="user-content-p-cv" class="anchor" aria-label="Permalink: p-cv" href="#p-cv"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<script type="module">
+  // @ts-check
+
+  (function () {
+    fetch("https://github.com/haikalrowi/wsl/raw/HEAD/p-cv/README.md")
+      .then((r) => {
+        return r.text();
+      })
+      .then((text) => {
+        return fetch("https://api.github.com/markdown", {
+          method: "POST",
+          headers: { Accept: "text/html", "Content-Type": "application/json" },
+          body: JSON.stringify({ text: text }),
+        });
+      })
+      .then((r) => {
+        return r.text();
+      })
+      .then((text) => {
+        window.document.body.innerHTML = text;
+      });
+  })();
+</script>
