@@ -148,9 +148,13 @@
 > pnpm pkg set scripts.prebuild="rm -rf .next/"
 > ```
 >
+> <s>
+>
 > ```md
 > rm -rf node_modules/ pnpm-lock.yaml && pnpm install && pnpm outdated
 > ```
+>
+> </s>
 >
 > ```md
 > rm -rf node_modules/ && pnpm install && pnpm outdated
