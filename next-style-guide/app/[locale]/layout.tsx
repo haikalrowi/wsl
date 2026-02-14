@@ -26,8 +26,8 @@ export default async function Layout({
 
   return (
     <>
-      <html lang={locale}>
-        <body>
+      <html lang={locale} className="[--brand-text-1:#0a0a0a]">
+        <body className="text-(--brand-text-1)">
           <I18nProviderClient locale={locale}>
             <NuqsAdapter defaultOptions={{}}>
               <SWRConfig value={{}}>

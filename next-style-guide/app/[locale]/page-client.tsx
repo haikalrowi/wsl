@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { Controller, useForm, Watch } from "react-hook-form";
 import useSWRImmutable from "swr/immutable";
 import useSWRMutation from "swr/mutation";
-import * as z from "zod";
+import z from "zod";
 
 const formSchema = z.object({
   title: z.string(),
@@ -82,11 +82,7 @@ export function PageClient() {
     },
   );
 
-  {
-    {
-      console.log(1);
-    }
-  }
+  console.log(1);
 
   return (
     <>

@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "openapi-sync": "node scripts/openapi-sync.js",
-    "postinstall": "next typegen",
+    "prepare": "next typegen",
     "predev": "rm -rf .next/",
     "prebuild": "rm -rf .next/"
   },
