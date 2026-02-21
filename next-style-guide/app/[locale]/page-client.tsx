@@ -2,7 +2,7 @@
 
 import { useQuery, useStore } from "@/hooks/use-state-app";
 import { useChangeLocale, useCurrentLocale, useI18n } from "@/locales/client";
-import { openapi } from "@/openapi";
+import { appDefaultApi, appSchema, petstorePetApi } from "@/openapi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { Controller, useForm, Watch } from "react-hook-form";
@@ -11,8 +11,8 @@ import useSWRMutation from "swr/mutation";
 import z from "zod";
 
 const formSchema = z.object({
-  title: z.string(),
-  description: z.string(),
+  title: z.string().nonempty(),
+  description: z.string().nonempty(),
 });
 
 function Form() {
@@ -35,20 +35,24 @@ function Form() {
         control={form.control}
         render={({ field }) => <input {...field} placeholder={field.name} />}
       ></Controller>
+      <Watch
+        name={["title"]}
+        control={form.control}
+        render={(field) => <p>{`title: ${field[0]}`}</p>}
+      ></Watch>
       <Controller
         name="description"
         control={form.control}
         render={({ field }) => <textarea {...field} placeholder={field.name} />}
       ></Controller>
       <Watch
-        names={["title", "description"]}
+        name={["description"]}
         control={form.control}
-        render={(fields) => (
-          <button type="submit" disabled={fields.some((item) => !item)}>
-            submit
-          </button>
-        )}
+        render={(field) => <p>{`description: ${field[0]}`}</p>}
       ></Watch>
+      <button type="submit" disabled={!form.formState.isValid}>
+        submit
+      </button>
     </form>
   );
 }
@@ -61,24 +65,16 @@ export function PageClient() {
   const [query, setQuery] = useQuery();
   const store = useStore();
   const dataRepo = useSWRImmutable(
-    {
-      this: openapi.app.defaultApi,
-      fetch: openapi.app.defaultApi.reposOwnerRepoGet,
-      arg: { owner: "vercel", repo: "swr" },
-      parse: openapi.app.schema.reposOwnerRepoGet.parse,
-    },
-    (x) => {
-      return x.fetch.bind(x.this)(x.arg).then(x.parse);
+    [appDefaultApi.reposOwnerRepoGet, { owner: "vercel", repo: "swr" }],
+    async ([, ...params]) => {
+      const data = await appDefaultApi.reposOwnerRepoGet(...params);
+      return appSchema.reposOwnerRepoGet.parse(data);
     },
   );
   const dataPet = useSWRMutation(
-    {
-      this: openapi.petstore.petApi,
-      fetch: openapi.petstore.petApi.getPetById,
-      arg: { petId: 1 },
-    },
-    (x, y: { arg?: typeof x.arg }) => {
-      return x.fetch.bind(x.this)(y.arg || x.arg);
+    [petstorePetApi.getPetById, { petId: 1 }],
+    ([, ...params], { arg }: { arg?: typeof params }) => {
+      return petstorePetApi.getPetById(...(arg || params));
     },
   );
 
@@ -184,7 +180,7 @@ export function PageClient() {
           <div>
             <button
               onClick={() => {
-                dataPet.trigger({ petId: 2 });
+                dataPet.trigger([{ petId: 2 }]);
               }}
             >
               {"dataPet.trigger(...);"}
