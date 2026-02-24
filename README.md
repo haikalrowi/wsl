@@ -27,6 +27,8 @@
 > ```md
 > Set-NetFirewallHyperVVMSetting -Name '{40E0AC32-46A5-438A-A0B2-2B479E8F2E90}' -DefaultInboundAction Allow
 > ```
+>
+> - https://learn.microsoft.com/en-us/windows/wsl/networking
 
 ### reset wsl and remove vscode user data
 
