@@ -8,7 +8,6 @@
       "type": "registry:item",
       "devDependencies": [
         "prettier@^3.0.0",
-        "prettier-plugin-organize-imports@^4.0.0",
         "prettier-plugin-tailwindcss@^0.7.0"
       ],
       "files": [

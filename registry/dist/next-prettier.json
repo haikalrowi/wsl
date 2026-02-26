@@ -3,13 +3,12 @@
   "name": "next-prettier",
   "devDependencies": [
     "prettier@^3.0.0",
-    "prettier-plugin-organize-imports@^4.0.0",
     "prettier-plugin-tailwindcss@^0.7.0"
   ],
   "files": [
     {
       "path": "./src/next-prettier/.prettierrc",
-      "content": "{\n  \"plugins\": [\"prettier-plugin-organize-imports\", \"prettier-plugin-tailwindcss\"]\n}\n",
+      "content": "{\n  \"plugins\": [\"prettier-plugin-tailwindcss\"]\n}\n",
       "type": "registry:file",
       "target": "~/.prettierrc"
     },
