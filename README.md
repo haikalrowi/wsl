@@ -118,7 +118,7 @@
 
 > ```md
 > PROJECT_NAME="./" &&
-> pnpm dlx create-next-app@^16 $PROJECT_NAME &&
+> pnpm dlx create-next-app@^16.0.0 $PROJECT_NAME &&
 > cd $PROJECT_NAME &&
 > pnpm dlx shadcn@latest add https://github.com/haikalrowi/wsl/raw/HEAD/registry/dist/next-prettier.json
 > ```
@@ -145,27 +145,13 @@
 > </s>
 >
 > ```md
-> pnpm pkg set scripts.postinstall="next typegen" &&
-> pnpm pkg set scripts.predev="rm -rf .next/" &&
-> pnpm pkg set scripts.prebuild="rm -rf .next/"
-> ```
->
-> <s>
->
-> ```md
-> rm -rf node_modules/ pnpm-lock.yaml && pnpm install && pnpm outdated
-> ```
->
-> </s>
->
-> ```md
 > rm -rf node_modules/ && pnpm install && pnpm outdated
 > ```
 >
 > <s>
 >
 > ```md
-> pnpm install next-international@^1
+> pnpm add next-international@^1
 > ```
 >
 > - https://next-international.vercel.app/docs/app-setup
@@ -191,7 +177,7 @@
 ### supabase/supabase (shellscript bash sh shell zsh)
 
 > ```md
-> pnpm exec shadcn@latest add https://supabase.com/ui/r/supabase-client-nextjs.json
+> pnpm dlx shadcn@latest add https://supabase.com/ui/r/supabase-client-nextjs.json
 > ```
 >
 > - https://supabase.com/ui/docs/nextjs/client

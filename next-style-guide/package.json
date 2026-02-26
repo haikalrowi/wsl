@@ -34,7 +34,6 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "prettier": "^3.0.0",
-    "prettier-plugin-organize-imports": "^4.0.0",
     "prettier-plugin-tailwindcss": "^0.7.0",
     "tailwindcss": "^4",
     "typescript": "^5"
