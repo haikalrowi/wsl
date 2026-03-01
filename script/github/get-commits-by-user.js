@@ -5,55 +5,52 @@ import path from "node:path";
 
 const task = {
   input: {
-    githubUsername: new URL(`/${process.argv[2]}`, "https://github.com/"),
-    startYear: +process.argv[3] || new Date().getFullYear(),
-    endYear: +process.argv[4] || 2000,
+    githubUrl: new URL(`/${process.argv[2]}`, "https://github.com/"),
+    yearFrom: +process.argv[3] || new Date().getFullYear(),
+    yearTo: +process.argv[4] || 2000,
   },
   process: {
     main: async (
-      githubUsername = new URL(""),
-      startYear = 0,
-      endYear = 0,
-      output = path.resolve(),
+      /** @type {URL} */ githubUrl,
+      /** @type {number} */ yearFrom,
+      /** @type {number} */ yearTo,
+      /** @type {string} */ output,
     ) => {
       const years = [];
-      for (const year in Array.from({ length: 1 + startYear - endYear })) {
+      for (const year in Array.from({ length: 1 + yearFrom - yearTo })) {
         for (const month in Array.from({ length: 12 })) {
-          years.push(new Date(startYear - +year, 11 - +month));
+          years.push(new Date(yearFrom - +year, 11 - +month));
         }
       }
-      const responses = [];
+      const linksPromise = [];
       for (const item of years) {
-        const year = Intl.DateTimeFormat("en", { year: "numeric" }).format(
-          item,
-        );
-        const month = Intl.DateTimeFormat("en", { month: "2-digit" }).format(
-          item,
-        );
-        const url = new URL(
-          `?tab=overview&from=${year}-${month}-31&to=${year}-${month}-01`,
-          githubUsername,
-        );
-        console.log(`${url}`);
-        const fetched = fetch(url, {
-          headers: { "x-requested-with": "XMLHttpRequest" },
-        });
-        responses.push(fetched.then((response) => response.text()));
-      }
-      const pattern = /href="(.*?)"/;
-      const links = [];
-      for (const item of await Promise.all(responses)) {
-        const matched = item.match(new RegExp(pattern, "g"));
-        for (const item of matched || []) {
-          const link = item.match(pattern)?.[1];
-          if (link?.includes("/commits?author=")) {
-            links.push(`${new URL(link, githubUsername)}`);
-          }
+        async function getLinks() {
+          const year = Intl.DateTimeFormat("en", { year: "numeric" }).format(
+            item,
+          );
+          const month = Intl.DateTimeFormat("en", { month: "2-digit" }).format(
+            item,
+          );
+          const dateTo = Intl.DateTimeFormat("en", { day: "2-digit" }).format(
+            new Date(item.getFullYear(), item.getMonth() + 1, 0),
+          );
+          githubUrl.search = `?tab=overview&from=${year}-${month}-01&to=${year}-${month}-${dateTo}`;
+          console.log(`${githubUrl}`);
+          const response = await fetch(githubUrl, {
+            headers: { "x-requested-with": "XMLHttpRequest" },
+          });
+          const text = await response.text();
+          return Array.from(
+            text.matchAll(/href\=\"(.*?\/commits\?author\=.*?)\"/g),
+            (item) => `${new URL(item[1], githubUrl)}`,
+          );
         }
+        linksPromise.push(getLinks());
       }
+      const links = await Promise.all(linksPromise);
       fs.writeFileSync(
         output,
-        JSON.stringify(Array.from(new Set(links.sort())), null, 2),
+        JSON.stringify(Array.from(new Set(links.flat(1))).sort(), null, 2),
       );
     },
   },
@@ -63,8 +60,8 @@ const task = {
 };
 
 task.process.main(
-  task.input.githubUsername,
-  task.input.startYear,
-  task.input.endYear,
+  task.input.githubUrl,
+  task.input.yearFrom,
+  task.input.yearTo,
   task.output.path,
 );
