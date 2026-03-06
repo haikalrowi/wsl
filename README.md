@@ -87,9 +87,11 @@
 > DFCU="./.dfcu" &&
 > mkdir $DFCU &&
 > cd $DFCU &&
+> (
 > curl -LO https://github.com/devcontainers/features/raw/HEAD/src/common-utils/install.sh &&
 > curl -LO https://github.com/devcontainers/features/raw/HEAD/src/common-utils/main.sh &&
 > sudo INSTALLZSH="false" CONFIGUREZSHASDEFAULTSHELL="false" INSTALLOHMYZSH="false" INSTALLOHMYZSHCONFIG="false" UPGRADEPACKAGES="false" sh install.sh
+> )
 > ```
 >
 > - https://github.com/devcontainers/features/tree/main/src/common-utils
