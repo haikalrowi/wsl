@@ -7,7 +7,7 @@ import {
   useQueryStates,
 } from "nuqs";
 import { create } from "zustand";
-import { combine, persist } from "zustand/middleware";
+import { persist } from "zustand/middleware";
 
 const query = {
   name: parseAsString.withDefault("John"),
@@ -31,10 +31,5 @@ export const [serialize, useQuery, useStore] = [
   },
 
   //
-  create(
-    persist(
-      combine(store, (set) => ({ set })),
-      { name: "use-store-app" },
-    ),
-  ),
+  create(persist(() => store, { name: "use-store-app" })),
 ];

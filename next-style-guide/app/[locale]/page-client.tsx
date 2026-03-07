@@ -4,60 +4,19 @@ import { useQuery, useStore } from "@/hooks/use-state-app";
 import { useChangeLocale, useCurrentLocale, useI18n } from "@/locales/client";
 import { appDefaultApi, appSchema, petstorePetApi } from "@/openapi";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { wrap } from "comlink";
 import { useRouter } from "next/navigation";
 import { Controller, useForm, Watch } from "react-hook-form";
 import useSWRImmutable from "swr/immutable";
 import useSWRMutation from "swr/mutation";
 import z from "zod";
-
-const formSchema = z.object({
-  title: z.string().nonempty(),
-  description: z.string().nonempty(),
-});
-
-function Form() {
-  const form = useForm({
-    defaultValues: {
-      title: "",
-      description: "",
-    },
-    values: {
-      title: "",
-      description: "",
-    },
-    resolver: zodResolver(formSchema),
-  });
-
-  return (
-    <form onSubmit={form.handleSubmit(console.log)}>
-      <Controller
-        name="title"
-        control={form.control}
-        render={({ field }) => <input {...field} placeholder={field.name} />}
-      ></Controller>
-      <Watch
-        name={["title"]}
-        control={form.control}
-        render={(field) => <p>{`title: ${field[0]}`}</p>}
-      ></Watch>
-      <Controller
-        name="description"
-        control={form.control}
-        render={({ field }) => <textarea {...field} placeholder={field.name} />}
-      ></Controller>
-      <Watch
-        name={["description"]}
-        control={form.control}
-        render={(field) => <p>{`description: ${field[0]}`}</p>}
-      ></Watch>
-      <button type="submit" disabled={!form.formState.isValid}>
-        submit
-      </button>
-    </form>
-  );
-}
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { WorkerApi } from "./worker";
 
 export function PageClient() {
+  console.log(PageClient.name);
+
   const t = useI18n();
   const currentLocale = useCurrentLocale();
   const changeLocale = useChangeLocale();
@@ -77,8 +36,6 @@ export function PageClient() {
       return petstorePetApi.getPetById(...(arg || params));
     },
   );
-
-  console.log(1);
 
   return (
     <>
@@ -141,14 +98,14 @@ export function PageClient() {
             <input
               value={store.id}
               onChange={(e) => {
-                store.set({ id: e.target.value });
+                useStore.setState({ id: e.target.value });
               }}
             />
             <div>
               <input value={store.count} readOnly />
               <button
                 onClick={() => {
-                  store.set((s) => ({ count: s.count + 1 }));
+                  useStore.setState((s) => ({ count: s.count + 1 }));
                 }}
               >
                 {"count+1"}
@@ -157,7 +114,7 @@ export function PageClient() {
             <select
               value={`${store.isActive}`}
               onChange={(e) => {
-                store.set({ isActive: JSON.parse(e.target.value) });
+                useStore.setState({ isActive: JSON.parse(e.target.value) });
               }}
             >
               <option value="false">{"isActive:false"}</option>
@@ -191,6 +148,78 @@ export function PageClient() {
           <Form />
         </div>
       </div>
+      <WebWorkers></WebWorkers>
     </>
   );
+}
+
+const formSchema = z.object({
+  title: z.string().nonempty().default(""),
+  description: z.string().nonempty().default(""),
+});
+const formPersist = create(
+  persist(() => formSchema.parse({}), { name: "form-persist" }),
+);
+
+function Form() {
+  console.log(Form.name);
+
+  const form = useForm({
+    // defaultValues: {
+    //   title: "",
+    //   description: "",
+    // },
+    defaultValues: formSchema.parse({}),
+    // values: {
+    //   title: "",
+    //   description: "",
+    // },
+    values: formPersist.getState(),
+    resolver: zodResolver(formSchema),
+  });
+
+  return (
+    <form onSubmit={form.handleSubmit(console.log)}>
+      <Watch
+        compute={formPersist.setState}
+        control={form.control}
+        render={() => <></>}
+      ></Watch>
+      <Controller
+        name="title"
+        control={form.control}
+        render={({ field }) => <input {...field} placeholder={field.name} />}
+      ></Controller>
+      <Watch
+        name="title"
+        control={form.control}
+        render={(field) => <p>{`title: ${field}`}</p>}
+      ></Watch>
+      <Controller
+        name="description"
+        control={form.control}
+        render={({ field }) => <textarea {...field} placeholder={field.name} />}
+      ></Controller>
+      <Watch
+        name={["description"]}
+        control={form.control}
+        render={(field) => <p>{`description: ${field[0]}`}</p>}
+      ></Watch>
+      <button type="submit" disabled={!form.formState.isValid}>
+        submit
+      </button>
+    </form>
+  );
+}
+
+function WebWorkers() {
+  useSWRImmutable([WebWorkers], async () => {
+    const worker = new Worker(new URL("./worker.ts", import.meta.url));
+    const workerApi = wrap<WorkerApi>(worker);
+    // const worker = new SharedWorker(new URL("./worker.ts", import.meta.url));
+    // const workerApi = wrap<WorkerApi>(worker.port);
+    console.log(await workerApi.getDateNow());
+  });
+
+  return <></>;
 }
