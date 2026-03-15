@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "",
+  "homepage": "https://github.com/haikalrowi/wsl",
+  "items": [
+    {
+      "name": "next-prettier",
+      "type": "registry:item",
+      "devDependencies": [
+        "prettier@^3.0.0",
+        "prettier-plugin-tailwindcss@^0.7.0"
+      ],
+      "files": [
+        {
+          "path": "./src/next-prettier/.prettierrc",
+          "type": "registry:file",
+          "target": "~/.prettierrc"
+        },
+        {
+          "path": "./src/next-prettier/.prettierignore",
+          "type": "registry:file",
+          "target": "~/.prettierignore"
+        }
+      ]
+    },
+    {
+      "name": "next-eslint",
+      "type": "registry:item",
+      "files": [
+        {
+          "path": "./src/next-eslint/.npmrc",
+          "type": "registry:file",
+          "target": "~/.npmrc"
+        }
+      ]
+    }
+  ]
+}
