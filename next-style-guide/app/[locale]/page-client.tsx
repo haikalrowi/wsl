@@ -6,6 +6,7 @@ import { appDefaultApi, appSchema, petstorePetApi } from "@/openapi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { wrap } from "comlink";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Controller, useForm, Watch } from "react-hook-form";
 import useSWRImmutable from "swr/immutable";
@@ -20,13 +21,14 @@ export function PageClient() {
 
   return (
     <>
-      <div className="[&_button]:[all:revert] [&_input,select,textarea]:border [&,&_*:not([data-isolate],[data-isolate]_*)]:m-auto [&,&_*:not([data-isolate],[data-isolate]_*)]:flex [&,&_*:not([data-isolate],[data-isolate]_*)]:gap-1 [&,&_*:not([data-isolate],[data-isolate]_*)]:not-data-flex-row:flex-col">
+      <div className="[&_button]:[all:revert] [&_input,select,textarea]:border [&,&_:not([data-isolate],[data-isolate]_*)]:m-auto [&,&_:not([data-isolate],[data-isolate]_*)]:flex [&,&_:not([data-isolate],[data-isolate]_*)]:gap-1 [&,&_:not([data-isolate],[data-isolate]_*)]:p-px [&,&_:not([data-isolate],[data-isolate]_*)]:not-data-flex-row:flex-col">
         <Internationalization></Internationalization>
         <Store></Store>
         <Swr></Swr>
         <Form></Form>
         <WebWorkers></WebWorkers>
         <Lottie></Lottie>
+        <Print></Print>
       </div>
     </>
   );
@@ -258,7 +260,7 @@ function Lottie() {
   console.log(Lottie.name);
 
   return (
-    <div data-isolate className="m-auto size-96 border">
+    <div data-isolate className="m-auto size-64 border">
       <DotLottieReact
         src={new URL("./VrgZppaPQ8.json", import.meta.url).href}
         // src={new URL("./VrgZppaPQ8.lottie", import.meta.url).href}
@@ -268,5 +270,181 @@ function Lottie() {
         renderConfig={{ autoResize: true }}
       ></DotLottieReact>
     </div>
+  );
+}
+
+function Print() {
+  return (
+    <>
+      <style jsx global>{`
+        @media print {
+          @page {
+            size: 8.5in calc(11in * 1);
+            margin: 0;
+          }
+          :not(:has([data-print]), [data-print], [data-print] *) {
+            display: none;
+          }
+          html,
+          body {
+            margin: 0.1in;
+          }
+          * {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+        }
+      `}</style>
+      <div>
+        <button
+          onClick={() => {
+            window.print();
+          }}
+        >
+          {"print"}
+        </button>
+      </div>
+      <div data-isolate data-print className="typography not-print:hidden">
+        <h1>Styling the Web: A Modern CSS Journey</h1>
+        <p>
+          CSS has come a long way since its inception. From simple layout tweaks
+          to complex responsive designs, it&apos;s become an essential tool for
+          crafting delightful web experiences. In this article, we&apos;ll
+          explore various HTML elements commonly styled with modern CSS utility
+          systems like <code>tailwindcss</code>
+          and component libraries.
+        </p>
+        <h2>Introduction</h2>
+        <p>
+          Web design today is more accessible than ever. Thanks to utility-first
+          frameworks and component-based architectures, developers can build
+          beautiful UIs with less effort.
+        </p>
+        <h3>Key Benefits of Utility CSS</h3>
+        <ul>
+          <li>Faster development</li>
+          <li>Consistent design system</li>
+          <li>Better collaboration between dev and design</li>
+        </ul>
+        <h3>What You Need</h3>
+        <ol>
+          <li>Basic HTML/CSS knowledge</li>
+          <li>Code editor (e.g., VS Code)</li>
+          <li>Modern browser for testing</li>
+        </ol>
+        <h2>Checklist</h2>
+        <ul>
+          <li>
+            <input checked disabled type="checkbox" />{" "}
+            <p>Install Tailwind CSS</p>
+          </li>
+          <li>
+            <input disabled type="checkbox" /> <p>Configure PostCSS</p>
+          </li>
+          <li>
+            <input disabled type="checkbox" /> <p>Create base components</p>
+          </li>
+        </ul>
+        <h2>Sample Image</h2>
+        <p>
+          Here&apos;s a sample image to test image styling. Make sure it scales
+          well on all screen sizes.
+        </p>
+        <center>
+          <Image
+            alt="Cute kitten"
+            height={400}
+            src="https://placehold.co/600x400"
+            unoptimized
+            width={600}
+          />
+        </center>
+        <h2>Code Example</h2>
+        <pre>
+          <code>{`/* Tailwind example */
+.button {
+  @apply px-4 py-2 bg-blue-600 text-white rounded;
+}`}</code>
+        </pre>
+        <h2>Blockquote</h2>
+        <blockquote>
+          &quot;Design is not just what it looks like and feels like. Design is
+          how it works.&quot; — Steve Jobs
+        </blockquote>
+        <h2>Table Example</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Framework</th>
+              <th>Type</th>
+              <th>Stars</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tailwind CSS</td>
+              <td>Utility-First</td>
+              <td>70k+</td>
+            </tr>
+            <tr>
+              <td>Bootstrap</td>
+              <td>Component-Based</td>
+              <td>160k+</td>
+            </tr>
+            <tr>
+              <td>Bulma</td>
+              <td>Utility/Component Hybrid</td>
+              <td>45k+</td>
+            </tr>
+          </tbody>
+        </table>
+        <h2>Inline Elements</h2>
+        <p>
+          You can <strong>bold</strong> text, <em>italicize</em> it,{" "}
+          <u>underline</u> it, or even add{" "}
+          <a href="https://example.com">links</a>. Here&apos;s some{" "}
+          <code>inline code</code> too.
+        </p>
+        <h2>Definition List</h2>
+        <dl>
+          <dt>CSS</dt>
+          <dd>Cascading Style Sheets</dd>
+          <dt>HTML</dt>
+          <dd>HyperText Markup Language</dd>
+          <dt>JS</dt>
+          <dd>JavaScript</dd>
+        </dl>
+        <h2>Details and Summary</h2>
+        <details>
+          <summary>Click to expand additional info</summary>
+          <p>
+            Utility CSS simplifies the process of managing and scaling CSS in
+            large projects.
+          </p>
+        </details>
+        <h2>Inline Elements</h2>
+        <p>
+          You can <strong>bold</strong> text, <em>italicize</em> it,{" "}
+          <u>underline</u> it, or even add{" "}
+          <a href="https://example.com">links</a>. Here&apos;s some{" "}
+          <code>inline code</code> too. <mark>Highlight important info</mark>{" "}
+          and <small>small text size</small>.{" "}
+          <abbr title="HyperText Markup Language">HTML</abbr> is the foundation
+          of the web.
+        </p>
+        <h2>Superscript & Subscript</h2>
+        <p>
+          E = mc<sup>2</sup> is Einstein&apos;s mass-energy equivalence. Water
+          is H<sub>2</sub>O.
+        </p>
+        <h2>Conclusion</h2>
+        <p>
+          Whether you&apos;re using Tailwind, vanilla CSS, or any other system,
+          a solid understanding of how HTML elements behave is key to great
+          styling. Test extensively to ensure consistent, accessible results
+          across devices.
+        </p>
+      </div>
+    </>
   );
 }
