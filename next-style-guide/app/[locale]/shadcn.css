@@ -1,5 +1,7 @@
 /* https://github.com/shadcn-ui/ui/raw/HEAD/packages/shadcn/src/tailwind.css */
 
+@reference "./globals.css";
+
 @theme inline {
   @keyframes accordion-down {
     from {

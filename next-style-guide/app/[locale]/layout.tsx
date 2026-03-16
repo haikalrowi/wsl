@@ -5,6 +5,8 @@ import { Metadata } from "next";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { SWRConfig } from "swr";
 import "./globals.css";
+import "./shadcn.css";
+import "./typography.css";
 
 export const dynamic = "force-static";
 

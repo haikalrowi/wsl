@@ -1,5 +1,7 @@
 /* https://github.com/shadcnblocks/kibo/raw/HEAD/packages/typography/styles.css */
 
+@reference "./globals.css";
+
 @layer base {
   .typography {
     max-width: 65ch;

@@ -6,9 +6,11 @@ import { appDefaultApi, appSchema, petstorePetApi } from "@/openapi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { wrap } from "comlink";
+import "maplibre-gl/dist/maplibre-gl.css";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Controller, useForm, Watch } from "react-hook-form";
+import Map from "react-map-gl/maplibre";
 import useSWRImmutable from "swr/immutable";
 import useSWRMutation from "swr/mutation";
 import z from "zod";
@@ -21,7 +23,7 @@ export function PageClient() {
 
   return (
     <>
-      <div className="[&_button]:[all:revert] [&_input,select,textarea]:border [&,&_:not([data-isolate],[data-isolate]_*)]:m-auto [&,&_:not([data-isolate],[data-isolate]_*)]:flex [&,&_:not([data-isolate],[data-isolate]_*)]:gap-1 [&,&_:not([data-isolate],[data-isolate]_*)]:p-px [&,&_:not([data-isolate],[data-isolate]_*)]:not-data-flex-row:flex-col">
+      <div className="[&,&_:not([data-isolate],[data-isolate]_*)]:m-auto [&,&_:not([data-isolate],[data-isolate]_*)]:flex [&,&_:not([data-isolate],[data-isolate]_*)]:gap-1 [&,&_:not([data-isolate],[data-isolate]_*)]:p-px [&,&_:not([data-isolate],[data-isolate]_*)]:not-data-flex-row:flex-col [&,&_:not([data-isolate],[data-isolate]_*)]:[button]:[all:revert] [&,&_:not([data-isolate],[data-isolate]_*)]:[input,select,textarea]:border">
         <Internationalization></Internationalization>
         <Store></Store>
         <Swr></Swr>
@@ -29,6 +31,7 @@ export function PageClient() {
         <WebWorkers></WebWorkers>
         <Lottie></Lottie>
         <Print></Print>
+        <MapLibre></MapLibre>
       </div>
     </>
   );
@@ -260,7 +263,7 @@ function Lottie() {
   console.log(Lottie.name);
 
   return (
-    <div data-isolate className="m-auto size-64 border">
+    <div data-isolate className="m-auto aspect-square h-64 border">
       <DotLottieReact
         src={new URL("./VrgZppaPQ8.json", import.meta.url).href}
         // src={new URL("./VrgZppaPQ8.lottie", import.meta.url).href}
@@ -446,5 +449,15 @@ function Print() {
         </p>
       </div>
     </>
+  );
+}
+
+function MapLibre() {
+  console.log(MapLibre.name);
+
+  return (
+    <div data-isolate className="m-auto aspect-video h-64 border">
+      <Map mapStyle="https://tiles.openfreemap.org/styles/liberty" />
+    </div>
   );
 }
