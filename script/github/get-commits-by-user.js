@@ -1,13 +1,12 @@
 // @ts-check
 
 import fs from "node:fs";
-import path from "node:path";
 
 (async function (
   githubUrl = new URL(`/${process.argv[2]}`, "https://github.com/"),
   yearFrom = +process.argv[3] || new Date().getFullYear(),
   yearTo = +process.argv[4] || 2000,
-  output = path.resolve("github", "output.json"),
+  output = `${new URL(import.meta.url).pathname}.json`,
 ) {
   const years = [];
   for (const year in Array.from({ length: 1 + yearFrom - yearTo })) {
