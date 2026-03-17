@@ -9,8 +9,17 @@ import { wrap } from "comlink";
 import "maplibre-gl/dist/maplibre-gl.css";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { Controller, useForm, Watch } from "react-hook-form";
-import Map from "react-map-gl/maplibre";
+import Map, {
+  FullscreenControl,
+  GeolocateControl,
+  LogoControl,
+  Marker,
+  NavigationControl,
+  Popup,
+  ScaleControl,
+} from "react-map-gl/maplibre";
 import useSWRImmutable from "swr/immutable";
 import useSWRMutation from "swr/mutation";
 import z from "zod";
@@ -32,6 +41,7 @@ export function PageClient() {
         <Lottie></Lottie>
         <Print></Print>
         <MapLibre></MapLibre>
+        <YoutubeEmbed></YoutubeEmbed>
       </div>
     </>
   );
@@ -196,18 +206,18 @@ function Form() {
   console.log(Form.name);
 
   const form = useForm({
-    defaultValues: formSchema.parse({}),
-    values: formPersist.getState(),
+    values: formPersist.getInitialState(),
+    // values: formPersist.getState(),
     resolver: zodResolver(formSchema),
   });
 
   return (
     <form onSubmit={form.handleSubmit(console.log)}>
-      <Watch
-        compute={formPersist.setState}
+      {/* <Watch
         control={form.control}
+        compute={formPersist.setState}
         render={() => <></>}
-      ></Watch>
+      ></Watch> */}
       <Controller
         name="title"
         control={form.control}
@@ -235,7 +245,7 @@ function Form() {
         <button
           type="reset"
           onClick={() => {
-            form.reset(formSchema.parse({}));
+            form.reset(formPersist.getInitialState());
           }}
         >
           {"reset"}
@@ -277,6 +287,8 @@ function Lottie() {
 }
 
 function Print() {
+  console.log(Print.name);
+
   return (
     <>
       <style jsx global>{`
@@ -455,9 +467,62 @@ function Print() {
 function MapLibre() {
   console.log(MapLibre.name);
 
+  const [popup, setPopup] = useState(
+    null as null | { longitude: number; latitude: number; description: string },
+  );
+
   return (
     <div data-isolate className="m-auto aspect-video h-64 border">
-      <Map mapStyle="https://tiles.openfreemap.org/styles/liberty" />
+      <Map mapStyle="https://tiles.openfreemap.org/styles/liberty">
+        <Marker
+          longitude={0}
+          latitude={0}
+          onClick={(e) => {
+            e.originalEvent.stopPropagation();
+            setPopup({
+              longitude: e.target.getLngLat().lng,
+              latitude: e.target.getLngLat().lat,
+              description: "popup",
+            });
+          }}
+        >
+          <div className="size-4 cursor-pointer rounded-full bg-red-500"></div>
+        </Marker>
+        {popup && (
+          <Popup
+            longitude={popup.longitude}
+            latitude={popup.latitude}
+            onClose={() => {
+              setPopup(null);
+            }}
+          >
+            <p>{popup.description}</p>
+          </Popup>
+        )}
+        <FullscreenControl></FullscreenControl>
+        <GeolocateControl></GeolocateControl>
+        <NavigationControl></NavigationControl>
+        <ScaleControl></ScaleControl>
+        {/* <TerrainControl source=""></TerrainControl> */}
+        <LogoControl></LogoControl>
+      </Map>
+    </div>
+  );
+}
+
+function YoutubeEmbed() {
+  console.log(YoutubeEmbed.name);
+
+  const videoId = "xdKay6bhIMg";
+
+  return (
+    <div data-isolate className="m-auto aspect-video h-64 border">
+      <div className="relative h-full w-full overflow-hidden">
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&mute=1&controls=0&playlist=${videoId}&rel=0`}
+          className="pointer-events-none absolute inset-0 -ml-[450%] h-full w-[1000%]"
+        ></iframe>
+      </div>
     </div>
   );
 }
