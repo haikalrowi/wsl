@@ -120,55 +120,6 @@
 >
 > </details>
 
-## inside your wsl
-
-### pnpm and node.js (shellscript bash sh shell zsh)
-
-> ```md
-> curl -fsSL https://get.pnpm.io/install.sh | sh - &&
-> source ~/.bashrc &&
-> pnpm env use --global lts
-> ```
->
-> - https://pnpm.io/installation#on-posix-systems
-> - https://pnpm.io/cli/env#use
-
-### ghcr.io/devcontainers/features/common-utils (shellscript bash sh shell zsh)
-
-> ```md
-> DFCU="./.dfcu" &&
-> mkdir $DFCU &&
-> (
-> cd $DFCU &&
-> curl -LO https://github.com/devcontainers/features/raw/HEAD/src/common-utils/install.sh &&
-> curl -LO https://github.com/devcontainers/features/raw/HEAD/src/common-utils/main.sh &&
-> sudo INSTALLZSH="false" CONFIGUREZSHASDEFAULTSHELL="false" INSTALLOHMYZSH="false" INSTALLOHMYZSHCONFIG="false" UPGRADEPACKAGES="false" sh install.sh
-> )
-> ```
->
-> - https://github.com/devcontainers/features/tree/main/src/common-utils
-
-### bun (shellscript bash sh shell zsh)
-
-> ```md
-> curl -fsSL https://bun.com/install | bash
-> ```
->
-> - https://bun.com/docs/installation
-
-### cloudflared (shellscript bash sh shell zsh)
-
-> ```md
-> sudo mkdir -p --mode=0755 /usr/share/keyrings &&
-> curl -fsSL https://pkg.cloudflare.com/cloudflare-public-v2.gpg | sudo tee /usr/share/keyrings/cloudflare-public-v2.gpg >/dev/null &&
-> echo "deb [signed-by=/usr/share/keyrings/cloudflare-public-v2.gpg] https://pkg.cloudflare.com/cloudflared any main" | sudo tee /etc/apt/sources.list.d/cloudflared.list &&
-> sudo apt-get update && sudo apt-get install cloudflared
-> ```
->
-> - https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/local-management/create-local-tunnel/#1-download-and-install-cloudflared
-> - https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/trycloudflare/#use-trycloudflare
-> - https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/configure-tunnels/run-parameters/
-
 ## inside your vscode
 
 ### install extensions (shellscript bash sh shell zsh)
