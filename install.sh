@@ -3,7 +3,7 @@
 # pnpm and node.js
 
 curl -fsSL https://get.pnpm.io/install.sh | sh - &&
-. ~/.bashrc &&
+source ~/.bashrc &&
 pnpm env use --global lts
 
 # ghcr.io/devcontainers/features/common-utils
@@ -31,11 +31,11 @@ sudo apt-get update && sudo apt-get install cloudflared
 # uv
 
 curl -LsSf https://astral.sh/uv/install.sh | sh &&
-. ~/.bashrc &&
+source ~/.bashrc &&
 uv python install
 
 # poetry
 
 curl -sSL https://install.python-poetry.org | python3 - &&
-. ~/.bashrc &&
+source ~/.bashrc &&
 poetry --version
