@@ -28,7 +28,7 @@ curl -fsSL https://pkg.cloudflare.com/cloudflare-public-v2.gpg | sudo tee /usr/s
 echo "deb [signed-by=/usr/share/keyrings/cloudflare-public-v2.gpg] https://pkg.cloudflare.com/cloudflared any main" | sudo tee /etc/apt/sources.list.d/cloudflared.list &&
 sudo apt-get update && sudo apt-get install cloudflared
 
-# uv
+# uv and python
 
 curl -LsSf https://astral.sh/uv/install.sh | sh &&
 . ~/.bashrc &&
@@ -37,5 +37,3 @@ uv python install
 # poetry
 
 curl -sSL https://install.python-poetry.org | python3 - &&
-. ~/.bashrc &&
-poetry --version
