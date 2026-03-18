@@ -120,6 +120,10 @@
 >
 > </details>
 
+## inside your wsl
+
+- [install.sh](./install.sh)
+
 ## inside your vscode
 
 ### install extensions (shellscript bash sh shell zsh)
