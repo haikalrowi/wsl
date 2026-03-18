@@ -1,10 +1,6 @@
 # curl -sL https://github.com/haikalrowi/wsl/raw/HEAD/install.sh | bash -i
 
-# pnpm and node.js
-
-curl -fsSL https://get.pnpm.io/install.sh | sh - &&
-. ~/.bashrc &&
-pnpm env use --global lts
+sudo -v
 
 # ghcr.io/devcontainers/features/common-utils
 
@@ -16,6 +12,12 @@ curl -LO https://github.com/devcontainers/features/raw/HEAD/src/common-utils/ins
 curl -LO https://github.com/devcontainers/features/raw/HEAD/src/common-utils/main.sh &&
 sudo INSTALLZSH="false" CONFIGUREZSHASDEFAULTSHELL="false" INSTALLOHMYZSH="false" INSTALLOHMYZSHCONFIG="false" UPGRADEPACKAGES="false" bash install.sh
 )
+
+# pnpm and node.js
+
+curl -fsSL https://get.pnpm.io/install.sh | sh - &&
+. ~/.bashrc &&
+pnpm env use --global lts
 
 # bun
 
