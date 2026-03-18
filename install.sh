@@ -4,7 +4,7 @@
 
 sudo -v &&
 curl -fsSL https://get.pnpm.io/install.sh | sh - &&
-source ~/.bashrc &&
+. ~/.bashrc &&
 pnpm env use --global lts
 
 # ghcr.io/devcontainers/features/common-utils
@@ -36,12 +36,12 @@ sudo apt-get update && sudo apt-get install cloudflared
 
 sudo -v &&
 curl -LsSf https://astral.sh/uv/install.sh | sh &&
-source ~/.bashrc &&
+. ~/.bashrc &&
 uv python install
 
 # poetry
 
 sudo -v &&
 curl -sSL https://install.python-poetry.org | python3 - &&
-source ~/.bashrc &&
+. ~/.bashrc &&
 poetry --version
