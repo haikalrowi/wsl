@@ -10,7 +10,7 @@ mkdir $DFCU &&
 cd $DFCU &&
 curl -sLO https://github.com/devcontainers/features/raw/HEAD/src/common-utils/install.sh &&
 curl -sLO https://github.com/devcontainers/features/raw/HEAD/src/common-utils/main.sh &&
-sudo INSTALLZSH="false" CONFIGUREZSHASDEFAULTSHELL="false" INSTALLOHMYZSH="false" INSTALLOHMYZSHCONFIG="false" UPGRADEPACKAGES="false" bash install.sh
+sudo INSTALLZSH="false" CONFIGUREZSHASDEFAULTSHELL="false" INSTALLOHMYZSH="false" INSTALLOHMYZSHCONFIG="false" UPGRADEPACKAGES="false" bash ./install.sh
 )
 
 # pnpm and node.js
