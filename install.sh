@@ -36,4 +36,4 @@ uv python install
 
 # poetry
 
-curl -sSL https://install.python-poetry.org | python3 - &&
+curl -sSL https://install.python-poetry.org | python3 -
