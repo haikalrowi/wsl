@@ -1,4 +1,4 @@
-# curl -sL https://github.com/haikalrowi/wsl/raw/HEAD/install.sh | sudo -E bash -i
+# curl -sL https://github.com/haikalrowi/wsl/raw/HEAD/install.sh | bash -i
 
 # pnpm and node.js
 
