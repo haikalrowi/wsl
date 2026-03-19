@@ -5,16 +5,19 @@ import { useChangeLocale, useCurrentLocale, useI18n } from "@/locales/client";
 import { appDefaultApi, appSchema, petstorePetApi } from "@/openapi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { colorful } from "@versatiles/style";
 import { wrap } from "comlink";
 import "maplibre-gl/dist/maplibre-gl.css";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { use, useState } from "react";
 import { Controller, useForm, Watch } from "react-hook-form";
-import Map, {
+import {
   FullscreenControl,
   GeolocateControl,
   LogoControl,
+  Map,
   Marker,
   NavigationControl,
   Popup,
@@ -33,6 +36,7 @@ export function PageClient() {
   return (
     <>
       <div className="[&,&_:not([data-isolate],[data-isolate]_*)]:m-auto [&,&_:not([data-isolate],[data-isolate]_*)]:flex [&,&_:not([data-isolate],[data-isolate]_*)]:gap-1 [&,&_:not([data-isolate],[data-isolate]_*)]:p-px [&,&_:not([data-isolate],[data-isolate]_*)]:not-data-flex-row:flex-col [&,&_:not([data-isolate],[data-isolate]_*)]:[button]:[all:revert] [&,&_:not([data-isolate],[data-isolate]_*)]:[input,select,textarea]:border">
+        <PandoraBox></PandoraBox>
         <Internationalization></Internationalization>
         <Store></Store>
         <Swr></Swr>
@@ -46,6 +50,22 @@ export function PageClient() {
     </>
   );
 }
+
+const PandoraBox = dynamic(
+  async () => {
+    const packageJson = fetch(new URL("@/package.json", import.meta.url));
+
+    return function PandoraBox() {
+      console.log(PandoraBox.name);
+
+      const packageJsonResponse = use(packageJson);
+      console.log(packageJsonResponse.status);
+
+      return <></>;
+    };
+  },
+  { ssr: false },
+);
 
 function Internationalization() {
   console.log(Internationalization.name);
@@ -473,7 +493,10 @@ function MapLibre() {
 
   return (
     <div data-isolate className="m-auto aspect-video h-64 border">
-      <Map mapStyle="https://tiles.openfreemap.org/styles/liberty">
+      <Map
+        // mapStyle="https://tiles.openfreemap.org/styles/liberty"
+        mapStyle={colorful({ baseUrl: "https://tiles.versatiles.org" })}
+      >
         <Marker
           longitude={0}
           latitude={0}
@@ -520,6 +543,7 @@ function YoutubeEmbed() {
       <div className="relative h-full w-full overflow-hidden">
         <iframe
           src={`https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&mute=1&controls=0&playlist=${videoId}&rel=0`}
+          loading="lazy"
           className="pointer-events-none absolute inset-0 -ml-[450%] h-full w-[1000%]"
         ></iframe>
       </div>
