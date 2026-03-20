@@ -8,6 +8,7 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { colorful } from "@versatiles/style";
 import { wrap } from "comlink";
 import "maplibre-gl/dist/maplibre-gl.css";
+import { m } from "motion/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -35,7 +36,7 @@ export function PageClient() {
 
   return (
     <>
-      <div className="[&,&_:not([data-isolate],[data-isolate]_*)]:m-auto [&,&_:not([data-isolate],[data-isolate]_*)]:flex [&,&_:not([data-isolate],[data-isolate]_*)]:gap-1 [&,&_:not([data-isolate],[data-isolate]_*)]:p-px [&,&_:not([data-isolate],[data-isolate]_*)]:not-data-flex-row:flex-col [&,&_:not([data-isolate],[data-isolate]_*)]:[button]:[all:revert] [&,&_:not([data-isolate],[data-isolate]_*)]:[input,select,textarea]:border">
+      <div className="[&,&_*]:not-[[data-isolate],[data-isolate]_*]:m-auto [&,&_*]:not-[[data-isolate],[data-isolate]_*]:flex [&,&_*]:not-[[data-isolate],[data-isolate]_*]:gap-1 [&,&_*]:not-[[data-isolate],[data-isolate]_*]:p-px [&,&_*]:not-[[data-isolate],[data-isolate]_*]:not-data-flex-row:flex-col [&,&_*]:not-[[data-isolate],[data-isolate]_*]:[button]:[all:revert] [&,&_*]:not-[[data-isolate],[data-isolate]_*]:[input,select,textarea]:border">
         <PandoraBox></PandoraBox>
         <Internationalization></Internationalization>
         <Store></Store>
@@ -44,8 +45,10 @@ export function PageClient() {
         <WebWorkers></WebWorkers>
         <Lottie></Lottie>
         <Print></Print>
+        <GoogleMapsEmbed></GoogleMapsEmbed>
         <MapLibre></MapLibre>
         <YoutubeEmbed></YoutubeEmbed>
+        <Motion></Motion>
       </div>
     </>
   );
@@ -138,7 +141,7 @@ function Store() {
               setQuery({ isAdult: e.currentTarget.checked });
             }}
           />
-          <span>{"isAdult"}</span>
+          {"isAdult"}
         </label>
       </div>
       <div>
@@ -293,7 +296,7 @@ function Lottie() {
   console.log(Lottie.name);
 
   return (
-    <div data-isolate className="m-auto aspect-square h-64 border">
+    <div data-isolate className="relative m-auto aspect-square h-64 border">
       <DotLottieReact
         src={new URL("./VrgZppaPQ8.json", import.meta.url).href}
         // src={new URL("./VrgZppaPQ8.lottie", import.meta.url).href}
@@ -339,7 +342,11 @@ function Print() {
           {"print"}
         </button>
       </div>
-      <div data-isolate data-print className="typography not-print:hidden">
+      <div
+        data-isolate
+        data-print
+        className="typography relative m-auto not-print:hidden"
+      >
         <h1>Styling the Web: A Modern CSS Journey</h1>
         <p>
           CSS has come a long way since its inception. From simple layout tweaks
@@ -484,6 +491,19 @@ function Print() {
   );
 }
 
+function GoogleMapsEmbed() {
+  console.log(GoogleMapsEmbed.name);
+
+  return (
+    <div data-isolate className="relative m-auto aspect-video h-64 border">
+      <iframe
+        src="https://maps.google.com/maps?output=embed&q=australia"
+        className="absolute inset-0 h-full w-full"
+      ></iframe>
+    </div>
+  );
+}
+
 function MapLibre() {
   console.log(MapLibre.name);
 
@@ -492,7 +512,7 @@ function MapLibre() {
   );
 
   return (
-    <div data-isolate className="m-auto aspect-video h-64 border">
+    <div data-isolate className="relative m-auto aspect-video h-64 border">
       <Map
         // mapStyle="https://tiles.openfreemap.org/styles/liberty"
         mapStyle={colorful({ baseUrl: "https://tiles.versatiles.org" })}
@@ -539,14 +559,67 @@ function YoutubeEmbed() {
   const videoId = "xdKay6bhIMg";
 
   return (
-    <div data-isolate className="m-auto aspect-video h-64 border">
-      <div className="relative h-full w-full overflow-hidden">
-        <iframe
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&mute=1&controls=0&playlist=${videoId}&rel=0`}
-          loading="lazy"
-          className="pointer-events-none absolute inset-0 -ml-[450%] h-full w-[1000%]"
-        ></iframe>
-      </div>
+    <div
+      data-isolate
+      className="relative m-auto aspect-video h-64 overflow-hidden border"
+    >
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&mute=1&controls=0&playlist=${videoId}&rel=0`}
+        loading="lazy"
+        className="pointer-events-none absolute inset-0 -ml-[450%] h-full w-[1000%]"
+      ></iframe>
     </div>
+  );
+}
+
+function Motion() {
+  console.log(Motion.name);
+
+  return (
+    <m.div
+      animate={{
+        "--rounded": [
+          "0px",
+          "64px",
+          null,
+          "0px",
+          "64px",
+          null,
+          "0px",
+          "64px",
+          null,
+          "0px",
+          "64px",
+          null,
+          "0px",
+        ],
+        "--rotate": [
+          "0deg",
+          null,
+          "90deg",
+          null,
+          null,
+          "180deg",
+          null,
+          null,
+          "270deg",
+          null,
+          null,
+          "360deg",
+          null,
+        ],
+      }}
+      transition={{ duration: 7, repeat: Infinity }}
+      data-isolate
+      className="relative m-auto aspect-square h-64 rotate-(--rotate) rounded-(--rounded) border"
+    >
+      <Image
+        src="https://www.google.com/s2/favicons?sz=256&domain=motion.dev"
+        alt=""
+        unoptimized
+        fill
+        className="rounded-(--rounded) object-contain"
+      ></Image>
+    </m.div>
   );
 }

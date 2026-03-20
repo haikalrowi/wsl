@@ -1,4 +1,5 @@
 import { ClientOnly } from "@/components/client-only";
+import { LazyMotion } from "@/components/lazy-motion";
 import { ZodConfig } from "@/components/zod-config";
 import { I18nProviderClient } from "@/locales/client";
 import { Metadata } from "next";
@@ -16,8 +17,8 @@ export const metadata: Metadata = {
 };
 
 // import { Geist } from "next/font/google";
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
+// const geist = Geist({
+//   variable: "--font-geist",
 //   subsets: ["latin"],
 // });
 
@@ -36,10 +37,12 @@ export default async function Layout(props: LayoutProps<"/[locale]">) {
           <I18nProviderClient locale={locale}>
             <NuqsAdapter defaultOptions={{}}>
               <SWRConfig value={{}}>
-                <ClientOnly>
-                  <ZodConfig></ZodConfig>
-                  {props.children}
-                </ClientOnly>
+                <LazyMotion>
+                  <ClientOnly>
+                    <ZodConfig></ZodConfig>
+                    {props.children}
+                  </ClientOnly>
+                </LazyMotion>
               </SWRConfig>
             </NuqsAdapter>
           </I18nProviderClient>
