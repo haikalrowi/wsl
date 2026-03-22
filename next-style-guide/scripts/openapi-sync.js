@@ -26,6 +26,13 @@ const path = require("node:path");
     openapiFilePath,
     new Uint8Array(await fetchedZip.arrayBuffer()),
   );
-  child_process.spawnSync("unzip", [openapiFilePath, "-d", openapiApp]);
+  child_process.spawnSync("python3", [
+    "-m",
+    "zipfile",
+    "-e",
+    openapiFilePath,
+    openapiApp,
+  ]);
+  // child_process.spawnSync("unzip", [openapiFilePath, "-d", openapiApp]);
   fs.rmSync(openapiFilePath, { recursive: true, force: true });
 })();
