@@ -3,7 +3,7 @@
 import { LazyMotion as LazyMotion_ } from "motion/react";
 
 async function features() {
-  const { domAnimation } = await import("motion/react");
+  const { domAnimation } = await import("@/lib/motion");
   return domAnimation;
 }
 

@@ -516,6 +516,7 @@ function MapLibre() {
       <Map
         // mapStyle="https://tiles.openfreemap.org/styles/liberty"
         mapStyle={colorful({ baseUrl: "https://tiles.versatiles.org" })}
+        cooperativeGestures
       >
         <Marker
           longitude={0}
