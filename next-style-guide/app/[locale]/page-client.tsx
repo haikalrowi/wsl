@@ -612,7 +612,7 @@ function Motion() {
       }}
       transition={{ duration: 7, repeat: Infinity }}
       data-isolate
-      className="relative m-auto aspect-square h-64 rotate-(--rotate) rounded-(--rounded) border"
+      className="relative m-auto aspect-square h-64 scale-[70%] rotate-(--rotate) rounded-(--rounded) border"
     >
       <Image
         src="https://www.google.com/s2/favicons?sz=256&domain=motion.dev"
