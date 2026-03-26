@@ -3,11 +3,11 @@
 import { useQuery, useStore } from "@/hooks/use-state-app";
 import { useChangeLocale, useCurrentLocale, useI18n } from "@/locales/client";
 import { appDefaultApi, appSchema, petstorePetApi } from "@/openapi";
+import { env } from "@/utils/env";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { colorful } from "@versatiles/style";
 import { wrap } from "comlink";
-import "maplibre-gl/dist/maplibre-gl.css";
 import { m } from "motion/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -38,6 +38,7 @@ export function PageClient() {
     <>
       <div className="[&,&_*]:not-[[data-isolate],[data-isolate]_*]:m-auto [&,&_*]:not-[[data-isolate],[data-isolate]_*]:flex [&,&_*]:not-[[data-isolate],[data-isolate]_*]:gap-1 [&,&_*]:not-[[data-isolate],[data-isolate]_*]:p-px [&,&_*]:not-[[data-isolate],[data-isolate]_*]:not-data-flex-row:flex-col [&,&_*]:not-[[data-isolate],[data-isolate]_*]:[button]:[all:revert] [&,&_*]:not-[[data-isolate],[data-isolate]_*]:[input,select,textarea]:border">
         <PandoraBox></PandoraBox>
+        <Env></Env>
         <Internationalization></Internationalization>
         <Store></Store>
         <Swr></Swr>
@@ -69,6 +70,12 @@ const PandoraBox = dynamic(
   },
   { ssr: false },
 );
+
+function Env() {
+  console.log(Env.name);
+
+  return <pre>{JSON.stringify(env, null, 2)}</pre>;
+}
 
 function Internationalization() {
   console.log(Internationalization.name);

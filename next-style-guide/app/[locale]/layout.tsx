@@ -2,6 +2,7 @@ import { ClientOnly } from "@/components/client-only";
 import { LazyMotion } from "@/components/lazy-motion";
 import { ZodConfig } from "@/components/zod-config";
 import { I18nProviderClient } from "@/locales/client";
+import "maplibre-gl/dist/maplibre-gl.css";
 import { Metadata } from "next";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { SWRConfig } from "swr";
