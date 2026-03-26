@@ -52,6 +52,8 @@
 </td>
 <td>
 
+[![syncfusion.com/free-tools](https://www.google.com/s2/favicons?sz=48&domain=syncfusion.com)](https://www.syncfusion.com/free-tools/)
+
 </td>
 <td>
 
