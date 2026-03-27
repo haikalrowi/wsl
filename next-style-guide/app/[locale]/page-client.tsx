@@ -43,9 +43,9 @@ export function PageClient() {
         <Store></Store>
         <Swr></Swr>
         <Form></Form>
+        <Print></Print>
         <WebWorkers></WebWorkers>
         <Lottie></Lottie>
-        <Print></Print>
         <GoogleMapsEmbed></GoogleMapsEmbed>
         <MapLibre></MapLibre>
         <YoutubeEmbed></YoutubeEmbed>
@@ -74,7 +74,11 @@ const PandoraBox = dynamic(
 function Env() {
   console.log(Env.name);
 
-  return <pre>{JSON.stringify(env, null, 2)}</pre>;
+  return (
+    <div>
+      <pre>{JSON.stringify(env, null, 2)}</pre>
+    </div>
+  );
 }
 
 function Internationalization() {
@@ -285,37 +289,6 @@ function Form() {
   );
 }
 
-function WebWorkers() {
-  console.log(WebWorkers.name);
-
-  useSWRImmutable([WebWorkers], async () => {
-    const worker = new Worker(new URL("./worker.ts", import.meta.url));
-    const workerApi = wrap<WorkerApi>(worker);
-    // const worker = new SharedWorker(new URL("./worker.ts", import.meta.url));
-    // const workerApi = wrap<WorkerApi>(worker.port);
-    console.log(await workerApi.getDateNow());
-  });
-
-  return <></>;
-}
-
-function Lottie() {
-  console.log(Lottie.name);
-
-  return (
-    <div data-isolate className="relative m-auto aspect-square h-64 border">
-      <DotLottieReact
-        src={new URL("./VrgZppaPQ8.json", import.meta.url).href}
-        // src={new URL("./VrgZppaPQ8.lottie", import.meta.url).href}
-        autoplay
-        layout={{ fit: "cover" }}
-        loop
-        renderConfig={{ autoResize: true }}
-      ></DotLottieReact>
-    </div>
-  );
-}
-
 function Print() {
   console.log(Print.name);
 
@@ -495,6 +468,37 @@ function Print() {
         </p>
       </div>
     </>
+  );
+}
+
+function WebWorkers() {
+  console.log(WebWorkers.name);
+
+  useSWRImmutable([WebWorkers], async () => {
+    const worker = new Worker(new URL("./worker.ts", import.meta.url));
+    const workerApi = wrap<WorkerApi>(worker);
+    // const worker = new SharedWorker(new URL("./worker.ts", import.meta.url));
+    // const workerApi = wrap<WorkerApi>(worker.port);
+    console.log(await workerApi.getDateNow());
+  });
+
+  return <></>;
+}
+
+function Lottie() {
+  console.log(Lottie.name);
+
+  return (
+    <div data-isolate className="relative m-auto aspect-square h-64 border">
+      <DotLottieReact
+        src={new URL("./VrgZppaPQ8.json", import.meta.url).href}
+        // src={new URL("./VrgZppaPQ8.lottie", import.meta.url).href}
+        autoplay
+        layout={{ fit: "cover" }}
+        loop
+        renderConfig={{ autoResize: true }}
+      ></DotLottieReact>
+    </div>
   );
 }
 

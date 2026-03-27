@@ -14,9 +14,6 @@ importers:
       '@lottiefiles/dotlottie-react':
         specifier: ^0.18.0
         version: 0.18.7(react@19.2.4)
-      '@mantine/hooks':
-        specifier: ^8.0.0
-        version: 8.3.18(react@19.2.4)
       '@versatiles/style':
         specifier: ^5.0.0
         version: 5.10.0
@@ -53,6 +50,9 @@ importers:
       react-map-gl:
         specifier: ^8.0.0
         version: 8.1.0(maplibre-gl@5.21.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react-simplikit:
+        specifier: ^0.0.48
+        version: 0.0.48(react@19.2.4)
       swr:
         specifier: ^2.0.0
         version: 2.4.1(react@19.2.4)
@@ -414,11 +414,6 @@ packages:
 
   '@lottiefiles/dotlottie-web@0.67.0':
     resolution: {integrity: sha512-XdMbVQAKqI8NLGqwN1RYQv0eGDM74JhISJFOovBf7k2Uh5B3QJwMOYhMqz8L0UZAs+LzXYdP/wZR7s8hh0uo2g==}
-
-  '@mantine/hooks@8.3.18':
-    resolution: {integrity: sha512-QoWr9+S8gg5050TQ06aTSxtlpGjYOpIllRbjYYXlRvZeTsUqiTbVfvQROLexu4rEaK+yy9Wwriwl9PMRgbLqPw==}
-    peerDependencies:
-      react: ^18.x || ^19.x
 
   '@mapbox/jsonlint-lines-primitives@2.0.2':
     resolution: {integrity: sha512-rY0o9A5ECsTQRVhv7tL/OyDpGAoUB4tTvLiW1DSzQGq4bvTPhNw1VpSNjDJc5GFZ2XuyOtSWSVN05qOtcD71qQ==}
@@ -1089,8 +1084,8 @@ packages:
   earcut@3.0.2:
     resolution: {integrity: sha512-X7hshQbLyMJ/3RPhyObLARM2sNxxmRALLKx1+NVFFnQ9gKzmCrxm9+uLIAdBcvc8FNLpctqlQ2V6AE92Ol9UDQ==}
 
-  electron-to-chromium@1.5.325:
-    resolution: {integrity: sha512-PwfIw7WQSt3xX7yOf5OE/unLzsK9CaN2f/FvV3WjPR1Knoc1T9vePRVV4W1EM301JzzysK51K7FNKcusCr0zYA==}
+  electron-to-chromium@1.5.327:
+    resolution: {integrity: sha512-hLxLdIJDf8zIzKoH2TPCs+Botc+wUmj9sp4jVMwklY/sKleM8xxxOExRX3Gxj73nCXmJe3anhG7SvsDDPDvmuQ==}
 
   emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
@@ -2050,6 +2045,11 @@ packages:
       maplibre-gl:
         optional: true
 
+  react-simplikit@0.0.48:
+    resolution: {integrity: sha512-WbHgqyTD4ZKPv563r9xYivXC64adOVR9TbR1ThrTTQ6OUqWh7MIwT/iuYyNXQK3duBYHudta+AbGAU276DJY/g==}
+    peerDependencies:
+      react: '*'
+
   react@19.2.4:
     resolution: {integrity: sha512-9nfp2hYpCwOjAN+8TZFGhtWEwgvWHXqESH8qT89AT/lWklpLON22Lc8pEtnpsZz7VmawabSU0gCjnj8aC0euHQ==}
     engines: {node: '>=0.10.0'}
@@ -2710,10 +2710,6 @@ snapshots:
 
   '@lottiefiles/dotlottie-web@0.67.0': {}
 
-  '@mantine/hooks@8.3.18(react@19.2.4)':
-    dependencies:
-      react: 19.2.4
-
   '@mapbox/jsonlint-lines-primitives@2.0.2': {}
 
   '@mapbox/point-geometry@1.1.0': {}
@@ -3226,7 +3222,7 @@ snapshots:
     dependencies:
       baseline-browser-mapping: 2.10.11
       caniuse-lite: 1.0.30001781
-      electron-to-chromium: 1.5.325
+      electron-to-chromium: 1.5.327
       node-releases: 2.0.36
       update-browserslist-db: 1.2.3(browserslist@4.28.1)
 
@@ -3347,7 +3343,7 @@ snapshots:
 
   earcut@3.0.2: {}
 
-  electron-to-chromium@1.5.325: {}
+  electron-to-chromium@1.5.327: {}
 
   emoji-regex@9.2.2: {}
 
@@ -4356,6 +4352,10 @@ snapshots:
       react-dom: 19.2.4(react@19.2.4)
     optionalDependencies:
       maplibre-gl: 5.21.1
+
+  react-simplikit@0.0.48(react@19.2.4):
+    dependencies:
+      react: 19.2.4
 
   react@19.2.4: {}
 
