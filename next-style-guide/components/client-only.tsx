@@ -1,13 +1,8 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import dynamic from "next/dynamic";
 
-export function ClientOnly(props: React.PropsWithChildren) {
-  const isClient = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false,
-  );
-
-  return isClient && props.children;
-}
+export const ClientOnly = dynamic(
+  async () => (props: React.PropsWithChildren) => props.children,
+  { ssr: false },
+);
