@@ -9,10 +9,9 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { colorful } from "@versatiles/style";
 import { wrap } from "comlink";
 import { m } from "motion/react";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { use, useState } from "react";
+import { useState } from "react";
 import { Controller, useForm, Watch } from "react-hook-form";
 import {
   FullscreenControl,
@@ -37,7 +36,6 @@ export function PageClient() {
   return (
     <>
       <div className="[&,&_*]:not-[[data-isolate],[data-isolate]_*]:m-auto [&,&_*]:not-[[data-isolate],[data-isolate]_*]:flex [&,&_*]:not-[[data-isolate],[data-isolate]_*]:gap-1 [&,&_*]:not-[[data-isolate],[data-isolate]_*]:p-px [&,&_*]:not-[[data-isolate],[data-isolate]_*]:not-data-flex-row:flex-col [&,&_*]:not-[[data-isolate],[data-isolate]_*]:[button]:[all:revert] [&,&_*]:not-[[data-isolate],[data-isolate]_*]:[input,select,textarea]:border">
-        <PandoraBox></PandoraBox>
         <Env></Env>
         <Internationalization></Internationalization>
         <Store></Store>
@@ -54,22 +52,6 @@ export function PageClient() {
     </>
   );
 }
-
-const PandoraBox = dynamic(
-  async () => {
-    const packageJson = fetch(new URL("@/package.json", import.meta.url));
-
-    return function PandoraBox() {
-      console.log(PandoraBox.name);
-
-      const packageJsonResponse = use(packageJson);
-      console.log(packageJsonResponse.status);
-
-      return <></>;
-    };
-  },
-  { ssr: false },
-);
 
 function Env() {
   console.log(Env.name);
@@ -293,8 +275,13 @@ function Print() {
   console.log(Print.name);
 
   return (
-    <>
+    <div>
       <style jsx global>{`
+        @media not print {
+          [data-print] {
+            display: none;
+          }
+        }
         @media print {
           @page {
             size: 8.5in calc(11in * 1);
@@ -313,20 +300,14 @@ function Print() {
           }
         }
       `}</style>
-      <div>
-        <button
-          onClick={() => {
-            window.print();
-          }}
-        >
-          {"print"}
-        </button>
-      </div>
-      <div
-        data-isolate
-        data-print
-        className="typography relative m-auto not-print:hidden"
+      <button
+        onClick={() => {
+          window.print();
+        }}
       >
+        {"print"}
+      </button>
+      <div data-isolate data-print className="typography relative m-auto">
         <h1>Styling the Web: A Modern CSS Journey</h1>
         <p>
           CSS has come a long way since its inception. From simple layout tweaks
@@ -376,7 +357,7 @@ function Print() {
           <Image
             alt="Cute kitten"
             height={400}
-            src="https://placehold.co/600x400"
+            src="https://images.placeholders.dev/600x400"
             unoptimized
             width={600}
           />
@@ -467,7 +448,7 @@ function Print() {
           across devices.
         </p>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -525,8 +506,8 @@ function MapLibre() {
   return (
     <div data-isolate className="relative m-auto aspect-video h-64 border">
       <Map
-        // mapStyle="https://tiles.openfreemap.org/styles/liberty"
         mapStyle={colorful({ baseUrl: "https://tiles.versatiles.org" })}
+        // mapStyle="https://tiles.openfreemap.org/styles/liberty"
         cooperativeGestures
       >
         <Marker
