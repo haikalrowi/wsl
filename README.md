@@ -124,7 +124,11 @@
 
 ## inside your wsl
 
-- [install.sh](./install.sh)
+### [install.sh](./install.sh)
+
+> ```md
+> curl -sL https://github.com/haikalrowi/wsl/raw/HEAD/install.sh | bash -i
+> ```
 
 ## inside your vscode
 
