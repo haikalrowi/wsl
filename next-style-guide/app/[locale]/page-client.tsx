@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { colorful } from "@versatiles/style";
 import { wrap } from "comlink";
+import "maplibre-gl/dist/maplibre-gl.css";
 import { m } from "motion/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -287,6 +288,9 @@ function Print() {
             size: 8.5in calc(11in * 1);
             margin: 0;
           }
+          [data-print] {
+            margin: auto;
+          }
           :not(:has([data-print]), [data-print], [data-print] *) {
             display: none;
           }
@@ -307,7 +311,7 @@ function Print() {
       >
         {"print"}
       </button>
-      <div data-isolate data-print className="typography relative m-auto">
+      <div data-isolate data-print className="typography">
         <h1>Styling the Web: A Modern CSS Journey</h1>
         <p>
           CSS has come a long way since its inception. From simple layout tweaks
