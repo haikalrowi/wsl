@@ -6,7 +6,7 @@ import fs from "node:fs";
   githubUrl = new URL(`/${process.argv[2]}`, "https://github.com/"),
   yearFrom = +process.argv[3] || new Date().getFullYear(),
   yearTo = +process.argv[4] || 2000,
-  output = `${new URL(import.meta.url).pathname}.json`,
+  output = `${new URL(import.meta.url).pathname}.txt`,
 ) {
   const years = [];
   for (const year in Array.from({ length: 1 + yearFrom - yearTo })) {
@@ -14,9 +14,10 @@ import fs from "node:fs";
       years.push(new Date(yearFrom - +year, 11 - +month));
     }
   }
-  const linksPromise = [];
+  const links = new Set();
+  const linkPromises = [];
   for (const item of years) {
-    async function getLinks() {
+    const linkPromise = (async () => {
       const year = Intl.DateTimeFormat("en", { year: "numeric" }).format(item);
       const month = Intl.DateTimeFormat("en", { month: "2-digit" }).format(
         item,
@@ -30,16 +31,12 @@ import fs from "node:fs";
         headers: { "x-requested-with": "XMLHttpRequest" },
       });
       const text = await response.text();
-      return Array.from(
-        text.matchAll(/href\=\"(.*?\/commits\?author\=.*?)\"/g),
-        (item) => `${new URL(item[1], githubUrl)}`,
-      );
-    }
-    linksPromise.push(getLinks());
+      for (const item of text.matchAll(/href="(.*?\/commits\?author=.*?)"/g)) {
+        links.add(`${new URL(item[1], githubUrl)}`);
+      }
+    })();
+    linkPromises.push(linkPromise);
   }
-  const links = await Promise.all(linksPromise);
-  fs.writeFileSync(
-    output,
-    JSON.stringify(Array.from(new Set(links.flat(1))).sort(), null, 2),
-  );
+  await Promise.all(linkPromises);
+  fs.writeFileSync(output, Array.from(links).sort().join("\n"));
 })();
