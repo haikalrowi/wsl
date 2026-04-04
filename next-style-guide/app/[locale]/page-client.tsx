@@ -11,8 +11,9 @@ import { wrap } from "comlink";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { m } from "motion/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { encodeQR } from "qr";
+import { frameLoop, frontalCamera, QRCanvas } from "qr/dom.js";
+import { useRef, useState } from "react";
 import { Controller, useForm, Watch } from "react-hook-form";
 import {
   FullscreenControl,
@@ -43,6 +44,7 @@ export function PageClient() {
         <Swr></Swr>
         <Form></Form>
         <Print></Print>
+        <QrCode></QrCode>
         <WebWorkers></WebWorkers>
         <Lottie></Lottie>
         <GoogleMapsEmbed></GoogleMapsEmbed>
@@ -70,27 +72,17 @@ function Internationalization() {
   const t = useI18n();
   const currentLocale = useCurrentLocale();
   const changeLocale = useChangeLocale();
-  const router = useRouter();
 
   return (
-    <div>
+    <div data-flex-row>
       <p>{t("hello")}</p>
-      <div data-flex-row>
-        <button
-          onClick={() => {
-            changeLocale(({ en: "ja", ja: "en" } as const)[currentLocale]);
-          }}
-        >
-          {"changeLocale(...);"}
-        </button>
-        <button
-          onClick={() => {
-            router.push("/");
-          }}
-        >
-          {'router.push("/");'}
-        </button>
-      </div>
+      <button
+        onClick={() => {
+          changeLocale(({ en: "ja", ja: "en" } as const)[currentLocale]);
+        }}
+      >
+        {"changeLocale(...)"}
+      </button>
     </div>
   );
 }
@@ -103,7 +95,7 @@ function Store() {
 
   return (
     <div>
-      <div>
+      <div data-flex-row>
         <input
           value={query.name}
           onChange={(e) => {
@@ -111,22 +103,20 @@ function Store() {
           }}
         />
         <input value={query.age} readOnly />
-        <div data-flex-row>
-          <button
-            onClick={() => {
-              setQuery((s) => ({ age: s.age - 1 }));
-            }}
-          >
-            {"age-1"}
-          </button>
-          <button
-            onClick={() => {
-              setQuery((s) => ({ age: s.age + 1 }));
-            }}
-          >
-            {"age+1"}
-          </button>
-        </div>
+        <button
+          onClick={() => {
+            setQuery((s) => ({ age: s.age - 1 }));
+          }}
+        >
+          {"age-1"}
+        </button>
+        <button
+          onClick={() => {
+            setQuery((s) => ({ age: s.age + 1 }));
+          }}
+        >
+          {"age+1"}
+        </button>
         <label data-flex-row>
           <input
             type="checkbox"
@@ -138,7 +128,7 @@ function Store() {
           {"isAdult"}
         </label>
       </div>
-      <div>
+      <div data-flex-row>
         <input
           value={store.id}
           onChange={(e) => {
@@ -198,14 +188,14 @@ function Swr() {
           repo.mutate();
         }}
       >
-        {"repo.mutate();"}
+        {"repo.mutate()"}
       </button>
       <button
         onClick={() => {
           pet.trigger([{ petId: 2 }]);
         }}
       >
-        {"pet.trigger(...);"}
+        {"pet.trigger(...)"}
       </button>
     </div>
   );
@@ -240,16 +230,16 @@ function Form() {
         control={form.control}
         render={({ field }) => <input {...field} placeholder={field.name} />}
       ></Controller>
-      <Watch
-        name="title"
-        control={form.control}
-        render={(field) => <p>{`title: ${field}`}</p>}
-      ></Watch>
       <Controller
         name="description"
         control={form.control}
         render={({ field }) => <textarea {...field} placeholder={field.name} />}
       ></Controller>
+      <Watch
+        name="title"
+        control={form.control}
+        render={(field) => <p>{`title: ${field}`}</p>}
+      ></Watch>
       <Watch
         name={["description"]}
         control={form.control}
@@ -451,6 +441,82 @@ function Print() {
           styling. Test extensively to ensure consistent, accessible results
           across devices.
         </p>
+      </div>
+    </div>
+  );
+}
+
+function QrCode() {
+  console.log(QrCode.name);
+
+  const [inputValue, setInputValue] = useState("");
+  const qrRef = useRef({
+    video: null as null | HTMLVideoElement,
+    camera: null as null | Awaited<ReturnType<typeof frontalCamera>>,
+    canvas: new QRCanvas({}, { cropToSquare: false }),
+    cancel: null as null | (() => void),
+  });
+
+  return (
+    <div>
+      <div data-flex-row>
+        <div className="relative aspect-square h-32">
+          <Image
+            src={`data:image/svg+xml,${encodeURIComponent(encodeQR(inputValue, "svg"))}`}
+            alt=""
+            fill
+            className="object-contain"
+          />
+        </div>
+        <div className="relative aspect-video h-32 border">
+          <video
+            ref={(instance) => {
+              qrRef.current.video = instance;
+            }}
+            className="absolute inset-0 h-full w-full object-cover"
+          ></video>
+        </div>
+      </div>
+      <div data-flex-row>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) => {
+            setInputValue(e.currentTarget.value);
+          }}
+        />
+        <button
+          onClick={async () => {
+            if (qrRef.current.video) {
+              qrRef.current.camera = await frontalCamera(qrRef.current.video);
+              qrRef.current.cancel = frameLoop(() => {
+                if (
+                  !!qrRef.current.video?.videoHeight &&
+                  !!qrRef.current.video.videoWidth
+                ) {
+                  const result = qrRef.current.camera?.readFrame?.(
+                    qrRef.current.canvas,
+                    true,
+                  );
+                  console.log(result);
+                }
+              });
+            }
+          }}
+        >
+          {"scan"}
+        </button>
+        <button
+          onClick={() => {
+            if (qrRef.current.video) {
+              qrRef.current.video.srcObject = null;
+              qrRef.current.camera?.stop();
+              qrRef.current.cancel?.();
+            }
+          }}
+        >
+          {"stop"}
+        </button>
       </div>
     </div>
   );

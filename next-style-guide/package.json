@@ -22,6 +22,7 @@
     "next": "~16.2.0",
     "next-international": "^1.0.0",
     "nuqs": "^2.0.0",
+    "qr": "^0.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.0.0",
