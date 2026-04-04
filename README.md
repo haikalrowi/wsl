@@ -129,6 +129,13 @@
 > ```md
 > curl -sL https://github.com/haikalrowi/wsl/raw/HEAD/install.sh | bash -i
 > ```
+>
+> ```md
+> START=$(cat /sys/class/net/eth0/statistics/rx_bytes) &&
+> curl -sL https://github.com/haikalrowi/wsl/raw/HEAD/install.sh | bash -i &&
+> END=$(cat /sys/class/net/eth0/statistics/rx_bytes) &&
+> echo "$(( (END-START)/1024/1024 )) MB"
+> ```
 
 ## inside your vscode
 
