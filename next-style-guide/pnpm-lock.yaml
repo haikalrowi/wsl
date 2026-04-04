@@ -16,7 +16,7 @@ importers:
         version: 0.18.9(react@19.2.4)
       '@versatiles/style':
         specifier: ^5.0.0
-        version: 5.10.0
+        version: 5.10.1
       comlink:
         specifier: ^4.0.0
         version: 4.4.2
@@ -830,8 +830,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@versatiles/style@5.10.0':
-    resolution: {integrity: sha512-9yN549WyI1lAW4Gc6GHUetZuYXA5X9geFFPzisjuN3Q8Gta85fumAkq53ZT6/9Kc25nY59bK1siMs5Twr1pFTw==}
+  '@versatiles/style@5.10.1':
+    resolution: {integrity: sha512-5bsinIksZe2BzeMIhijXwxjDGyh1HmMZ5++OWTYjHTgLQon8pGXdkVSgukMUHDOj9tslZr5qg/8RVkvJebHF0w==}
 
   '@vis.gl/react-mapbox@8.1.0':
     resolution: {integrity: sha512-FwvH822oxEjWYOr+pP2L8hpv+7cZB2UsQbHHHT0ryrkvvqzmTgt7qHDhamv0EobKw86e1I+B4ojENdJ5G5BkyQ==}
@@ -989,8 +989,8 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  caniuse-lite@1.0.30001784:
-    resolution: {integrity: sha512-WU346nBTklUV9YfUl60fqRbU5ZqyXlqvo1SgigE1OAXK5bFL8LL9q1K7aap3N739l4BvNqnkm3YrGHiY9sfUQw==}
+  caniuse-lite@1.0.30001785:
+    resolution: {integrity: sha512-blhOL/WNR+Km1RI/LCVAvA73xplXA7ZbjzI4YkMK9pa6T/P3F2GxjNpEkyw5repTw9IvkyrjyHpwjnhZ5FOvYQ==}
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -3076,7 +3076,7 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
 
-  '@versatiles/style@5.10.0':
+  '@versatiles/style@5.10.1':
     dependencies:
       brace-expansion: 5.0.5
 
@@ -3223,7 +3223,7 @@ snapshots:
   browserslist@4.28.2:
     dependencies:
       baseline-browser-mapping: 2.10.14
-      caniuse-lite: 1.0.30001784
+      caniuse-lite: 1.0.30001785
       electron-to-chromium: 1.5.331
       node-releases: 2.0.37
       update-browserslist-db: 1.2.3(browserslist@4.28.2)
@@ -3256,7 +3256,7 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  caniuse-lite@1.0.30001784: {}
+  caniuse-lite@1.0.30001785: {}
 
   chalk@4.1.2:
     dependencies:
@@ -4176,7 +4176,7 @@ snapshots:
       '@next/env': 16.2.2
       '@swc/helpers': 0.5.15
       baseline-browser-mapping: 2.10.14
-      caniuse-lite: 1.0.30001784
+      caniuse-lite: 1.0.30001785
       postcss: 8.4.31
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)

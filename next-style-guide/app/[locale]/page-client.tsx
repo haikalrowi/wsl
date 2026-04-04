@@ -491,8 +491,8 @@ function QrCode() {
               qrRef.current.camera = await frontalCamera(qrRef.current.video);
               qrRef.current.cancel = frameLoop(() => {
                 if (
-                  !!qrRef.current.video?.videoHeight &&
-                  !!qrRef.current.video.videoWidth
+                  qrRef.current.video?.videoHeight &&
+                  qrRef.current.video.videoWidth
                 ) {
                   const result = qrRef.current.camera?.readFrame?.(
                     qrRef.current.canvas,
