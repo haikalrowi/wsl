@@ -7,7 +7,7 @@ import { en, ja } from "zod/locales";
 export function ZodConfig() {
   const currentLocale = useCurrentLocale();
 
-  z.config({ en, ja }[currentLocale]());
+  z.config((currentLocale === "ja" ? ja : en)());
 
   return <></>;
 }

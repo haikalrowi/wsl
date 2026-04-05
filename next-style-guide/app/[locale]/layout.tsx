@@ -1,4 +1,4 @@
-import { ClientOnly } from "@/components/client-only";
+import { Csr } from "@/components/csr";
 import { LazyMotion } from "@/components/lazy-motion";
 import { ZodConfig } from "@/components/zod-config";
 import { I18nProviderClient } from "@/locales/client";
@@ -34,14 +34,12 @@ export default async function Layout(props: LayoutProps<"/[locale]">) {
     <>
       <html lang={locale} className="[--brand-text-1:#0a0a0a]">
         <body className="text-(--brand-text-1)">
+          <ZodConfig></ZodConfig>
           <I18nProviderClient locale={locale}>
             <NuqsAdapter defaultOptions={{}}>
               <SWRConfig value={{}}>
                 <LazyMotion>
-                  <ClientOnly>
-                    <ZodConfig></ZodConfig>
-                    {props.children}
-                  </ClientOnly>
+                  <Csr>{props.children}</Csr>
                 </LazyMotion>
               </SWRConfig>
             </NuqsAdapter>

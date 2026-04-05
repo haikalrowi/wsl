@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 
-export const ClientOnly = dynamic(
+export const Csr = dynamic(
   async () => (props: React.PropsWithChildren) => props.children,
   { ssr: false },
 );

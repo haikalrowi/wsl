@@ -230,16 +230,18 @@ function Form() {
         control={form.control}
         render={({ field }) => <input {...field} placeholder={field.name} />}
       ></Controller>
-      <Controller
-        name="description"
-        control={form.control}
-        render={({ field }) => <textarea {...field} placeholder={field.name} />}
-      ></Controller>
       <Watch
         name="title"
         control={form.control}
         render={(field) => <p>{`title: ${field}`}</p>}
       ></Watch>
+      <Controller
+        name="description"
+        control={form.control}
+        render={({ field }) => (
+          <textarea {...field} placeholder={field.name}></textarea>
+        )}
+      ></Controller>
       <Watch
         name={["description"]}
         control={form.control}
