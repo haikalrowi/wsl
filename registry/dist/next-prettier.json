@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "next-prettier",
+  "devDependencies": [
+    "prettier@^3.0.0",
+    "prettier-plugin-tailwindcss@^0.7.0"
+  ],
+  "files": [
+    {
+      "path": "./src/next-prettier/.prettierrc",
+      "content": "{\n  \"plugins\": [\"prettier-plugin-tailwindcss\"]\n}\n",
+      "type": "registry:file",
+      "target": "~/.prettierrc"
+    },
+    {
+      "path": "./src/next-prettier/.prettierignore",
+      "content": "pnpm-lock.yaml\npackage-lock.json\nbun.lock\nyarn.lock\n",
+      "type": "registry:file",
+      "target": "~/.prettierignore"
+    }
+  ],
+  "type": "registry:item"
+}
