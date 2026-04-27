@@ -1,6 +1,4 @@
-const { SERVER, NEXT_PUBLIC_CLIENT } = process.env;
-
 export const env = {
-  SERVER,
-  NEXT_PUBLIC_CLIENT,
+  server: process.env.SERVER,
+  client: process.env.NEXT_PUBLIC_CLIENT,
 };
