@@ -1,5 +1,5 @@
 export default {
   hello: "こんにちは",
   "hello.world": "こんにちは、世界！",
-  welcome: "こんにちは {name}！",
+  welcome: "こんにちは、{name}！",
 } as const;

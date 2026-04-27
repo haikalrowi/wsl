@@ -4,7 +4,7 @@ async function handle(
 ) {
   const params = await context.params;
 
-  return Response.json({ params: params });
+  return Response.json(params);
 }
 
 export const GET = handle;
