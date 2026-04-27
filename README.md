@@ -103,7 +103,7 @@ write_files:
       read_and_eval() {
         read -p "$1 [y/n]: " yn
         [ "$yn" = "y" ] && eval "$1"
-        [ "$yn" = "n" ] || read_and_eval "$1"
+        [ "$yn" = "y" ] || [ "$yn" = "n" ] || read_and_eval "$1"
       }
       read_and_eval "mkdir p p-work && (
       cd p
