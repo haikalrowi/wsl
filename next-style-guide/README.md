@@ -41,7 +41,7 @@ pnpm dlx shadcn@latest add button
 ```
 
 ```md
-find components/ui -type f | xargs -n 1 basename | cut -d . -f 1 | xargs pnpm dlx shadcn@latest add
+ls components/ui | cut -d . -f 1 | xargs pnpm dlx shadcn@latest add --yes --overwrite
 ```
 
 - https://ui.shadcn.com/docs/cli
