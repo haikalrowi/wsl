@@ -40,6 +40,10 @@ pnpm add next-international@^1.0.0
 pnpm dlx shadcn@latest add button
 ```
 
+```md
+find components/ui -type f | xargs -n 1 basename | cut -d . -f 1 | xargs pnpm dlx shadcn@latest add
+```
+
 - https://ui.shadcn.com/docs/cli
 - https://ui.shadcn.com/docs/changelog
 
