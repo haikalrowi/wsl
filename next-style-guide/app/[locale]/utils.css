@@ -1,0 +1,20 @@
+@utility utils {
+  :is(&, & *):not([data-isolate], [data-isolate] *) {
+    @apply m-auto flex gap-1 p-1 font-mono not-data-flex-row:flex-col;
+    &:is(button, input, select, optgroup, textarea) {
+      @apply border;
+    }
+    &:is(button) {
+      @apply [all:revert];
+      @apply font-mono;
+    }
+    &:is(input) {
+    }
+    &:is(select) {
+    }
+    &:is(optgroup) {
+    }
+    &:is(textarea) {
+    }
+  }
+}

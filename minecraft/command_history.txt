@@ -1,0 +1,8 @@
+/give @s minecraft:ender_eye 64
+/give @s minecraft:ender_pearl 64
+/item modify entity @s weapon.mainhand [{"function":"set_enchantments","enchantments":{"power":255,"punch":255,"flame":255,"infinity":255,"unbreaking":255,"quick_charge":255,"mending":255}}]
+/effect give @s minecraft:resistance infinite 255 true
+/effect give @s minecraft:night_vision infinite 255 true
+/effect give @s minecraft:strength infinite 255 true
+/effect give @s minecraft:conduit_power infinite 7 true
+/effect give @s minecraft:invisibility infinite 255 true
