@@ -2,11 +2,6 @@
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "items": [
     {
-      "name": "next-shadcn",
-      "type": "registry:item",
-      "registryDependencies": ["button"]
-    },
-    {
       "name": "next-prettier",
       "type": "registry:item",
       "devDependencies": [
