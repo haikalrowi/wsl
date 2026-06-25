@@ -146,14 +146,9 @@ git ls-files --cached --others --exclude-standard | python3 -c 'import os,subpro
 git diff --name-only --relative HEAD | python3 -c 'import os,subprocess,sys,zipfile;output=subprocess.check_output(["git","rev-parse","--show-toplevel","--abbrev-ref","HEAD"]).decode().strip().split("\n");basename=os.path.basename(output[0]);branch=output[1].replace("/","-");name=f"{basename}.{branch}.zip";zip_file=zipfile.ZipFile(name,"w");[zip_file.write(line.strip())for line in sys.stdin if os.path.exists(line.strip())and line.strip()!=name];zip_file.close();'
 ```
 
-```md
-git archive -o "$(basename $(git rev-parse --show-toplevel)).HEAD.zip" HEAD
-```
-
-### from `.png` to `.avif`
+### from `image/*` to `.avif`
 
 ```md
 pnpm add -D sharp
-pnpm rebuild sharp
-node -e 'const folder="./";require("fs").readdirSync(folder).filter(file=>file.endsWith(".png")).forEach(file=>require("sharp")(folder+file).avif({quality:50,effort:7}).toFile(folder+file.replace(".png",".avif")))'
+node -e '["./"].forEach(folder=>require("fs").readdirSync(folder).filter(file=>file.endsWith(".png")).forEach(file=>require("sharp")(folder+file).avif({quality:50,effort:7}).toFile(folder+file.replace(".png",".avif"))))'
 ```
