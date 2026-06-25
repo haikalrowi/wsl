@@ -4,12 +4,16 @@
 PROJECT_NAME="./" &&
 pnpm dlx create-next-app@^16.0.0 $PROJECT_NAME &&
 cd $PROJECT_NAME &&
-pnpm dlx shadcn@latest add haikalrowi/wsl/next-prettier
+pnpm dlx shadcn@latest add haikalrowi/wsl/next-prettier &&
+pnpm dlx shadcn@latest add haikalrowi/wsl/next-env &&
+pnpm dlx shadcn@latest add haikalrowi/wsl/next-storyblok
 ```
 
 - https://nextjs.org/docs/app/api-reference/cli/create-next-app
 - https://prettier.io/docs/install
 - https://github.com/tailwindlabs/prettier-plugin-tailwindcss
+- https://nextjs.org/docs/app/guides/environment-variables
+- https://www.storyblok.com/docs/guides/nextjs
 
 ## development
 
