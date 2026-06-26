@@ -44,7 +44,7 @@ pnpm dlx shadcn@latest add button
 ```
 
 ```md
-pnpm dlx shadcn@latest add --yes --overwrite $(ls components/ui | cut -d . -f 1)
+node -e 'const fs=require("fs"),cp=require("child_process"),path="components/ui/",files=fs.readdirSync(path);if(files.length){cp.execFileSync("pnpm",["dlx","shadcn@latest","add","--yes","--overwrite",...files.filter(item=>fs.statSync(path+item).isFile()).map(item=>item.slice(0,item.lastIndexOf(".")))])}'
 ```
 
 - https://ui.shadcn.com/docs/cli
