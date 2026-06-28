@@ -44,6 +44,11 @@
           "target": "~/components/storyblok-provider.tsx"
         },
         {
+          "path": "./src/next-storyblok/components-storyblok-richtext.tsx",
+          "type": "registry:item",
+          "target": "~/components/storyblok-richtext.tsx"
+        },
+        {
           "path": "./src/next-storyblok/lib.ts",
           "type": "registry:item",
           "target": "~/lib/storyblok.ts"
