@@ -5,6 +5,8 @@ import {
   ComponentType,
   GetStories,
   GetStory,
+  StoryblokMultilink,
+  StoryblokRichtext,
 } from "@/utils/storyblok";
 import { apiPlugin, storyblokInit } from "@storyblok/react";
 import Link from "next/link";
