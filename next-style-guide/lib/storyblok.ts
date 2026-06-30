@@ -1,9 +1,5 @@
 import { env } from "@/utils/env";
-import {
-  apiPlugin,
-  storyblokInit,
-  useStoryblokApi,
-} from "@storyblok/react/rsc";
+import { apiPlugin, storyblokInit, useStoryblokApi } from "@storyblok/react";
 // import { Page } from "@/components/storyblok/page";
 // import {
 //   BlockType,
@@ -51,7 +47,7 @@ export function getStoryblokApi() {
 
 //     return storyblokApi.getStory(slug, {
 //       language: locale,
-//       resolve_relations: ["page.carcollection_items"],
+//       resolve_relations: ["page.items"],
 //     }) as Promise<GetStory<T>>;
 //   },
 // );
