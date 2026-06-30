@@ -26,9 +26,46 @@
       "type": "registry:item",
       "files": [
         {
-          "path": "./src/next-env/env.ts",
+          "path": "./src/next-env/utils.ts",
           "type": "registry:item",
           "target": "~/utils/env.ts"
+        }
+      ]
+    },
+    {
+      "name": "next-internationalization",
+      "type": "registry:item",
+      "dependencies": ["next-international@^1.0.0"],
+      "files": [
+        {
+          "path": "./src/next-internationalization/app-[locale]-layout.tsx",
+          "type": "registry:item",
+          "target": "~/app/[locale]/layout.tsx"
+        },
+        {
+          "path": "./src/next-internationalization/locales-client.ts",
+          "type": "registry:item",
+          "target": "~/locales/client.ts"
+        },
+        {
+          "path": "./src/next-internationalization/locales-server.ts",
+          "type": "registry:item",
+          "target": "~/locales/server.ts"
+        },
+        {
+          "path": "./src/next-internationalization/locales-en.ts",
+          "type": "registry:item",
+          "target": "~/locales/en.ts"
+        },
+        {
+          "path": "./src/next-internationalization/locales-ja.ts",
+          "type": "registry:item",
+          "target": "~/locales/ja.ts"
+        },
+        {
+          "path": "./src/next-internationalization/proxy.ts",
+          "type": "registry:item",
+          "target": "~/proxy.ts"
         }
       ]
     },
