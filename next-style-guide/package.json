@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "prepare": "next typegen",
-    "openapi-sync": "node scripts/openapi-sync.js",
+    "openapi-generate": "node scripts/openapi-generate.js",
     "cloudflared-tunnel": "cloudflared tunnel --url http://localhost:3000 --protocol http2",
     "storyblok-login": "storyblok login",
     "prestoryblok-types-generate": "storyblok components pull --space 000000000000000",
