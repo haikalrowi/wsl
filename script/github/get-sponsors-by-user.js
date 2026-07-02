@@ -1,39 +1,43 @@
-import fs from "node:fs";
-
-(async function (username = process.argv[2], output = `${process.argv[1]}.md`) {
-  const sponsors = new Set();
-  const getSponsors = async (filter = "", page = 0) => {
-    const request = new Request(
-      `https://github.com/sponsors/${username}/sponsors_partial?filter=${filter}&page=${page}`,
-    );
-    const response = await fetch(request).catch((reason) => {
-      return new Response(null, { headers: { "x-catch": `${reason}` } });
-    });
-    const text = await response.text();
-    const regexp = /href="(\/.*?)"/g;
-    for (const [, href] of text.matchAll(regexp)) {
-      const username = href.slice(1);
-      if (username) {
-        sponsors.add(
-          `![${filter}](https://github.com/${username}.png)\n<br>\n\`${username}\`,(${(await getDetails(username)).join(",")})`,
-        );
-      }
-    }
-    console.log(request.url, response.status, response.headers.get("x-catch"));
+const fs = require("node:fs"),
+  output = `${process.argv[1]}.md`,
+  user = process.argv[2],
+  filters = ["active", "inactive"],
+  pages = Array.from({ length: 10 }, (_, index) => index + 1),
+  sponsorPattern = /href="\/(.*?)"/g,
+  sponsors = /** @type {Set<string>} */ (new Set()),
+  delay = () => new Promise((resolve) => setTimeout(resolve, 101));
+Array.from({ length: filters.length * pages.length }, (_, index) => {
+  return () => {
+    const filter = filters[Math.floor(index / pages.length)],
+      page = pages[index % pages.length];
+    return fetch(
+      `https://github.com/sponsors/${user}/sponsors_partial?filter=${filter}&page=${page}`,
+    )
+      .then((response) => Promise.all([response, response.text()]))
+      .then(([response, text]) => {
+        return Array.from(text.matchAll(sponsorPattern), ([, sponsorHref]) => {
+          return () => {
+            return fetch(`https://github.com/${sponsorHref}`)
+              .then((response) => Promise.all([response, response.text()]))
+              .then(([response, text]) => {
+                const details = [
+                  `\`${sponsorHref}\``,
+                  `${text.match(/title="Label: Verified"/g) ? "Verified" : ""}`,
+                  `${text.match(/title="Label: GitHub Sponsor"/g) ? "Sponsor" : ""}`,
+                ].filter((item) => !!item);
+                sponsors.add(
+                  `- ![${filter}](https://github.com/${sponsorHref}.png)<br>${details.length ? `(${details})` : ""}`,
+                );
+                console.log(response.url, "ok");
+              });
+          };
+        })
+          .reduce((a, b) => a.then(b).then(delay), Promise.resolve())
+          .then(() => console.log(response.url, "ok"));
+      });
   };
-  const getDetails = async (username = "") => {
-    const request = new Request(`https://github.com/${username}`);
-    const response = await fetch(request);
-    const text = await response.text();
-    return [
-      text.match(/title="Label: Verified"/g) ? "Verified" : "",
-      text.match(/title="Label: GitHub Sponsor"/g) ? "Sponsor" : "",
-    ].filter((value) => value);
-  };
-  const promises = [];
-  for (const page of Array(50).keys()) {
-    promises.push(getSponsors("active", page), getSponsors("inactive", page));
-  }
-  await Promise.all(promises);
-  fs.writeFileSync(output, Array.from(sponsors).sort().join("\n\n"));
-})();
+})
+  .reduce((a, b) => a.then(b).then(delay), Promise.resolve())
+  .then(() => {
+    fs.writeFileSync(output, Array.from(sponsors).sort().join("\n"));
+  });

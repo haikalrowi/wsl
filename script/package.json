@@ -1,7 +1,6 @@
 {
-  "type": "module",
   "scripts": {
-    "github-get-commits-by-user": "clear && node ./github/get-commits-by-user.js t3dotgg",
+    "github-get-commits-by-users": "clear && node ./github/get-commits-by-users.js t3dotgg",
     "github-get-sponsors-by-user": "clear && node ./github/get-sponsors-by-user.js t3dotgg"
   }
 }
