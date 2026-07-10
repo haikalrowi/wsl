@@ -5,6 +5,7 @@
         "esbenp.prettier-vscode",
         "streetsidesoftware.code-spell-checker",
         // "astral-sh.ty",
-        "charliermarsh.ruff"
+        // "charliermarsh.ruff"
+        "TypeScriptTeam.native-preview"
     ]
 }
