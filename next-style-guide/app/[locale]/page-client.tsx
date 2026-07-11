@@ -2,6 +2,7 @@
 
 import { Api } from "@/assets/worker";
 import { GoogleChart } from "@/components/google-chart";
+import { Link } from "@/components/link";
 import { useQuery, useStore } from "@/hooks/use-state-app";
 import { useChangeLocale, useCurrentLocale, useI18n } from "@/locales/client";
 import { appDefaultApi, appSchema, petstorePetApi } from "@/openapi";
@@ -13,7 +14,7 @@ import { colorful } from "@versatiles/style";
 import { wrap } from "comlink";
 import { m } from "motion/react";
 import Image from "next/image";
-import { parseAsStringLiteral, useQueryState } from "nuqs";
+import { createSerializer, parseAsStringLiteral, useQueryStates } from "nuqs";
 import { encodeQR } from "qr";
 import { frameLoop, frontalCamera, QRCanvas } from "qr/dom.js";
 import { useRef, useState } from "react";
@@ -36,24 +37,27 @@ import { persist } from "zustand/middleware";
 import { getEnv } from "./page-server";
 
 export function PageClient() {
-  const [Guide, guide, guideKeys, setGuide] = useGuide();
+  const [query] = useGuide();
+  const Guide = guide[query.guide as keyof typeof guide];
 
   return (
-    <div className="utils">
-      <div data-flex-row className="flex-wrap justify-center">
+    <div className="utils flex-row">
+      <div className="flex-1 overflow-y-scroll">
         {guideKeys.map((item) => (
-          <button
+          <Link
             key={item}
-            onClick={() => {
-              setGuide(item);
-            }}
+            href={serializeGuide("/", { guide: item })}
+            data-active={item === query.guide}
+            className="hover:ring data-[active=true]:ring"
           >
             {item}
-          </button>
+          </Link>
         ))}
       </div>
-      <p>{guide}</p>
-      <Guide></Guide>
+      <div className="flex-2 overflow-y-scroll">
+        <p>{query.guide}</p>
+        <Guide></Guide>
+      </div>
     </div>
   );
 }
@@ -68,20 +72,18 @@ const guide = {
     });
 
     return (
-      <div>
+      <>
         <textarea
-          cols={24}
-          rows={4}
+          rows={10}
           value={JSON.stringify(env, null, 2)}
           readOnly
         ></textarea>
         <textarea
-          cols={24}
-          rows={4}
+          rows={10}
           value={JSON.stringify(data.data, null, 2)}
           readOnly
         ></textarea>
-      </div>
+      </>
     );
   },
 
@@ -94,7 +96,7 @@ const guide = {
     const changeLocale = useChangeLocale({ preserveSearchParams: true });
 
     return (
-      <div>
+      <>
         <input value={t("hello.world")} readOnly />
         <button
           onClick={() => {
@@ -103,7 +105,7 @@ const guide = {
         >
           {"⇄"}
         </button>
-      </div>
+      </>
     );
   },
 
@@ -114,24 +116,25 @@ const guide = {
     const [query, setQuery] = useQuery();
 
     return (
-      <div>
-        <label data-flex-row>
+      <>
+        <div className="flex-row">
+          <label className="flex-row">
+            <input
+              type="checkbox"
+              checked={query.isAdult}
+              onChange={(e) => {
+                setQuery({ isAdult: e.currentTarget.checked });
+              }}
+            />
+            {"isAdult"}
+          </label>
           <input
-            type="checkbox"
-            checked={query.isAdult}
+            value={query.name}
             onChange={(e) => {
-              setQuery({ isAdult: e.currentTarget.checked });
+              setQuery({ name: e.currentTarget.value });
             }}
           />
-          {"isAdult"}
-        </label>
-        <input
-          value={query.name}
-          onChange={(e) => {
-            setQuery({ name: e.currentTarget.value });
-          }}
-        />
-        <div data-flex-row>
+          <input value={query.age} readOnly />
           <button
             onClick={() => {
               setQuery((s) => ({ age: s.age - 1 }));
@@ -139,7 +142,6 @@ const guide = {
           >
             {"-"}
           </button>
-          <input value={query.age} readOnly />
           <button
             onClick={() => {
               setQuery((s) => ({ age: s.age + 1 }));
@@ -155,7 +157,7 @@ const guide = {
         >
           {"↻"}
         </button>
-      </div>
+      </>
     );
   },
 
@@ -166,31 +168,33 @@ const guide = {
     const store = useStore();
 
     return (
-      <div>
-        <select
-          value={`${store.isActive}`}
-          onChange={(e) => {
-            useStore.setState({
-              isActive: { "0": false, "1": true }[e.currentTarget.value],
-            });
-          }}
-        >
-          <option value="0">{"isActive:false"}</option>
-          <option value="1">{"isActive:true"}</option>
-        </select>
-        <input
-          value={store.id}
-          onChange={(e) => {
-            useStore.setState({ id: e.currentTarget.value });
-          }}
-        />
-        <input
-          type="number"
-          value={`${store.count}`}
-          onChange={(e) => {
-            useStore.setState({ count: e.currentTarget.valueAsNumber });
-          }}
-        />
+      <>
+        <div className="flex-row">
+          <select
+            value={+store.isActive}
+            onChange={(e) => {
+              useStore.setState({
+                isActive: { "0": false, "1": true }[e.currentTarget.value],
+              });
+            }}
+          >
+            <option value="0">{"isActive:false"}</option>
+            <option value="1">{"isActive:true"}</option>
+          </select>
+          <input
+            value={store.id}
+            onChange={(e) => {
+              useStore.setState({ id: e.currentTarget.value });
+            }}
+          />
+          <input
+            type="number"
+            value={`${store.count}`}
+            onChange={(e) => {
+              useStore.setState({ count: e.currentTarget.valueAsNumber });
+            }}
+          />
+        </div>
         <button
           onClick={() => {
             useStore.setState(useStore.getInitialState());
@@ -198,7 +202,7 @@ const guide = {
         >
           {"↻"}
         </button>
-      </div>
+      </>
     );
   },
 
@@ -225,10 +229,9 @@ const guide = {
     );
 
     return (
-      <div data-flex-row>
-        <div>
+      <div className="flex-row">
+        <div className="flex-1">
           <textarea
-            cols={30}
             rows={10}
             value={JSON.stringify(repo, null, 2)}
             readOnly
@@ -241,9 +244,8 @@ const guide = {
             {"→"}
           </button>
         </div>
-        <div>
+        <div className="flex-1">
           <textarea
-            cols={30}
             rows={10}
             value={JSON.stringify(pet, null, 2)}
             readOnly
@@ -272,34 +274,26 @@ const guide = {
     });
 
     return (
-      <form onSubmit={form.handleSubmit(console.log)}>
+      <>
         {/* <Watch
           control={form.control}
           compute={formPersist.setState}
           render={() => <></>}
-          ></Watch> */}
-        <Watch
-          name={["title", "description"]}
-          control={form.control}
-          render={(field) => (
-            <textarea
-              cols={30}
-              rows={10}
-              value={JSON.stringify(field, null, 2)}
-              readOnly
-            ></textarea>
-          )}
-        ></Watch>
-        <div data-flex-row>
+        ></Watch> */}
+        <form
+          onSubmit={form.handleSubmit(console.log)}
+          className="flex-row"
+          id="form"
+        >
           <Controller
             name="title"
             control={form.control}
             render={({ field }) => (
               <textarea
-                cols={30}
                 rows={10}
                 {...field}
                 placeholder={field.name}
+                className="flex-1"
               ></textarea>
             )}
           ></Controller>
@@ -308,15 +302,27 @@ const guide = {
             control={form.control}
             render={({ field }) => (
               <textarea
-                cols={30}
                 rows={10}
                 {...field}
                 placeholder={field.name}
+                className="flex-1"
               ></textarea>
             )}
           ></Controller>
-        </div>
-        <button type="submit" disabled={!form.formState.isValid}>
+          <Watch
+            name={["title", "description"]}
+            control={form.control}
+            render={(field) => (
+              <textarea
+                rows={10}
+                value={JSON.stringify(field, null, 2)}
+                readOnly
+                className="flex-1"
+              ></textarea>
+            )}
+          ></Watch>
+        </form>
+        <button type="submit" disabled={!form.formState.isValid} form="form">
           {"→"}
         </button>
         <button
@@ -324,38 +330,49 @@ const guide = {
           onClick={() => {
             form.reset(formPersist.getInitialState());
           }}
+          form="form"
         >
           {"↻"}
         </button>
-      </form>
+      </>
     );
   },
 
   // https://formsubmit.co/documentation
-  FormSubmit() {
+  Formsubmit() {
     return (
-      <form action="https://formsubmit.co/fokecola@mailgolem.com" method="POST">
+      <>
+        <form
+          action="https://formsubmit.co/fokecola@mailgolem.com"
+          method="POST"
+          id="formsubmit"
+        ></form>
         <input
           type="hidden"
           name="_next"
           value={new URL("/", env.BASE_URL).href}
+          form="formsubmit"
         />
-        <input type="hidden" name="_captcha" value="true" />
-        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="true" form="formsubmit" />
+        <input type="hidden" name="_template" value="table" form="formsubmit" />
         <input
           type="text"
           name="name"
           placeholder="name"
           defaultValue="John Doe"
+          form="formsubmit"
         />
         <input
           type="email"
           name="email"
           placeholder="email"
           defaultValue="john.doe@example.com"
+          form="formsubmit"
         />
-        <button type="submit">{"→"}</button>
-      </form>
+        <button type="submit" form="formsubmit">
+          {"→"}
+        </button>
+      </>
     );
   },
 
@@ -365,42 +382,40 @@ const guide = {
 
     return (
       <>
-        <div>
-          <style jsx global>{`
-            @media not print {
-              [data-print] {
-                display: none;
-              }
+        <style jsx global>{`
+          @media not print {
+            [data-print] {
+              display: none;
             }
-            @media print {
-              @page {
-                size: 8.5in calc(11in * 1);
-                margin: 0;
-              }
-              [data-print] {
-                margin: auto;
-              }
-              :not(:has([data-print]), [data-print], [data-print] *) {
-                display: none;
-              }
-              html,
-              body {
-                margin: 0.1in;
-              }
-              * {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-              }
+          }
+          @media print {
+            @page {
+              size: 8.5in calc(11in * 1);
+              margin: 0;
             }
-          `}</style>
-          <button
-            onClick={() => {
-              print();
-            }}
-          >
-            {"🖶"}
-          </button>
-        </div>
+            [data-print] {
+              margin: auto;
+            }
+            :not(:has([data-print]), [data-print], [data-print] *) {
+              display: none;
+            }
+            html,
+            body {
+              margin: 0.1in;
+            }
+            * {
+              -webkit-print-color-adjust: exact;
+              print-color-adjust: exact;
+            }
+          }
+        `}</style>
+        <button
+          onClick={() => {
+            print();
+          }}
+        >
+          {"🖶"}
+        </button>
         <div data-isolate data-print className="typography">
           <h1>Styling the Web: A Modern CSS Journey</h1>
           <p>
@@ -559,7 +574,7 @@ const guide = {
     });
 
     return (
-      <div>
+      <>
         <div className="relative aspect-video h-48 border">
           <video
             ref={(instance) => {
@@ -568,38 +583,42 @@ const guide = {
             className="absolute inset-0 h-full w-full object-cover"
           ></video>
         </div>
-        <button
-          onClick={async () => {
-            if (qrRef.current.video) {
-              qrRef.current.camera = await frontalCamera(qrRef.current.video);
-              qrRef.current.cancel = frameLoop(() => {
-                if (
-                  qrRef.current.video?.videoHeight &&
-                  qrRef.current.video?.videoWidth
-                ) {
-                  const result = qrRef.current.camera?.readFrame?.(
-                    qrRef.current.canvas,
-                    true,
-                  );
-                  console.log(result);
-                }
-              });
-            }
-          }}
-        >
-          {"▶"}
-        </button>
-        <button
-          onClick={() => {
-            if (qrRef.current.video) {
-              qrRef.current.video.srcObject = null;
-              qrRef.current.camera?.stop();
-              qrRef.current.cancel?.();
-            }
-          }}
-        >
-          {"⏹"}
-        </button>
+        <div className="flex-row">
+          <button
+            className="flex-1"
+            onClick={async () => {
+              if (qrRef.current.video) {
+                qrRef.current.camera = await frontalCamera(qrRef.current.video);
+                qrRef.current.cancel = frameLoop(() => {
+                  if (
+                    qrRef.current.video?.videoHeight &&
+                    qrRef.current.video?.videoWidth
+                  ) {
+                    const result = qrRef.current.camera?.readFrame?.(
+                      qrRef.current.canvas,
+                      true,
+                    );
+                    console.log(result);
+                  }
+                });
+              }
+            }}
+          >
+            {"▶"}
+          </button>
+          <button
+            className="flex-1"
+            onClick={() => {
+              if (qrRef.current.video) {
+                qrRef.current.video.srcObject = null;
+                qrRef.current.camera?.stop();
+                qrRef.current.cancel?.();
+              }
+            }}
+          >
+            {"⏹"}
+          </button>
+        </div>
         <div className="relative aspect-video h-32 border">
           <Image
             src={`data:image/svg+xml,${encodeURIComponent(encodeQR(inputValue, "svg"))}`}
@@ -614,7 +633,7 @@ const guide = {
             setInputValue(e.currentTarget.value);
           }}
         />
-      </div>
+      </>
     );
   },
 
@@ -646,12 +665,13 @@ const guide = {
     });
 
     return (
-      <textarea
-        cols={30}
-        rows={10}
-        value={JSON.stringify(data, null, 2)}
-        readOnly
-      ></textarea>
+      <>
+        <textarea
+          rows={10}
+          value={JSON.stringify(data, null, 2)}
+          readOnly
+        ></textarea>
+      </>
     );
   },
 
@@ -826,7 +846,7 @@ const guide = {
         }}
         transition={{ duration: 7, repeat: Infinity }}
         data-isolate
-        className="relative m-auto aspect-square h-64 scale-[70%] rotate-(--rotate) animate-[grayscale_7s_infinite] rounded-(--rounded) border"
+        className="relative m-auto aspect-square h-64 rotate-(--rotate) animate-[grayscale_7s_infinite] rounded-(--rounded) border"
       >
         <style jsx>{`
           @keyframes grayscale {
@@ -855,7 +875,7 @@ const guide = {
     console.log(guide.GoogleCharts.name);
 
     return (
-      <div>
+      <>
         <div data-isolate className="relative aspect-video h-48">
           <GoogleChart
             type="PieChart"
@@ -889,7 +909,7 @@ const guide = {
             options={{ isStacked: true }}
           ></GoogleChart>
         </div>
-      </div>
+      </>
     );
   },
 
@@ -915,7 +935,7 @@ const guide = {
     const pagination = usePagination({ total: 10 });
 
     return (
-      <div data-flex-row>
+      <div className="flex-row">
         <button
           onClick={() => {
             pagination.previous();
@@ -951,20 +971,13 @@ const guide = {
     );
   },
 };
-
 const guideKeys = Object.keys(guide);
+const guideQuery = {
+  guide: parseAsStringLiteral(guideKeys).withDefault("Env"),
+};
+const serializeGuide = createSerializer(guideQuery);
 function useGuide() {
-  const [state, setState] = useQueryState(
-    "guide",
-    parseAsStringLiteral(guideKeys).withDefault("Env"),
-  );
-
-  return [
-    guide[state as keyof typeof guide] as React.ComponentType,
-    state,
-    guideKeys,
-    setState,
-  ] as const;
+  return useQueryStates(guideQuery);
 }
 
 const formSchema = z.object({
