@@ -7,6 +7,14 @@ import { useQuery, useStore } from "@/hooks/use-state-app";
 import { useChangeLocale, useCurrentLocale, useI18n } from "@/locales/client";
 import { appDefaultApi, appSchema, petstorePetApi } from "@/openapi";
 import { env } from "@/utils/env";
+import FullCalendar from "@fullcalendar/react";
+import daygrid from "@fullcalendar/react/daygrid";
+import multimonth from "@fullcalendar/react/multimonth";
+import "@fullcalendar/react/skeleton.css";
+import theme from "@fullcalendar/react/themes/monarch";
+import "@fullcalendar/react/themes/monarch/palettes/green.css";
+import "@fullcalendar/react/themes/monarch/theme.css";
+import timegrid from "@fullcalendar/react/timegrid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { usePagination } from "@mantine/hooks";
@@ -796,9 +804,25 @@ export async function POST(req: Request) {
     );
   },
 
+  //
+  Fullcalendar() {
+    return (
+      <>
+        <div data-isolate className="relative m-auto aspect-video h-80">
+          <FullCalendar
+            plugins={[theme, daygrid, timegrid, multimonth]}
+            initialView="dayGridMonth"
+            headerToolbar={{ right: "dayGridMonth,timeGridDay,multiMonthYear" }}
+            className="absolute inset-0"
+          ></FullCalendar>
+        </div>
+      </>
+    );
+  },
+
   // https://github.com/paulmillr/qr
-  QrCode() {
-    console.log(guide.QrCode.name);
+  Qr() {
+    console.log(guide.Qr.name);
 
     const [inputValue, setInputValue] = useState("qr");
     const qrRef = useRef({
@@ -875,10 +899,10 @@ export async function POST(req: Request) {
   // https://webpack.js.org/guides/asset-modules/#url-assets
   // https://nextjs.org/blog/next-16-2-turbopack#web-worker-origin
   // https://github.com/GoogleChromeLabs/comlink
-  WebWorkers() {
-    console.log(guide.WebWorkers.name);
+  Webworker() {
+    console.log(guide.Webworker.name);
 
-    const data = useSWRImmutable([guide.WebWorkers], async () => {
+    const data = useSWRImmutable([guide.Webworker], async () => {
       const api = wrap<Api>(
         new Worker(new URL("@/assets/worker.ts", import.meta.url)),
       );
@@ -929,8 +953,8 @@ export async function POST(req: Request) {
   },
 
   // https://moz.com/blog/everything-you-never-wanted-to-know-about-google-maps-parameters
-  GoogleMapsEmbed() {
-    console.log(guide.GoogleMapsEmbed.name);
+  GoogleMaps() {
+    console.log(guide.GoogleMaps.name);
 
     return (
       <div data-isolate className="relative m-auto aspect-video h-64 border">
@@ -943,8 +967,8 @@ export async function POST(req: Request) {
   },
 
   // https://github.com/visgl/react-map-gl
-  MapLibre() {
-    console.log(guide.MapLibre.name);
+  Maplibre() {
+    console.log(guide.Maplibre.name);
 
     const [popup, setPopup] = useState(
       null as null | {
@@ -1002,8 +1026,8 @@ export async function POST(req: Request) {
   },
 
   // https://developers.google.com/youtube/player_parameters#Parameters
-  YoutubeEmbed() {
-    console.log(guide.YoutubeEmbed.name);
+  Youtube() {
+    console.log(guide.Youtube.name);
 
     const videoId = "xdKay6bhIMg";
 
@@ -1023,8 +1047,8 @@ export async function POST(req: Request) {
   },
 
   // https://www.mux.com/docs/guides/modify-playback-behavior#availiable-playback-modifiers
-  MuxEmbed() {
-    console.log(guide.MuxEmbed.name);
+  Mux() {
+    console.log(guide.Mux.name);
 
     const videoId = "Hi6we01h00uVvZc00GzvVXZW8C02Y8QC8OX7";
 
