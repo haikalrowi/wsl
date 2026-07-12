@@ -11,9 +11,6 @@ import FullCalendar from "@fullcalendar/react";
 import daygrid from "@fullcalendar/react/daygrid";
 import multimonth from "@fullcalendar/react/multimonth";
 import "@fullcalendar/react/skeleton.css";
-import theme from "@fullcalendar/react/themes/monarch";
-import "@fullcalendar/react/themes/monarch/palettes/green.css";
-import "@fullcalendar/react/themes/monarch/theme.css";
 import timegrid from "@fullcalendar/react/timegrid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
@@ -804,15 +801,33 @@ export async function POST(req: Request) {
     );
   },
 
-  //
+  // https://v7.fullcalendar.io/react
+  // https://v7.fullcalendar.io/render-hook-index
   Fullcalendar() {
     return (
       <>
         <div data-isolate className="relative m-auto aspect-video h-80">
           <FullCalendar
-            plugins={[theme, daygrid, timegrid, multimonth]}
+            plugins={[daygrid, timegrid, multimonth]}
             initialView="dayGridMonth"
-            headerToolbar={{ right: "dayGridMonth,timeGridDay,multiMonthYear" }}
+            headerToolbar={{
+              start: "prev,next",
+              center: "title",
+              right: "dayGridMonth,timeGridWeek,timeGridDay,multiMonthYear",
+            }}
+            buttonClass="bg-black p-1 text-white"
+            buttonGroupClass="flex gap-2"
+            toolbarClass="flex pb-2"
+            toolbarSectionClass="not-first:not-last:mx-auto first:mr-auto last:ml-auto"
+            dayHeaderClass="border **:w-full **:text-center"
+            dayHeaderDividerClass="border"
+            dayRowClass="border"
+            dayCellClass="border text-center"
+            dayLaneClass="border"
+            allDayDividerClass="border"
+            slotHeaderDividerClass="border"
+            slotHeaderClass="border"
+            slotLaneClass="border"
             className="absolute inset-0"
           ></FullCalendar>
         </div>
