@@ -35,7 +35,7 @@
   pnpm dlx shadcn@latest add button
   ```
 - ```md
-  node -e 'const fs=require("fs"),cp=require("child_process"),path="components/ui/",files=fs.readdirSync(path);if(files.length){cp.execFileSync("pnpm",["dlx","shadcn@latest","add","--yes","--overwrite",...files.filter(item=>fs.statSync(path+item).isFile()).map(item=>item.slice(0,item.lastIndexOf(".")))])}'
+  node -e 'const fs=require("fs"),cp=require("child_process"),path="components/ui/",files=fs.readdirSync(path);if(files.length){cp.spawnSync("pnpm",["dlx","shadcn@latest","add","--yes","--overwrite",...files.filter(item=>fs.statSync(path+item).isFile()).map(item=>item.slice(0,item.lastIndexOf(".")))],{stdio:"inherit"})}'
   ```
 
 - https://ui.shadcn.com/docs/cli
