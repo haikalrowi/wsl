@@ -76,6 +76,11 @@
       "devDependencies": ["storyblok@~4.0.0"],
       "files": [
         {
+          "path": "./src/next-storyblok/components-storyblok-context.tsx",
+          "type": "registry:item",
+          "target": "~/components/storyblok-context.tsx"
+        },
+        {
           "path": "./src/next-storyblok/components-storyblok-provider.tsx",
           "type": "registry:item",
           "target": "~/components/storyblok-provider.tsx"
