@@ -1,8 +1,8 @@
 export function hash(input: string) {
-  let hash = 0x811c9dc5;
+  let hash = 5381;
   let index = input.length;
   while (index--) {
-    hash = Math.imul(hash ^ input.charCodeAt(index), 0x01000193);
+    hash = (hash << 5) + hash + input.charCodeAt(index);
   }
 
   return (hash >>> 0).toString(36);
