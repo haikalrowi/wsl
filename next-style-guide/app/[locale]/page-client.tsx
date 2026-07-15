@@ -962,6 +962,7 @@ export async function POST(req: Request) {
           autoplay
           loop
           renderConfig={{ autoResize: true }}
+          className="absolute inset-0 h-full w-full"
         ></DotLottieReact>
       </div>
     );
@@ -985,48 +986,54 @@ export async function POST(req: Request) {
   Maplibre() {
     console.log(guide.Maplibre.name);
 
-    const [popup, setPopup] = useState(
-      null as null | {
-        longitude: number;
-        latitude: number;
-        description: string;
-      },
-    );
+    const pois: [number, number][] = [
+      [10, 20],
+      [30, 40],
+      [50, 60],
+    ];
+    const [poi, setPoi] = useState<(typeof pois)[number] | null>();
 
     return (
       <div data-isolate className="relative m-auto aspect-video h-64 border">
-        <link
-          rel="stylesheet"
-          href={`${new URL("maplibre-gl/dist/maplibre-gl.css", import.meta.url)}`}
-        />
+        <style jsx>{`
+          @import "${new URL("maplibre-gl/dist/maplibre-gl.css", import.meta.url)}";
+        `}</style>
         <Map
           mapStyle={colorful({ baseUrl: "https://tiles.versatiles.org" })}
           // mapStyle="https://tiles.openfreemap.org/styles/liberty"
           cooperativeGestures
         >
-          <Marker
-            longitude={0}
-            latitude={0}
-            onClick={(e) => {
-              e.originalEvent.stopPropagation();
-              setPopup({
-                longitude: e.target.getLngLat().lng,
-                latitude: e.target.getLngLat().lat,
-                description: "popup",
-              });
-            }}
-          >
-            <div className="size-4 cursor-pointer rounded-full bg-red-500"></div>
-          </Marker>
-          {popup && (
-            <Popup
-              longitude={popup.longitude}
-              latitude={popup.latitude}
-              onClose={() => {
-                setPopup(null);
+          {pois.map((item, index) => (
+            <Marker
+              key={`${item}-${index}`}
+              longitude={item[0]}
+              latitude={item[1]}
+              onClick={(e) => {
+                if (poi) {
+                  setPoi(null);
+                } else {
+                  e.originalEvent.stopPropagation();
+                  setPoi(item);
+                }
               }}
             >
-              <p>{popup.description}</p>
+              <div
+                className="size-4 rounded-full bg-red-500"
+                onMouseEnter={() => {
+                  setPoi(item);
+                }}
+              ></div>
+            </Marker>
+          ))}
+          {poi && (
+            <Popup
+              longitude={poi[0]}
+              latitude={poi[1]}
+              onClose={() => {
+                setPoi(null);
+              }}
+            >
+              <p>{`${poi}`}</p>
             </Popup>
           )}
           <FullscreenControl></FullscreenControl>
