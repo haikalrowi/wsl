@@ -26,7 +26,7 @@
       "type": "registry:item",
       "files": [
         {
-          "path": "./src/next-env/utils.ts",
+          "path": "./src/next-env/utils-env.ts",
           "type": "registry:item",
           "target": "~/utils/env.ts"
         }
@@ -91,12 +91,12 @@
           "target": "~/components/storyblok-richtext.tsx"
         },
         {
-          "path": "./src/next-storyblok/lib.ts",
+          "path": "./src/next-storyblok/lib-storyblok.ts",
           "type": "registry:item",
           "target": "~/lib/storyblok.ts"
         },
         {
-          "path": "./src/next-storyblok/utils.ts",
+          "path": "./src/next-storyblok/utils-storyblok.ts",
           "type": "registry:item",
           "target": "~/utils/storyblok.ts"
         }
