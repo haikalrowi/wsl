@@ -122,39 +122,29 @@ const guide = {
 
     return (
       <>
-        <div className="flex-row">
-          <label className="flex-row">
-            <input
-              type="checkbox"
-              checked={query.isAdult}
-              onChange={(e) => {
-                setQuery({ isAdult: e.currentTarget.checked });
-              }}
-            />
-            {"isAdult"}
-          </label>
+        <label className="flex-row">
           <input
-            value={query.name}
+            type="checkbox"
+            checked={query.isAdult}
             onChange={(e) => {
-              setQuery({ name: e.currentTarget.value });
+              setQuery({ isAdult: e.currentTarget.checked });
             }}
           />
-          <input value={query.age} readOnly />
-          <button
-            onClick={() => {
-              setQuery((s) => ({ age: s.age - 1 }));
-            }}
-          >
-            {"-"}
-          </button>
-          <button
-            onClick={() => {
-              setQuery((s) => ({ age: s.age + 1 }));
-            }}
-          >
-            {"+"}
-          </button>
-        </div>
+          {"isAdult"}
+        </label>
+        <input
+          value={query.name}
+          onChange={(e) => {
+            setQuery({ name: e.currentTarget.value });
+          }}
+        />
+        <input
+          type="number"
+          value={query.age}
+          onChange={(e) => {
+            setQuery(() => ({ age: e.currentTarget.valueAsNumber }));
+          }}
+        />
         <button
           onClick={() => {
             setQuery(null);
@@ -174,32 +164,30 @@ const guide = {
 
     return (
       <>
-        <div className="flex-row">
-          <select
-            value={+store.isActive}
-            onChange={(e) => {
-              useStore.setState({
-                isActive: { "0": false, "1": true }[e.currentTarget.value],
-              });
-            }}
-          >
-            <option value="0">{"isActive:false"}</option>
-            <option value="1">{"isActive:true"}</option>
-          </select>
-          <input
-            value={store.id}
-            onChange={(e) => {
-              useStore.setState({ id: e.currentTarget.value });
-            }}
-          />
-          <input
-            type="number"
-            value={`${store.count}`}
-            onChange={(e) => {
-              useStore.setState({ count: e.currentTarget.valueAsNumber });
-            }}
-          />
-        </div>
+        <select
+          value={+store.isActive}
+          onChange={(e) => {
+            useStore.setState({
+              isActive: { "0": false, "1": true }[e.currentTarget.value],
+            });
+          }}
+        >
+          <option value="0">{"isActive:false"}</option>
+          <option value="1">{"isActive:true"}</option>
+        </select>
+        <input
+          value={store.id}
+          onChange={(e) => {
+            useStore.setState({ id: e.currentTarget.value });
+          }}
+        />
+        <input
+          type="number"
+          value={`${store.count}`}
+          onChange={(e) => {
+            useStore.setState({ count: e.currentTarget.valueAsNumber });
+          }}
+        />
         <button
           onClick={() => {
             useStore.setState(useStore.getInitialState());
@@ -351,6 +339,7 @@ const guide = {
           action="https://formsubmit.co/fokecola@mailgolem.com"
           method="POST"
           id="formsubmit"
+          hidden
         ></form>
         <input
           type="hidden"
