@@ -1,6 +1,7 @@
 {
   "scripts": {
     "github-get-commits-by-users": "clear && node ./github/get-commits-by-users.js t3dotgg",
-    "github-get-sponsors-by-user": "clear && node ./github/get-sponsors-by-user.js t3dotgg"
+    "github-get-sponsors-by-user": "clear && node ./github/get-sponsors-by-user.js t3dotgg",
+    "npmjs-get-repositories-by-packages": "clear && node ./npmjs/get-repositories-by-packages.js"
   }
 }
