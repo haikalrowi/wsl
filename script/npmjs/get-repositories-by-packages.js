@@ -19,7 +19,7 @@ Array.from(packages.split(/\s+/).slice(1, -1), (package_) => {
       .then((response) => Promise.all([response, response.text()]))
       .then(([response, text]) => {
         repositories.add(
-          `- ${text.match(repositoryPattern)?.[1]}#/${package_}`,
+          `- ${text.match(repositoryPattern)?.[1]}#_${package_}`,
         );
         console.log(response.url, "ok");
       });
