@@ -1,41 +1,37 @@
 import { revalidatePath } from "next/cache";
+import { connection } from "next/server";
 
-export default async function Page(props: PageProps<"/[locale]/cache">) {
-  const searchParams = await props.searchParams;
-  const key = (searchParams.cache || "1") === "1" ? void null : +new Date();
+export default async function Page() {
+  await connection();
+
   const times = await Promise.all([
-    cachedGetTime(key),
-    cachedGetTime(key),
-    cachedGetTime(+new Date()),
+    cachedGetTime("time"),
+    cachedGetTime("time"),
     cachedGetTime(+new Date()),
   ]);
 
   return (
     <>
       <div className="utils">
-        <div>
-          {times.map((item, index) => (
-            <p key={index}>{item}</p>
-          ))}
-        </div>
-        <div>
-          <button
-            onClick={async () => {
-              "use server";
-              revalidatePath("/", "layout");
-            }}
-          >
-            {"revalidatePath(...)"}
-          </button>
-        </div>
+        {times.map((item, index) => (
+          <p key={index}>{item}</p>
+        ))}
+        <button
+          onClick={async () => {
+            "use server";
+            revalidatePath("/", "layout");
+          }}
+        >
+          {"revalidatePath(...)"}
+        </button>
       </div>
     </>
   );
 }
 
-async function cachedGetTime(key?: number) {
+async function cachedGetTime(key?: unknown) {
   "use cache";
   console.log(key);
 
-  return [+new Date(), key ? "" : "cached"].join(",");
+  return [+new Date(), JSON.stringify({ key })].join();
 }

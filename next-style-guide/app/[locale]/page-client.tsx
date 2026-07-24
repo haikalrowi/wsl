@@ -22,7 +22,7 @@ import Image from "next/image";
 import { createSerializer, parseAsStringLiteral, useQueryStates } from "nuqs";
 import { encodeQR } from "qr";
 import { frameLoop, frontalCamera, QRCanvas } from "qr/dom.js";
-import { useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 import { Controller, useForm, Watch } from "react-hook-form";
 import {
   FullscreenControl,
@@ -222,36 +222,32 @@ const guide = {
     );
 
     return (
-      <div className="flex-row">
-        <div className="flex-1">
-          <textarea
-            rows={10}
-            value={JSON.stringify(repo, null, 2)}
-            readOnly
-          ></textarea>
-          <button
-            onClick={() => {
-              repo.mutate();
-            }}
-          >
-            {"→"}
-          </button>
-        </div>
-        <div className="flex-1">
-          <textarea
-            rows={10}
-            value={JSON.stringify(pet, null, 2)}
-            readOnly
-          ></textarea>
-          <button
-            onClick={() => {
-              pet.trigger();
-            }}
-          >
-            {"→"}
-          </button>
-        </div>
-      </div>
+      <>
+        <textarea
+          rows={10}
+          value={JSON.stringify(repo, null, 2)}
+          readOnly
+        ></textarea>
+        <button
+          onClick={() => {
+            repo.mutate();
+          }}
+        >
+          {"→"}
+        </button>
+        <textarea
+          rows={10}
+          value={JSON.stringify(pet, null, 2)}
+          readOnly
+        ></textarea>
+        <button
+          onClick={() => {
+            pet.trigger();
+          }}
+        >
+          {"→"}
+        </button>
+      </>
     );
   },
 
@@ -265,6 +261,7 @@ const guide = {
       // values: formPersist.getState(),
       resolver: zodResolver(formSchema),
     });
+    const formId = useId();
 
     return (
       <>
@@ -273,57 +270,39 @@ const guide = {
           compute={formPersist.setState}
           render={() => <></>}
         ></Watch> */}
-        <form
-          onSubmit={form.handleSubmit(console.log)}
-          className="flex-row"
-          id="form"
-        >
-          <Controller
-            name="title"
-            control={form.control}
-            render={({ field }) => (
-              <textarea
-                rows={10}
-                {...field}
-                placeholder={field.name}
-                className="flex-1"
-              ></textarea>
-            )}
-          ></Controller>
-          <Controller
-            name="description"
-            control={form.control}
-            render={({ field }) => (
-              <textarea
-                rows={10}
-                {...field}
-                placeholder={field.name}
-                className="flex-1"
-              ></textarea>
-            )}
-          ></Controller>
-          <Watch
-            name={["title", "description"]}
-            control={form.control}
-            render={(field) => (
-              <textarea
-                rows={10}
-                value={JSON.stringify(field, null, 2)}
-                readOnly
-                className="flex-1"
-              ></textarea>
-            )}
-          ></Watch>
-        </form>
-        <button type="submit" disabled={!form.formState.isValid} form="form">
+        <form id={formId} onSubmit={form.handleSubmit(console.log)}></form>
+        <Controller
+          name="title"
+          control={form.control}
+          render={({ field }) => <input {...field} placeholder={field.name} />}
+        ></Controller>
+        <Controller
+          name="description"
+          control={form.control}
+          render={({ field }) => (
+            <textarea rows={10} {...field} placeholder={field.name}></textarea>
+          )}
+        ></Controller>
+        <Watch
+          name={["title", "description"]}
+          control={form.control}
+          render={(field) => (
+            <textarea
+              rows={10}
+              value={JSON.stringify(field, null, 2)}
+              readOnly
+            ></textarea>
+          )}
+        ></Watch>
+        <button type="submit" form={formId} disabled={!form.formState.isValid}>
           {"→"}
         </button>
         <button
           type="reset"
+          form={formId}
           onClick={() => {
             form.reset(formPersist.getInitialState());
           }}
-          form="form"
         >
           {"↻"}
         </button>
@@ -808,14 +787,16 @@ export async function POST(req: Request) {
             buttonGroupClass="flex gap-2"
             toolbarClass="flex pb-2"
             toolbarSectionClass="not-first:not-last:mx-auto first:mr-auto last:ml-auto"
-            dayHeaderClass="border **:w-full **:text-center"
+            dayHeaderClass="border p-1!"
             dayHeaderDividerClass="border"
             dayRowClass="border"
-            dayCellClass="border text-center"
+            dayCellClass="border p-1!"
             dayLaneClass="border"
+            allDayHeaderInnerClass="p-1!"
             allDayDividerClass="border"
-            slotHeaderDividerClass="border"
             slotHeaderClass="border"
+            slotHeaderInnerClass="p-1!"
+            slotHeaderDividerClass="border"
             slotLaneClass="border"
             className="absolute inset-0"
           ></FullCalendar>
@@ -846,42 +827,38 @@ export async function POST(req: Request) {
             className="absolute inset-0 h-full w-full object-cover"
           ></video>
         </div>
-        <div className="flex-row">
-          <button
-            className="flex-1"
-            onClick={async () => {
-              if (qrRef.current.video) {
-                qrRef.current.camera = await frontalCamera(qrRef.current.video);
-                qrRef.current.cancel = frameLoop(() => {
-                  if (
-                    qrRef.current.video?.videoHeight &&
-                    qrRef.current.video?.videoWidth
-                  ) {
-                    const result = qrRef.current.camera?.readFrame?.(
-                      qrRef.current.canvas,
-                      true,
-                    );
-                    console.log(result);
-                  }
-                });
-              }
-            }}
-          >
-            {"▶"}
-          </button>
-          <button
-            className="flex-1"
-            onClick={() => {
-              if (qrRef.current.video) {
-                qrRef.current.video.srcObject = null;
-                qrRef.current.camera?.stop();
-                qrRef.current.cancel?.();
-              }
-            }}
-          >
-            {"⏹"}
-          </button>
-        </div>
+        <button
+          onClick={async () => {
+            if (qrRef.current.video) {
+              qrRef.current.camera = await frontalCamera(qrRef.current.video);
+              qrRef.current.cancel = frameLoop(() => {
+                if (
+                  qrRef.current.video?.videoHeight &&
+                  qrRef.current.video?.videoWidth
+                ) {
+                  const result = qrRef.current.camera?.readFrame?.(
+                    qrRef.current.canvas,
+                    true,
+                  );
+                  console.log(result);
+                }
+              });
+            }
+          }}
+        >
+          {"▶"}
+        </button>
+        <button
+          onClick={() => {
+            if (qrRef.current.video) {
+              qrRef.current.video.srcObject = null;
+              qrRef.current.camera?.stop();
+              qrRef.current.cancel?.();
+            }
+          }}
+        >
+          {"⏹"}
+        </button>
         <div className="relative aspect-video h-32 border">
           <Image
             src={`data:image/svg+xml,${encodeURIComponent(encodeQR(inputValue, "svg"))}`}
