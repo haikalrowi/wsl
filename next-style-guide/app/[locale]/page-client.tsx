@@ -46,24 +46,28 @@ export function PageClient() {
   const Guide = guide[query.guide as keyof typeof guide];
 
   return (
-    <div className="utils flex-row">
-      <div className="flex-1 overflow-y-scroll">
-        {guideKeys.map((item) => (
-          <Link
-            key={item}
-            href={serializeGuide("/", { guide: item })}
-            data-active={item === query.guide}
-            className="hover:ring data-[active=true]:ring"
-          >
-            {item}
-          </Link>
-        ))}
+    <>
+      <div className="utils flex-row">
+        <div className="flex-1 overflow-y-scroll">
+          {guideKeys.map((item) => (
+            <Link
+              key={item}
+              href={serializeGuide("/", { guide: item })}
+              data-active={item === query.guide}
+              className="hover:ring data-[active=true]:ring"
+            >
+              {item}
+              {item === query.guide &&
+                `_${guideKeys.indexOf(item) + 1}/${guideKeys.length}`}
+            </Link>
+          ))}
+        </div>
+        <div className="flex-2 overflow-y-scroll">
+          <p>{query.guide}</p>
+          <Guide></Guide>
+        </div>
       </div>
-      <div className="flex-2 overflow-y-scroll">
-        <p>{query.guide}</p>
-        <Guide></Guide>
-      </div>
-    </div>
+    </>
   );
 }
 
@@ -312,37 +316,44 @@ const guide = {
 
   // https://formsubmit.co/documentation
   Formsubmit() {
+    const formsubmitId = useId();
+
     return (
       <>
         <form
           action="https://formsubmit.co/fokecola@mailgolem.com"
           method="POST"
-          id="formsubmit"
+          id={formsubmitId}
           hidden
         ></form>
         <input
           type="hidden"
           name="_next"
           value={new URL("/", env.BASE_URL).href}
-          form="formsubmit"
+          form={formsubmitId}
         />
-        <input type="hidden" name="_captcha" value="true" form="formsubmit" />
-        <input type="hidden" name="_template" value="table" form="formsubmit" />
+        <input type="hidden" name="_captcha" value="true" form={formsubmitId} />
+        <input
+          type="hidden"
+          name="_template"
+          value="table"
+          form={formsubmitId}
+        />
         <input
           type="text"
           name="name"
           placeholder="name"
           defaultValue="John Doe"
-          form="formsubmit"
+          form={formsubmitId}
         />
         <input
           type="email"
           name="email"
           placeholder="email"
           defaultValue="john.doe@example.com"
-          form="formsubmit"
+          form={formsubmitId}
         />
-        <button type="submit" form="formsubmit">
+        <button type="submit" form={formsubmitId}>
           {"→"}
         </button>
       </>
@@ -773,35 +784,33 @@ export async function POST(req: Request) {
   // https://v7.fullcalendar.io/render-hook-index
   Fullcalendar() {
     return (
-      <>
-        <div data-isolate className="relative m-auto aspect-video h-80">
-          <FullCalendar
-            plugins={[daygrid, timegrid, multimonth]}
-            initialView="dayGridMonth"
-            headerToolbar={{
-              start: "prev,next",
-              center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay,multiMonthYear",
-            }}
-            buttonClass="bg-black p-1 text-white"
-            buttonGroupClass="flex gap-2"
-            toolbarClass="flex pb-2"
-            toolbarSectionClass="not-first:not-last:mx-auto first:mr-auto last:ml-auto"
-            dayHeaderClass="border p-1!"
-            dayHeaderDividerClass="border"
-            dayRowClass="border"
-            dayCellClass="border p-1!"
-            dayLaneClass="border"
-            allDayHeaderInnerClass="p-1!"
-            allDayDividerClass="border"
-            slotHeaderClass="border"
-            slotHeaderInnerClass="p-1!"
-            slotHeaderDividerClass="border"
-            slotLaneClass="border"
-            className="absolute inset-0"
-          ></FullCalendar>
-        </div>
-      </>
+      <GuideIsolate>
+        <FullCalendar
+          plugins={[daygrid, timegrid, multimonth]}
+          initialView="dayGridMonth"
+          headerToolbar={{
+            start: "prev,next",
+            center: "title",
+            right: "dayGridMonth,timeGridWeek,timeGridDay,multiMonthYear",
+          }}
+          buttonClass="bg-black p-1 text-white"
+          buttonGroupClass="flex gap-2"
+          toolbarClass="flex pb-2"
+          toolbarSectionClass="not-first:not-last:mx-auto first:mr-auto last:ml-auto"
+          dayHeaderClass="border p-1!"
+          dayHeaderDividerClass="border"
+          dayRowClass="border"
+          dayCellClass="border p-1!"
+          dayLaneClass="border"
+          allDayHeaderInnerClass="p-1!"
+          allDayDividerClass="border"
+          slotHeaderClass="border"
+          slotHeaderInnerClass="p-1!"
+          slotHeaderDividerClass="border"
+          slotLaneClass="border"
+          className="absolute inset-1"
+        ></FullCalendar>
+      </GuideIsolate>
     );
   },
 
@@ -819,7 +828,7 @@ export async function POST(req: Request) {
 
     return (
       <>
-        <div className="relative aspect-video h-48 border">
+        <div className="relative h-48 border">
           <video
             ref={(instance) => {
               qrRef.current.video = instance;
@@ -859,7 +868,7 @@ export async function POST(req: Request) {
         >
           {"⏹"}
         </button>
-        <div className="relative aspect-video h-32 border">
+        <div className="relative h-48 border">
           <Image
             src={`data:image/svg+xml,${encodeURIComponent(encodeQR(inputValue, "svg"))}`}
             alt=""
@@ -905,13 +914,11 @@ export async function POST(req: Request) {
     });
 
     return (
-      <>
-        <textarea
-          rows={10}
-          value={JSON.stringify(data, null, 2)}
-          readOnly
-        ></textarea>
-      </>
+      <textarea
+        rows={10}
+        value={JSON.stringify(data, null, 2)}
+        readOnly
+      ></textarea>
     );
   },
 
@@ -920,7 +927,7 @@ export async function POST(req: Request) {
     console.log(guide.Lottie.name);
 
     return (
-      <div data-isolate className="relative m-auto aspect-video h-64 border">
+      <GuideIsolate>
         <DotLottieReact
           src={new URL("@/assets/VrgZppaPQ8.json", import.meta.url).href}
           // src={new URL("@/assets/VrgZppaPQ8.lottie", import.meta.url).href}
@@ -930,7 +937,7 @@ export async function POST(req: Request) {
           renderConfig={{ autoResize: true }}
           className="absolute inset-0 h-full w-full"
         ></DotLottieReact>
-      </div>
+      </GuideIsolate>
     );
   },
 
@@ -939,12 +946,7 @@ export async function POST(req: Request) {
     console.log(guide.GoogleMaps.name);
 
     return (
-      <div data-isolate className="relative m-auto aspect-video h-64 border">
-        <iframe
-          src="https://maps.google.com/maps?output=embed&q=australia"
-          className="absolute inset-0 h-full w-full"
-        ></iframe>
-      </div>
+      <GuideIframe src="https://maps.google.com/maps?output=embed&q=australia"></GuideIframe>
     );
   },
 
@@ -960,56 +962,58 @@ export async function POST(req: Request) {
     const [poi, setPoi] = useState<(typeof pois)[number] | null>();
 
     return (
-      <div data-isolate className="relative m-auto aspect-video h-64 border">
+      <>
         <style jsx>{`
           @import "${new URL("maplibre-gl/dist/maplibre-gl.css", import.meta.url)}";
         `}</style>
-        <Map
-          mapStyle={colorful({ baseUrl: "https://tiles.versatiles.org" })}
-          // mapStyle="https://tiles.openfreemap.org/styles/liberty"
-          cooperativeGestures
-        >
-          {pois.map((item, index) => (
-            <Marker
-              key={`${item}-${index}`}
-              longitude={item[0]}
-              latitude={item[1]}
-              onClick={(e) => {
-                if (poi) {
-                  setPoi(null);
-                } else {
-                  e.originalEvent.stopPropagation();
-                  setPoi(item);
-                }
-              }}
-            >
-              <div
-                className="size-4 rounded-full bg-red-500"
-                onMouseEnter={() => {
-                  setPoi(item);
+        <GuideIsolate>
+          <Map
+            mapStyle={colorful({ baseUrl: "https://tiles.versatiles.org" })}
+            // mapStyle="https://tiles.openfreemap.org/styles/liberty"
+            cooperativeGestures
+          >
+            {pois.map((item, index) => (
+              <Marker
+                key={`${item}-${index}`}
+                longitude={item[0]}
+                latitude={item[1]}
+                onClick={(e) => {
+                  if (poi) {
+                    setPoi(null);
+                  } else {
+                    e.originalEvent.stopPropagation();
+                    setPoi(item);
+                  }
                 }}
-              ></div>
-            </Marker>
-          ))}
-          {poi && (
-            <Popup
-              longitude={poi[0]}
-              latitude={poi[1]}
-              onClose={() => {
-                setPoi(null);
-              }}
-            >
-              <p>{`${poi}`}</p>
-            </Popup>
-          )}
-          <FullscreenControl></FullscreenControl>
-          <GeolocateControl></GeolocateControl>
-          <NavigationControl></NavigationControl>
-          <ScaleControl></ScaleControl>
-          {/* <TerrainControl source=""></TerrainControl> */}
-          <LogoControl></LogoControl>
-        </Map>
-      </div>
+              >
+                <div
+                  className="size-4 rounded-full bg-red-500"
+                  onMouseEnter={() => {
+                    setPoi(item);
+                  }}
+                ></div>
+              </Marker>
+            ))}
+            {poi && (
+              <Popup
+                longitude={poi[0]}
+                latitude={poi[1]}
+                onClose={() => {
+                  setPoi(null);
+                }}
+              >
+                <p>{`${poi}`}</p>
+              </Popup>
+            )}
+            <FullscreenControl></FullscreenControl>
+            <GeolocateControl></GeolocateControl>
+            <NavigationControl></NavigationControl>
+            <ScaleControl></ScaleControl>
+            {/* <TerrainControl source=""></TerrainControl> */}
+            <LogoControl></LogoControl>
+          </Map>
+        </GuideIsolate>
+      </>
     );
   },
 
@@ -1020,17 +1024,14 @@ export async function POST(req: Request) {
     const videoId = "xdKay6bhIMg";
 
     return (
-      <div
-        data-isolate
-        className="relative m-auto aspect-video h-64 overflow-hidden border"
-      >
+      <GuideIsolate>
         <iframe
           src={`https://www.youtube.com/embed/${videoId}?controls=0&autoplay=1&mute=1&loop=1&playlist=${videoId}&rel=0`}
           loading="lazy"
           className="pointer-events-none absolute -top-[calc(var(--h)/2-50%)] h-(--h) w-full touch-none select-none [--h:300%]"
           tabIndex={-1}
         ></iframe>
-      </div>
+      </GuideIsolate>
     );
   },
 
@@ -1041,7 +1042,7 @@ export async function POST(req: Request) {
     const videoId = "Hi6we01h00uVvZc00GzvVXZW8C02Y8QC8OX7";
 
     return (
-      <div data-isolate className="relative m-auto aspect-video h-64 border">
+      <GuideIsolate>
         <video
           src={`https://stream.mux.com/${videoId}.m3u8`}
           autoPlay
@@ -1049,7 +1050,7 @@ export async function POST(req: Request) {
           loop
           className="absolute inset-0 h-full w-full object-cover"
         ></video>
-      </div>
+      </GuideIsolate>
     );
   },
 
@@ -1123,7 +1124,7 @@ export async function POST(req: Request) {
 
     return (
       <>
-        <div data-isolate className="relative aspect-video h-48">
+        <GuideIsolate>
           <GoogleChart
             type="PieChart"
             data={[
@@ -1135,8 +1136,8 @@ export async function POST(req: Request) {
               ["Sleep", 7],
             ]}
           ></GoogleChart>
-        </div>
-        <div data-isolate className="relative aspect-video h-48">
+        </GuideIsolate>
+        <GuideIsolate>
           <GoogleChart
             type="BarChart"
             data={[
@@ -1155,7 +1156,7 @@ export async function POST(req: Request) {
             ]}
             options={{ isStacked: true }}
           ></GoogleChart>
-        </div>
+        </GuideIsolate>
       </>
     );
   },
@@ -1165,14 +1166,7 @@ export async function POST(req: Request) {
   Cache() {
     console.log(guide.Cache.name);
 
-    return (
-      <div data-isolate className="relative m-auto aspect-video h-64 border">
-        <iframe
-          src="/cache"
-          className="absolute inset-0 h-full w-full"
-        ></iframe>
-      </div>
-    );
+    return <GuideIframe src="/cache"></GuideIframe>;
   },
 
   // https://mantine.dev/hooks/use-pagination/
@@ -1217,6 +1211,10 @@ export async function POST(req: Request) {
       </div>
     );
   },
+
+  Lenis() {
+    return <GuideIframe src="/lenis"></GuideIframe>;
+  },
 };
 const guideKeys = Object.keys(guide);
 const guideQuery = {
@@ -1225,6 +1223,26 @@ const guideQuery = {
 const serializeGuide = createSerializer(guideQuery);
 function useGuide() {
   return useQueryStates(guideQuery);
+}
+function GuideIsolate(props: React.PropsWithChildren) {
+  return (
+    <div
+      data-isolate
+      className="relative m-auto aspect-video h-80 overflow-hidden border"
+    >
+      {props.children}
+    </div>
+  );
+}
+function GuideIframe(props: { src?: string }) {
+  return (
+    <GuideIsolate>
+      <iframe
+        src={props.src}
+        className="absolute inset-0 h-full w-full"
+      ></iframe>
+    </GuideIsolate>
+  );
 }
 
 const formSchema = z.object({
