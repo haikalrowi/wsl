@@ -4,9 +4,10 @@
   PROJECT_NAME="./" &&
   pnpm dlx create-next-app@^16.0.0 $PROJECT_NAME &&
   cd $PROJECT_NAME &&
-  pnpm dlx shadcn@latest add haikalrowi/wsl/next-prettier &&
-  pnpm dlx shadcn@latest add haikalrowi/wsl/next-env &&
-  pnpm dlx shadcn@latest add haikalrowi/wsl/next-internationalization &&
+  pnpm install --ignore-scripts &&
+  pnpm dlx shadcn@latest add haikalrowi/wsl/next-env
+  pnpm dlx shadcn@latest add haikalrowi/wsl/next-prettier
+  pnpm dlx shadcn@latest add haikalrowi/wsl/next-internationalization
   pnpm dlx shadcn@latest add haikalrowi/wsl/next-storyblok
   ```
 
