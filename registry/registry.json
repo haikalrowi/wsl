@@ -38,6 +38,11 @@
       "dependencies": ["next-international@^1.0.0"],
       "files": [
         {
+          "path": "./src/next-internationalization/.prettierrc",
+          "type": "registry:item",
+          "target": "~/.prettierrc"
+        },
+        {
           "path": "./src/next-internationalization/app-[locale]-layout.tsx",
           "type": "registry:item",
           "target": "~/app/[locale]/layout.tsx"
