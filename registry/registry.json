@@ -2,6 +2,17 @@
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "items": [
     {
+      "name": "next-env",
+      "type": "registry:item",
+      "files": [
+        {
+          "path": "./src/next-env/utils-env.ts",
+          "type": "registry:item",
+          "target": "~/utils/env.ts"
+        }
+      ]
+    },
+    {
       "name": "next-prettier",
       "type": "registry:item",
       "devDependencies": [
@@ -10,25 +21,14 @@
       ],
       "files": [
         {
-          "path": "./src/next-prettier/.prettierrc",
-          "type": "registry:item",
-          "target": "~/.prettierrc"
-        },
-        {
           "path": "./src/next-prettier/.prettierignore",
           "type": "registry:item",
           "target": "~/.prettierignore"
-        }
-      ]
-    },
-    {
-      "name": "next-env",
-      "type": "registry:item",
-      "files": [
+        },
         {
-          "path": "./src/next-env/utils-env.ts",
+          "path": "./src/next-prettier/.prettierrc",
           "type": "registry:item",
-          "target": "~/utils/env.ts"
+          "target": "~/.prettierrc"
         }
       ]
     },
@@ -104,6 +104,11 @@
           "path": "./src/next-storyblok/lib-storyblok.ts",
           "type": "registry:item",
           "target": "~/lib/storyblok.ts"
+        },
+        {
+          "path": "./src/next-storyblok/utils-env.ts",
+          "type": "registry:item",
+          "target": "~/utils/env.ts"
         },
         {
           "path": "./src/next-storyblok/utils-storyblok.ts",
