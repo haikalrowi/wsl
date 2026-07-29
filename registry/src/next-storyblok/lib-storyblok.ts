@@ -8,7 +8,7 @@ import {
   StoryblokMultilink,
   StoryblokRichtext,
 } from "@/utils/storyblok";
-import { apiPlugin, storyblokInit } from "@storyblok/react";
+import { apiPlugin, storyblokInit, useStoryblokApi } from "@storyblok/react";
 import Link from "next/link";
 import { cache } from "react";
 
