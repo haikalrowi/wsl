@@ -66,6 +66,11 @@
           "path": "./src/next-internationalization/proxy.ts",
           "type": "registry:item",
           "target": "~/proxy.ts"
+        },
+        {
+          "path": "./src/next-internationalization/utils-env.ts",
+          "type": "registry:item",
+          "target": "~/utils/env.ts"
         }
       ]
     },
