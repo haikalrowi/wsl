@@ -1,7 +1,7 @@
-import { getStoryblokApi } from "@/lib/storyblok";
+// import { getStoryblokApi } from "@/lib/storyblok";
 
-export function StoryblokProvider({ children }: React.PropsWithChildren) {
-  getStoryblokApi();
+// export function StoryblokProvider({ children }: React.PropsWithChildren) {
+//   getStoryblokApi();
 
-  return children;
-}
+//   return children;
+// }
