@@ -53,11 +53,6 @@
           "target": "~/locales/client.ts"
         },
         {
-          "path": "./src/next-internationalization/locales-server.ts",
-          "type": "registry:item",
-          "target": "~/locales/server.ts"
-        },
-        {
           "path": "./src/next-internationalization/locales-en.ts",
           "type": "registry:item",
           "target": "~/locales/en.ts"
@@ -66,6 +61,11 @@
           "path": "./src/next-internationalization/locales-ja.ts",
           "type": "registry:item",
           "target": "~/locales/ja.ts"
+        },
+        {
+          "path": "./src/next-internationalization/locales-server.ts",
+          "type": "registry:item",
+          "target": "~/locales/server.ts"
         },
         {
           "path": "./src/next-internationalization/proxy.ts",
