@@ -1,6 +1,5 @@
-import { env } from "@/utils/env";
-import { apiPlugin, storyblokInit, useStoryblokApi } from "@storyblok/react";
 // import { Page } from "@/components/storyblok/page";
+// import { env } from "@/utils/env";
 // import {
 //   BlockType,
 //   ComponentType,
@@ -9,30 +8,31 @@ import { apiPlugin, storyblokInit, useStoryblokApi } from "@storyblok/react";
 //   StoryblokMultilink,
 //   StoryblokRichtext,
 // } from "@/utils/storyblok";
+// import { apiPlugin, storyblokInit, useStoryblokApi } from "@storyblok/react";
 // import Link from "next/link";
 // import { cache } from "react";
 
-export const CONFIG_SLUG = "config";
-export const HOME_SLUG = "home";
+// export const CONFIG_SLUG = "config";
+// export const HOME_SLUG = "home";
 
-export function getStoryblokApi() {
-  const getApi = storyblokInit({
-    accessToken: env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN,
-    use: [apiPlugin],
-    apiOptions: {
-      region: "eu",
-    },
-    // components: {
-    //   page: Page,
-    // } satisfies {
-    //   [P in ComponentType]?: React.ComponentType<{ blok?: BlockType<P> }>;
-    // },
-  });
+// export function getStoryblokApi() {
+//   const getApi = storyblokInit({
+//     accessToken: env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN,
+//     use: [apiPlugin],
+//     apiOptions: {
+//       region: "eu",
+//     },
+//     components: {
+//       page: Page,
+//     } satisfies {
+//       [P in ComponentType]?: React.ComponentType<{ blok?: BlockType<P> }>;
+//     },
+//   });
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return (getApi || useStoryblokApi)();
-}
+//   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//   // @ts-ignore
+//   return (getApi || useStoryblokApi)();
+// }
 
 // export const cachedGetStory = cache(
 //   async <T extends ComponentType = ComponentType>(
