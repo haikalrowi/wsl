@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   // output: "standalone",
   cacheComponents: true,
+  partialPrefetching: true,
   // turbopack: {
   //   rules: {
   //     "*": {

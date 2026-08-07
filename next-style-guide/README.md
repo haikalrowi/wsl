@@ -22,11 +22,7 @@
 
 - ```md
   rm -rf .next/ && pnpm run dev
-  ```
-- ```md
   rm -rf .next/ && pnpm run build && pnpm run start
-  ```
-- ```md
   rm -rf node_modules/ && pnpm install && pnpm outdated
   ```
 
