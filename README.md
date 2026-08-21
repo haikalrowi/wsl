@@ -14,6 +14,7 @@
   [![cobalt.tools](https://www.google.com/s2/favicons?sz=32&domain=cobalt.tools)](https://cobalt.tools/)
   [![it-tools.tech](https://www.google.com/s2/favicons?sz=32&domain=it-tools.tech)](https://it-tools.tech/)
 - [![google.com/ai](https://www.google.com/s2/favicons?sz=32&domain=google.com)](https://google.com/ai?q=.)
+  [![chat.mistral.ai/chat](https://www.google.com/s2/favicons?sz=32&domain=search.brave.com)](https://search.brave.com/ask?q=.)
   [![chat.mistral.ai/chat](https://www.google.com/s2/favicons?sz=32&domain=chat.mistral.ai)](https://chat.mistral.ai/chat?q=.)
   [![perplexity.ai](https://www.google.com/s2/favicons?sz=32&domain=perplexity.ai)](https://perplexity.ai/?q=.)
   [![chatgpt.com](https://www.google.com/s2/favicons?sz=32&domain=chatgpt.com)](https://chatgpt.com/?q=.)
@@ -26,6 +27,7 @@
 </summary>
 
 - https://grokipedia.com/page/Backus%E2%80%93Naur_form
+- https://github.com/open-source/github-secure-open-source-fund/projects#:~:text=What%20are%20all%20the%20projects
 
 </details>
 
