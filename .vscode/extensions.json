@@ -1,11 +1,12 @@
 {
     "recommendations": [
-        "bradlc.vscode-tailwindcss",
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode",
-        "streetsidesoftware.code-spell-checker",
         // "astral-sh.ty",
-        // "charliermarsh.ruff"
+        "bradlc.vscode-tailwindcss",
+        // "charliermarsh.ruff",
+        // "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "oxc.oxc-vscode",
+        "streetsidesoftware.code-spell-checker",
         "TypeScriptTeam.native-preview"
     ]
 }
