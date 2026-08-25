@@ -2,7 +2,7 @@ const fs = require("node:fs"),
   output = `${process.argv[1]}.md`,
   users = process.argv.slice(2),
   fromYear = new Date().getFullYear(),
-  toYear = 2000,
+  toYear = 2009,
   dates = Array.from({ length: (1 + fromYear - toYear) * 12 }, (_, index) => {
     const year = fromYear - Math.floor(index / 12);
     const month = index % 12;
