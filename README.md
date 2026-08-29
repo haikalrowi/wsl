@@ -146,5 +146,5 @@
 
 - ```md
   pnpm add -D sharp
-  node -e '["./"].forEach(folder=>require("fs").readdirSync(folder).filter(file=>file.endsWith(".png")).forEach(file=>require("sharp")(folder+file).avif({quality:50,effort:7}).toFile(folder+file.replace(".png",".avif"))))'
+  node -e '["./"].forEach(folder=>require("node:fs").readdirSync(folder).filter(file=>[require("sharp").format.jpeg.input.fileSuffix,require("sharp").format.png.input.fileSuffix,require("sharp").format.webp.input.fileSuffix].flat().includes(require("node:path").extname(file))).forEach(file=>require("sharp")(folder+file).avif({quality:50,effort:7}).toFile(folder+file.replace(require("node:path").extname(file),".avif"))))'
   ```
