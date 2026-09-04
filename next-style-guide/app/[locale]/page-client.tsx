@@ -4,6 +4,7 @@ import { Api } from "@/assets/worker";
 import { GoogleChart } from "@/components/google-chart";
 import { Link } from "@/components/link";
 import { useQuery, useStore } from "@/hooks/use-state-app";
+import { z } from "@/lib/zod";
 import { useChangeLocale, useCurrentLocale, useI18n } from "@/locales/client";
 import { appDefaultApi, appSchema, petstorePetApi } from "@/openapi";
 import { env } from "@/utils/env";
@@ -21,7 +22,7 @@ import { m } from "motion/react";
 import Image from "next/image";
 import { createSerializer, parseAsStringLiteral, useQueryStates } from "nuqs";
 import { encodeQR } from "qr";
-import { frameLoop, frontalCamera, QRCanvas } from "qr/dom.js";
+import { frameLoop, QRCanvas, rearCamera } from "qr/dom.js";
 import { useId, useRef, useState } from "react";
 import { Controller, useForm, Watch } from "react-hook-form";
 import {
@@ -36,7 +37,6 @@ import {
 } from "react-map-gl/maplibre";
 import useSWRImmutable from "swr/immutable";
 import useSWRMutation from "swr/mutation";
-import z from "zod";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { getEnv } from "./page-server";
@@ -821,7 +821,7 @@ export async function POST(req: Request) {
     const [inputValue, setInputValue] = useState("qr");
     const qrRef = useRef({
       video: null as null | HTMLVideoElement,
-      camera: null as null | Awaited<ReturnType<typeof frontalCamera>>,
+      camera: null as null | Awaited<ReturnType<typeof rearCamera>>,
       canvas: new QRCanvas({}, { cropToSquare: false }),
       cancel: null as null | (() => void),
     });
@@ -839,13 +839,13 @@ export async function POST(req: Request) {
         <button
           onClick={async () => {
             if (qrRef.current.video) {
-              qrRef.current.camera = await frontalCamera(qrRef.current.video);
-              qrRef.current.cancel = frameLoop(() => {
+              qrRef.current.camera = await rearCamera(qrRef.current.video);
+              qrRef.current.cancel = frameLoop(async () => {
                 if (
                   qrRef.current.video?.videoHeight &&
                   qrRef.current.video?.videoWidth
                 ) {
-                  const result = qrRef.current.camera?.readFrame?.(
+                  const result = await qrRef.current.camera?.readFrame?.(
                     qrRef.current.canvas,
                     true,
                   );

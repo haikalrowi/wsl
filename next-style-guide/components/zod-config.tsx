@@ -1,7 +1,7 @@
 "use client";
 
+import { z } from "@/lib/zod";
 import { useCurrentLocale } from "@/locales/client";
-import z from "zod";
 import { en, ja } from "zod/locales";
 
 export function ZodConfig() {
