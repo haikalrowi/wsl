@@ -1,9 +1,13 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import { useSyncExternalStore } from "react";
 
-function Csr_({ children }: React.PropsWithChildren) {
-  return children;
+export function Csr(props: React.PropsWithChildren) {
+  const isCsr = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+
+  return isCsr && props.children;
 }
-
-export const Csr = dynamic(async () => Csr_, { ssr: false });

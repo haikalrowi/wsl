@@ -39,7 +39,10 @@ export default async function Layout(props: LayoutProps<"/[locale]">) {
             <NuqsAdapter defaultOptions={{}}>
               <SWRConfig value={{}}>
                 <LazyMotion>
-                  <Csr>{props.children}</Csr>
+                  <Csr>
+                    {/*  */}
+                    {props.children}
+                  </Csr>
                 </LazyMotion>
               </SWRConfig>
             </NuqsAdapter>
