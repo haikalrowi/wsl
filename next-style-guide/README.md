@@ -24,6 +24,7 @@
   rm -rf .next/ && pnpm run dev
   rm -rf .next/ && pnpm run build && pnpm run start
   rm -rf node_modules/ && pnpm install && pnpm outdated
+  rm -rf node_modules/ && pnpm update --no-save && pnpm outdated
   ```
 
 ## with `shadcn`

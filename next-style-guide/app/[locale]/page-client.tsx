@@ -17,7 +17,6 @@ import timegrid from "@fullcalendar/react/timegrid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { usePagination } from "@mantine/hooks";
-import { colorful } from "@versatiles/style";
 import { wrap } from "comlink";
 import Image from "next/image";
 import { createSerializer, parseAsStringLiteral, useQueryStates } from "nuqs";
@@ -25,16 +24,6 @@ import { encodeQR } from "qr";
 import { frameLoop, QRCanvas, rearCamera } from "qr/dom.js";
 import { useId, useRef, useState } from "react";
 import { Controller, useForm, Watch } from "react-hook-form";
-import {
-  FullscreenControl,
-  GeolocateControl,
-  LogoControl,
-  Map,
-  Marker,
-  NavigationControl,
-  Popup,
-  ScaleControl,
-} from "react-map-gl/maplibre";
 import useSWRImmutable from "swr/immutable";
 import useSWRMutation from "swr/mutation";
 import { create } from "zustand";
@@ -951,71 +940,11 @@ export async function POST(req: Request) {
   },
 
   // https://github.com/visgl/react-map-gl
-  Maplibre() {
-    console.log(guide.Maplibre.name);
+  // Maplibre() {
+  //   console.log(guide.Maplibre.name);
 
-    const pois: [number, number][] = [
-      [10, 20],
-      [30, 40],
-      [50, 60],
-    ];
-    const [poi, setPoi] = useState<(typeof pois)[number] | null>();
-
-    return (
-      <>
-        <style jsx>{`
-          @import "${new URL("maplibre-gl/dist/maplibre-gl.css", import.meta.url)}";
-        `}</style>
-        <GuideIsolate>
-          <Map
-            mapStyle={colorful({ baseUrl: "https://tiles.versatiles.org" })}
-            // mapStyle="https://tiles.openfreemap.org/styles/liberty"
-            cooperativeGestures
-          >
-            {pois.map((item, index) => (
-              <Marker
-                key={`${item}-${index}`}
-                longitude={item[0]}
-                latitude={item[1]}
-                onClick={(e) => {
-                  if (poi) {
-                    setPoi(null);
-                  } else {
-                    e.originalEvent.stopPropagation();
-                    setPoi(item);
-                  }
-                }}
-              >
-                <div
-                  className="size-4 rounded-full bg-red-500"
-                  onMouseEnter={() => {
-                    setPoi(item);
-                  }}
-                ></div>
-              </Marker>
-            ))}
-            {poi && (
-              <Popup
-                longitude={poi[0]}
-                latitude={poi[1]}
-                onClose={() => {
-                  setPoi(null);
-                }}
-              >
-                <p>{`${poi}`}</p>
-              </Popup>
-            )}
-            <FullscreenControl></FullscreenControl>
-            <GeolocateControl></GeolocateControl>
-            <NavigationControl></NavigationControl>
-            <ScaleControl></ScaleControl>
-            {/* <TerrainControl source=""></TerrainControl> */}
-            <LogoControl></LogoControl>
-          </Map>
-        </GuideIsolate>
-      </>
-    );
-  },
+  //   return <></>;
+  // },
 
   // https://developers.google.com/youtube/player_parameters#Parameters
   Youtube() {
