@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "github-get-commits-by-users": "node -e 'console.clear()' && node ./github/get-commits-by-users.js t3dotgg",
+    "github-get-sponsors-by-user": "node -e 'console.clear()' && node ./github/get-sponsors-by-user.js t3dotgg",
+    "npmjs-get-repositories-by-packages": "node -e 'console.clear()' && node ./npmjs/get-repositories-by-packages.js"
+  }
+}

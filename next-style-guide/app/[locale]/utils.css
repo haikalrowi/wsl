@@ -1,0 +1,25 @@
+html,
+body,
+.utils {
+  @apply container mx-auto h-full w-full;
+}
+
+@utility utils {
+  :is(&, & *):not([data-isolate], [data-isolate] *) {
+    @apply flex gap-1 p-1 not-[.flex-row]:flex-col;
+    &:is(button, input, select, optgroup, textarea) {
+      @apply not-[button]:border;
+    }
+    &:is(button) {
+      @apply bg-black font-mono text-white;
+    }
+    &:is(input) {
+    }
+    &:is(select) {
+    }
+    &:is(optgroup) {
+    }
+    &:is(textarea) {
+    }
+  }
+}
