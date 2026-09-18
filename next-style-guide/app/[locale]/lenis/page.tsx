@@ -1,9 +1,9 @@
-import { ReactLenis } from "lenis/react";
+import { Lenis } from "@/components/lenis";
 
 export default async function Page() {
   return (
     <>
-      <ReactLenis root></ReactLenis>
+      <Lenis></Lenis>
       <div className="utils">
         {Array.from({ length: 64 }).map((_, index, items) => (
           <div

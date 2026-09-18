@@ -8,20 +8,22 @@
 //   StoryblokMultilink,
 //   StoryblokRichtext,
 // } from "@/utils/storyblok";
-// import { apiPlugin, storyblokInit, useStoryblokApi } from "@storyblok/react";
+// import { apiPlugin, StoryblokClient, storyblokInit } from "@storyblok/react";
 // import Link from "next/link";
 // import { cache } from "react";
 
 // export const CONFIG_SLUG = "config";
 // export const HOME_SLUG = "home";
 
+// const API_OPTIONS = {
+//   accessToken: env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN,
+//   region: "eu",
+// };
+
 // export function getStoryblokApi() {
-//   const getApi = storyblokInit({
-//     accessToken: env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN,
+//   storyblokInit({
 //     use: [apiPlugin],
-//     apiOptions: {
-//       region: "eu",
-//     },
+//     apiOptions: API_OPTIONS,
 //     components: {
 //       page: Page,
 //     } satisfies {
@@ -29,9 +31,13 @@
 //     },
 //   });
 
-//   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//   // @ts-ignore
-//   return (getApi || useStoryblokApi)();
+//   const { storyblokApi } = apiPlugin({
+//     apiOptions: API_OPTIONS,
+//   }) as {
+//     storyblokApi: StoryblokClient;
+//   };
+
+//   return storyblokApi;
 // }
 
 // export const cachedGetStory = cache(
@@ -58,6 +64,7 @@
 //   filterQuery?: unknown,
 //   page?: number,
 //   perPage?: number,
+//   sortBy?: string,
 // ) {
 //   const storyblokApi = getStoryblokApi();
 
@@ -67,6 +74,7 @@
 //     filter_query: filterQuery,
 //     page: page,
 //     per_page: perPage,
+//     sort_by: sortBy,
 //   }) as Promise<GetStories<T>>;
 // }
 
