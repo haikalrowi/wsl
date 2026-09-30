@@ -51,6 +51,16 @@ https://python-poetry.org/docs/#installing-with-the-official-installer
 '
 curl -sSL https://install.python-poetry.org | python3 -
 
+: '
+`brew`
+https://brew.sh/
+https://docs.brew.sh/Homebrew-on-Linux
+'
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
+sudo apt-get install build-essential procps curl file git
+
 : 'end'
 END=$(cat /sys/class/net/eth0/statistics/rx_bytes)
 echo "$(( (END-START)/1024/1024 )) MB"
