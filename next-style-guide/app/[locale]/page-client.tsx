@@ -3,7 +3,7 @@
 import { Api } from "@/assets/worker";
 import { GoogleChart } from "@/components/google-chart";
 import { Link } from "@/components/link";
-import { useQuery, useStore } from "@/hooks/use-state-app";
+import { useAppQuery, useAppStore } from "@/hooks/use-app-state";
 import { m } from "@/lib/motion";
 import { z } from "@/lib/zod";
 import { useChangeLocale, useCurrentLocale, useI18n } from "@/locales/client";
@@ -111,36 +111,36 @@ const guide = {
   Query() {
     console.log(guide.Query.name);
 
-    const [query, setQuery] = useQuery();
+    const [appQuery, setAppQuery] = useAppQuery();
 
     return (
       <>
         <label className="flex-row">
           <input
             type="checkbox"
-            checked={query.isAdult}
+            checked={appQuery.isAdult}
             onChange={(e) => {
-              setQuery({ isAdult: e.currentTarget.checked });
+              setAppQuery({ isAdult: e.currentTarget.checked });
             }}
           />
           {"isAdult"}
         </label>
         <input
-          value={query.name}
+          value={appQuery.name}
           onChange={(e) => {
-            setQuery({ name: e.currentTarget.value });
+            setAppQuery({ name: e.currentTarget.value });
           }}
         />
         <input
           type="number"
-          value={query.age}
+          value={appQuery.age}
           onChange={(e) => {
-            setQuery(() => ({ age: e.currentTarget.valueAsNumber }));
+            setAppQuery(() => ({ age: e.currentTarget.valueAsNumber }));
           }}
         />
         <button
           onClick={() => {
-            setQuery(null);
+            setAppQuery(null);
           }}
         >
           {"↻"}
@@ -153,14 +153,14 @@ const guide = {
   Store() {
     console.log(guide.Store.name);
 
-    const store = useStore();
+    const appStore = useAppStore();
 
     return (
       <>
         <select
-          value={+store.isActive}
+          value={+appStore.isActive}
           onChange={(e) => {
-            useStore.setState({
+            useAppStore.setState({
               isActive: { "0": false, "1": true }[e.currentTarget.value],
             });
           }}
@@ -169,21 +169,21 @@ const guide = {
           <option value="1">{"isActive:true"}</option>
         </select>
         <input
-          value={store.id}
+          value={appStore.id}
           onChange={(e) => {
-            useStore.setState({ id: e.currentTarget.value });
+            useAppStore.setState({ id: e.currentTarget.value });
           }}
         />
         <input
           type="number"
-          value={`${store.count}`}
+          value={`${appStore.count}`}
           onChange={(e) => {
-            useStore.setState({ count: e.currentTarget.valueAsNumber });
+            useAppStore.setState({ count: e.currentTarget.valueAsNumber });
           }}
         />
         <button
           onClick={() => {
-            useStore.setState(useStore.getInitialState());
+            useAppStore.setState(useAppStore.getInitialState());
           }}
         >
           {"↻"}

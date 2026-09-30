@@ -1,4 +1,3 @@
-import { Csr } from "@/components/csr";
 import { LazyMotion } from "@/components/lazy-motion";
 import { ZodConfig } from "@/components/zod-config";
 import { I18nProviderClient } from "@/locales/client";
@@ -39,10 +38,10 @@ export default async function Layout(props: LayoutProps<"/[locale]">) {
             <NuqsAdapter defaultOptions={{}}>
               <SWRConfig value={{}}>
                 <LazyMotion>
-                  <Csr>
-                    {/*  */}
-                    {props.children}
-                  </Csr>
+                  {/* <Csr> */}
+                  {/*  */}
+                  {props.children}
+                  {/* </Csr> */}
                 </LazyMotion>
               </SWRConfig>
             </NuqsAdapter>

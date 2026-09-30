@@ -21,15 +21,16 @@ const store = {
   isActive: false,
 };
 
-export const [serialize, useQuery, useStore] = [
+export const [
+  //
+  serializeAppQuery,
+  useAppQuery,
+  useAppStore,
+] = [
   //
   createSerializer(query),
-
-  //
   function () {
     return useQueryStates(query);
   },
-
-  //
-  create(persist(() => store, { name: "use-store-app" })),
+  create(persist(() => store, { name: "use-app-store" })),
 ];
