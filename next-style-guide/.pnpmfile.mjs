@@ -1,7 +1,16 @@
 export const hooks = {
   readPackage(pkg, context) {
-    const fields = ["dependencies", "devDependencies", "optionalDependencies"];
-    const names = ["x", "y"];
+    const fields = [
+      //
+      "dependencies",
+      "devDependencies",
+      "optionalDependencies",
+    ];
+    const names = [
+      //
+      "x",
+      "y",
+    ];
 
     fields.forEach((field) => {
       names.forEach((name) => {
