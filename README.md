@@ -21,17 +21,14 @@
 - [![google.com/search?q=translate](https://www.google.com/s2/favicons?sz=32&domain=google.com)](https://google.com/search?q=translate)
   [![bing.com/search?q=translate](https://www.google.com/s2/favicons?sz=32&domain=bing.com)](https://bing.com/search?q=translate)
 
-</details>
-<details>
-<summary>
-</summary>
+---
 
 - https://grokipedia.com/page/Backus%E2%80%93Naur_form
 - https://github.com/open-source/github-secure-open-source-fund/projects#:~:text=What%20are%20all%20the%20projects
 
 </details>
 
-## inside your windows
+## in your windows
 
 ### `.wslconfig`
 
@@ -128,11 +125,9 @@
 
 </details>
 
-~~## inside your wsl~~
+## in your wsl (vscode)
 
-## inside your vscode
-
-### from `git` to `.zip`
+### `git` to `.zip`
 
 - ```md
   git ls-files --cached --others --exclude-standard | python3 -c 'import os,subprocess,sys,zipfile;output=subprocess.check_output(["git","rev-parse","--show-toplevel","--abbrev-ref","HEAD"]).decode().strip().split("\n");basename=os.path.basename(output[0]);branch=output[1].replace("/","-");name=f"{basename}.{branch}.zip";zip_file=zipfile.ZipFile(name,"w");[zip_file.write(line.strip())for line in sys.stdin if os.path.exists(line.strip())and line.strip()!=name];zip_file.close();'
@@ -142,9 +137,25 @@
   git diff --name-only --relative HEAD | python3 -c 'import os,subprocess,sys,zipfile;output=subprocess.check_output(["git","rev-parse","--show-toplevel","--abbrev-ref","HEAD"]).decode().strip().split("\n");basename=os.path.basename(output[0]);branch=output[1].replace("/","-");name=f"{basename}.{branch}.zip";zip_file=zipfile.ZipFile(name,"w");[zip_file.write(line.strip())for line in sys.stdin if os.path.exists(line.strip())and line.strip()!=name];zip_file.close();'
   ```
 
-### from `image/*` to `.avif`
+### `image/*` to `.avif`
 
 - ```md
   pnpm add -D sharp
   node -e '["./"].forEach(folder=>require("node:fs").readdirSync(folder).filter(file=>[require("sharp").format.jpeg.input.fileSuffix,require("sharp").format.png.input.fileSuffix,require("sharp").format.webp.input.fileSuffix].flat().includes(require("node:path").extname(file))).forEach(file=>require("sharp")(folder+file).avif({quality:50,effort:7}).toFile(folder+file.replace(require("node:path").extname(file),".avif"))))'
   ```
+
+### mcp
+
+- ```md
+  CLAUDE="$(ls -d ~/.vscode-server/extensions/anthropic.claude-code-*/resources/native-binary/claude | sort -V | tail -1)"
+  "$CLAUDE" --version
+  ```
+
+- ```md
+  CLAUDE="$(ls -d ~/.vscode-server/extensions/anthropic.claude-code-*/resources/native-binary/claude | sort -V | tail -1)"
+  "$CLAUDE" mcp add --transport http Storyblok https://mcp.storyblok.com/mcp
+  "$CLAUDE" mcp add --transport http Slack https://mcp.slack.com/mcp --header "Authorization: Bearer xoxp-..."
+  ```
+
+- https://www.storyblok.com/docs/tooling/mcp-server/setup
+- https://docs.slack.dev/ai/slack-mcp-server/#transport-protocol
