@@ -28,7 +28,6 @@ import useSWRImmutable from "swr/immutable";
 import useSWRMutation from "swr/mutation";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { getEnv } from "./page-server";
 
 export function PageClient() {
   const [query] = useGuide();
@@ -39,16 +38,28 @@ export function PageClient() {
       <div className="utils flex-row">
         <div className="flex-1 overflow-y-scroll">
           {guideKeys.map((item) => (
-            <Link
+            <div
               key={item}
-              href={serializeGuide("/", { guide: item })}
               data-active={item === query.guide}
-              className="hover:ring data-[active=true]:ring"
+              className="group relative data-[active=true]:not-hover:ring"
             >
               {item}
-              {item === query.guide &&
-                `_${guideKeys.indexOf(item) + 1}/${guideKeys.length}`}
-            </Link>
+              <span className="absolute top-1/2 right-0 -translate-y-1/2 group-hover:hidden group-data-[active=false]:hidden">
+                {`${guideKeys.indexOf(item) + 1}/${guideKeys.length}`}
+              </span>
+              <button
+                className="absolute top-1/2 right-0 -translate-y-1/2 group-not-[&:hover]:hidden"
+                onClick={() => {
+                  window.navigator.clipboard.writeText(`${item}()`);
+                }}
+              >
+                ⎘
+              </button>
+              <Link
+                href={serializeGuide("/", { guide: item })}
+                className="absolute top-0 right-6 bottom-0 left-0 group-hover:ring"
+              ></Link>
+            </div>
           ))}
         </div>
         <div className="flex-2 overflow-y-scroll">
@@ -65,20 +76,11 @@ const guide = {
   Env() {
     console.log(guide.Env.name);
 
-    const data = useSWRImmutable([guide.Env], async () => {
-      return getEnv();
-    });
-
     return (
       <>
         <textarea
           rows={10}
           value={JSON.stringify(env, null, 2)}
-          readOnly
-        ></textarea>
-        <textarea
-          rows={10}
-          value={JSON.stringify(data.data, null, 2)}
           readOnly
         ></textarea>
       </>
@@ -208,9 +210,9 @@ const guide = {
       },
     );
     const pet = useSWRMutation(
-      [petstorePetApi.getPetById, { petId: 1 }],
-      ([, ...params] /* , options */) => {
-        return petstorePetApi.getPetById(...params);
+      [petstorePetApi.getPetById],
+      (_, options: { arg: Parameters<typeof petstorePetApi.getPetById> }) => {
+        return petstorePetApi.getPetById(...options.arg);
       },
     );
 
@@ -235,7 +237,7 @@ const guide = {
         ></textarea>
         <button
           onClick={() => {
-            pet.trigger();
+            pet.trigger([{ petId: 1 }]);
           }}
         >
           {"→"}
@@ -894,11 +896,9 @@ export async function POST(req: Request) {
       return Promise.all([
         api.getDateNow(),
         sharedApi.getDateNow(),
-        (async () => {
-          const response = await fetch("/get-date-now");
-          const text = await response.text();
-          return +text;
-        })(),
+        fetch("/get-date-now")
+          .then((response) => response.text())
+          .then((text) => +text),
       ]);
     });
 

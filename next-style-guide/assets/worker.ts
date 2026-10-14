@@ -10,12 +10,18 @@ const api = {
   },
 };
 
-const g = self as typeof globalThis;
+const self_ = self as typeof globalThis;
 
-if (g.DedicatedWorkerGlobalScope && g instanceof DedicatedWorkerGlobalScope) {
+if (
+  self_.DedicatedWorkerGlobalScope &&
+  self_ instanceof DedicatedWorkerGlobalScope
+) {
   expose(api);
-} else if (g.SharedWorkerGlobalScope && g instanceof SharedWorkerGlobalScope) {
-  g.onconnect = (e) => {
+} else if (
+  self_.SharedWorkerGlobalScope &&
+  self_ instanceof SharedWorkerGlobalScope
+) {
+  self_.onconnect = (e) => {
     expose(api, e.ports[0]);
   };
 }
