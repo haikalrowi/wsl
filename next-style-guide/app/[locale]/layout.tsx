@@ -2,6 +2,7 @@ import { LazyMotion } from "@/components/lazy-motion";
 import { ZodConfig } from "@/components/zod-config";
 import { I18nProviderClient } from "@/locales/client";
 import { getStaticParams } from "@/locales/server";
+import { env } from "@/utils/env";
 import { Metadata } from "next";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { SWRConfig } from "swr";
@@ -10,6 +11,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "",
   description: "",
+  metadataBase: new URL(env.BASE_URL),
 };
 
 export async function generateStaticParams() {

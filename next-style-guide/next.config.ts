@@ -15,16 +15,16 @@ const nextConfig: NextConfig = {
   // output: "standalone",
   cacheComponents: true,
   partialPrefetching: true,
-  // turbopack: {
-  //   rules: {
-  //     "*": {
-  //       condition: {
-  //         query: "?bytes",
-  //       },
-  //       type: "bytes",
-  //     },
-  //   },
-  // },
+  turbopack: {
+    rules: {
+      "*": {
+        condition: {
+          query: "?bytes",
+        },
+        type: "bytes",
+      },
+    },
+  },
 };
 
 export default nextConfig;
