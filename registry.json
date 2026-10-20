@@ -1,0 +1,6 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "wsl",
+  "homepage": "https://github.com/haikalrowi/wsl",
+  "include": ["registry/registry.json"]
+}
