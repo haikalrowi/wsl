@@ -167,3 +167,14 @@
 
 - https://www.storyblok.com/docs/tooling/mcp-server/setup
 - https://docs.slack.dev/ai/slack-mcp-server/#transport-protocol
+
+### docker
+
+- ```md
+  docker run --rm --interactive --tty ubuntu
+  ```
+
+- ```md
+  DEBIAN_FRONTEND=noninteractive apt-get update
+  DEBIAN_FRONTEND=noninteractive apt-get install -y sudo curl git
+  ```
