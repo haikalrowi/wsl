@@ -10,9 +10,9 @@ https://github.com/devcontainers/features/tree/HEAD/src/common-utils
 https://github.com/devcontainers/features/tree/HEAD/src/node
 '
 (
-DFCU=".dfcu" &&
+DFCU=~/.dfcu &&
 git clone --no-checkout --filter=blob:none --depth 1 https://github.com/devcontainers/features.git $DFCU &&
-cd $DFCU &&
+cd $DFCU
 git checkout HEAD src/common-utils &&
 rm -rf src/common-utils/bin src/common-utils/scripts &&
 sudo INSTALLZSH="false" \
