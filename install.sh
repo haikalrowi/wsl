@@ -47,7 +47,7 @@ https://docs.astral.sh/uv/getting-started/installation/#standalone-installer
 https://docs.astral.sh/uv/guides/install-python/#getting-started
 '
 curl -LsSf https://astral.sh/uv/install.sh | sh &&
-. .bashrc &&
+. ~/.bashrc &&
 uv python install
 
 : '
@@ -63,7 +63,7 @@ https://docs.brew.sh/Homebrew-on-Linux
 '
 (
 sudo apt-get install -y build-essential procps curl file git
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
 )
