@@ -137,12 +137,12 @@
 
 ### `git` to `.zip`
 
-- ```md
-  git ls-files --cached --others --exclude-standard | python3 -c 'import os,subprocess,sys,zipfile;basename=os.path.basename(subprocess.check_output(["git","rev-parse","--show-toplevel"]).decode().strip());branch=subprocess.check_output(["git","branch","--show-current"]).decode().strip().replace("/","-")or"branch";name=f"{basename}.{branch}.zip";zip_file=zipfile.ZipFile(name,"w",zipfile.ZIP_DEFLATED,compresslevel=9);[zip_file.write(line.strip())for line in sys.stdin if os.path.exists(line.strip())and line.strip()!=name];zip_file.close();'
+- ```
+  git ls-files --cached --others --exclude-standard | python3 -c 'import os,sys,subprocess,zipfile;git=lambda*arguments:subprocess.check_output(("git",)+arguments,text=True).strip();repository=os.path.basename(git("rev-parse","--show-toplevel"));branch=git("branch","--show-current").replace("/","-")or"branch";name=f"{repository}.{branch}.zip";zip_file=zipfile.ZipFile(name,"w",zipfile.ZIP_DEFLATED,compresslevel=9);[zip_file.write(path)for path in map(str.strip,sys.stdin)if path!=name and os.path.exists(path)];zip_file.close()'
   ```
 
-- ```md
-  git diff --name-only --relative HEAD | python3 -c 'import os,subprocess,sys,zipfile;basename=os.path.basename(subprocess.check_output(["git","rev-parse","--show-toplevel"]).decode().strip());branch=subprocess.check_output(["git","branch","--show-current"]).decode().strip().replace("/","-")or"branch";name=f"{basename}.{branch}.zip";zip_file=zipfile.ZipFile(name,"w",zipfile.ZIP_DEFLATED,compresslevel=9);[zip_file.write(line.strip())for line in sys.stdin if os.path.exists(line.strip())and line.strip()!=name];zip_file.close();'
+- ```
+  git diff --name-only --relative HEAD | python3 -c 'import os,sys,subprocess,zipfile;git=lambda*arguments:subprocess.check_output(("git",)+arguments,text=True).strip();repository=os.path.basename(git("rev-parse","--show-toplevel"));branch=git("branch","--show-current").replace("/","-")or"branch";name=f"{repository}.{branch}.zip";zip_file=zipfile.ZipFile(name,"w",zipfile.ZIP_DEFLATED,compresslevel=9);[zip_file.write(path)for path in map(str.strip,sys.stdin)if path!=name and os.path.exists(path)];zip_file.close()'
   ```
 
 ### `image/*` to `.avif`
