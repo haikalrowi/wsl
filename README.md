@@ -60,7 +60,7 @@
       content: |
         confirm_run() {
           [ ! -e "/var/tmp/.confirm-run-$1" ] && sudo -v && {
-            printf "%s\n" "$(type "$1")"
+            type "$1"
             read -r -p "$1 [y/n]: " yn
             [ "$yn" = "y" ] || [ "$yn" = "n" ] && touch "/var/tmp/.confirm-run-$1"
             [ "$yn" = "y" ] && "$1"
