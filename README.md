@@ -35,8 +35,15 @@
 
 - ```md
   [wsl2]
-  kernelCommandLine=sysctl.vm.swappiness=10
+  memory=3GB
+  processors=6
   swap=4GB
+  kernelCommandLine=sysctl.vm.swappiness=10
+  
+  guiApplications=false
+  gpuSupport=false
+  nestedVirtualization=false
+  telemetry=false
   networkingMode=mirrored
   ```
 
