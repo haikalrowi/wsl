@@ -39,7 +39,7 @@
   processors=6
   swap=4GB
   kernelCommandLine=sysctl.vm.swappiness=10
-  
+
   guiApplications=false
   gpuSupport=false
   nestedVirtualization=false
