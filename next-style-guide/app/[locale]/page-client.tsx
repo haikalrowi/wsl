@@ -44,7 +44,7 @@ export function PageClient() {
               className="group relative data-[active=true]:not-hover:ring"
             >
               {item}
-              <span className="absolute top-1/2 right-0 -translate-y-1/2 group-hover:hidden group-data-[active=false]:hidden">
+              <span className="absolute top-1/2 right-0 -translate-y-1/2 group-hover:right-6 group-not-[&:hover]:group-data-[active=false]:hidden">
                 {`${guideKeys.indexOf(item) + 1}/${guideKeys.length}`}
               </span>
               <button
@@ -57,7 +57,7 @@ export function PageClient() {
               </button>
               <Link
                 href={serializeGuide("/", { guide: item })}
-                className="absolute top-0 right-6 bottom-0 left-0 group-hover:ring"
+                className="absolute top-0 right-6 bottom-0 left-0 ring group-not-[&:hover]:hidden"
               ></Link>
             </div>
           ))}

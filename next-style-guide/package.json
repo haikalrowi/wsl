@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@fullcalendar/react": "^7.0.0",
-    "@hookform/resolvers": "^6.0.0",
+    "@hookform/resolvers": "^7.0.0",
     "@lottiefiles/dotlottie-react": "^0.x.x",
     "@mantine/hooks": "^9.0.0",
     "@storyblok/react": "~5.2.0",
