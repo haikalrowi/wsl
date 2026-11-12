@@ -34,8 +34,8 @@ curl -fsSL https://bun.com/install | bash
 : '
 [devtunnel]
 https://learn.microsoft.com/en-us/azure/developer/dev-tunnels/get-started?tabs=linux
-'
 curl -sL https://aka.ms/DevTunnelCliInstall | bash
+'
 
 : '
 [cloudflared]
