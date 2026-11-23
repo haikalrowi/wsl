@@ -1,0 +1,44 @@
+{
+  "name": "command",
+  "publisher": "wsl",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.0.0"
+  },
+  "main": "./extension.js",
+  "scripts": {
+    "link:code": "node link.js .vscode",
+    "link:remote": "node link.js .vscode-server",
+    "link:codium": "node link.js .vscode-oss",
+    "link:insiders": "node link.js .vscode-insiders"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "command.gitDiff",
+        "category": "Command",
+        "title": "Git Diff",
+        "program": "git",
+        "args": [
+          "--no-pager",
+          "diff",
+          "--",
+          "${file}"
+        ]
+      },
+      {
+        "command": "command.gitDiffHead",
+        "category": "Command",
+        "title": "Git Diff (HEAD)",
+        "program": "git",
+        "args": [
+          "--no-pager",
+          "diff",
+          "HEAD",
+          "--",
+          "${file}"
+        ]
+      }
+    ]
+  }
+}
