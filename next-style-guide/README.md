@@ -39,6 +39,16 @@
 - https://ui.shadcn.com/docs/cli
 - https://ui.shadcn.com/docs/changelog
 
+## with `oxlint`
+
+- ```md
+  npx @oxlint/migrate --type-aware
+  pnpm add --save-dev oxlint
+  pnpm add --save-dev oxlint-tsgolint
+  ```
+
+- https://oxc.rs/docs/guide/usage/linter/migrate-from-eslint.html#migrate-with-skills
+
 ## with `supabase.com`
 
 - ```md
