@@ -6,6 +6,9 @@
     "vscode": "^1.0.0"
   },
   "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "scripts": {
     "link:code": "node link.js .vscode",
     "link:remote": "node link.js .vscode-server",

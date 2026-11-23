@@ -21,6 +21,7 @@ function activate(/** @type {import('vscode').ExtensionContext} */ context) {
       }),
     );
   }
+  vscode.window.setStatusBarMessage(`$(sync~spin) $(loading~spin)`, 13000);
 }
 
 module.exports = { activate };
