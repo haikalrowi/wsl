@@ -1,4 +1,7 @@
+@layer ui-sdk;
+
 @import "tailwindcss";
-@import "./shadcn.css";
+@import "@ui-sdk/core/web.css" layer(components);
+/* @import "./shadcn.css"; */
 @import "./typeset.css";
 @import "./utils.css";

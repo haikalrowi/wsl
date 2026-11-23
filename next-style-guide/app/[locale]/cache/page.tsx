@@ -1,3 +1,4 @@
+import { Button } from "@ui-sdk/react/button";
 import { revalidatePath } from "next/cache";
 import { connection } from "next/server";
 
@@ -11,21 +12,19 @@ export default async function Page() {
   ]);
 
   return (
-    <>
-      <div className="utils">
-        {times.map((item, index) => (
-          <p key={index}>{item}</p>
-        ))}
-        <button
-          onClick={async () => {
-            "use server";
-            revalidatePath("/", "layout");
-          }}
-        >
-          {"revalidatePath(...)"}
-        </button>
-      </div>
-    </>
+    <div className="flex flex-col gap-1 p-3">
+      {times.map((item, index) => (
+        <p key={index}>{item}</p>
+      ))}
+      <Button
+        onClick={async () => {
+          "use server";
+          revalidatePath("/", "layout");
+        }}
+      >
+        {"revalidatePath(...)"}
+      </Button>
+    </div>
   );
 }
 

@@ -33,8 +33,11 @@ export default async function Layout(props: LayoutProps<"/[locale]">) {
 
   return (
     <>
-      <html lang={params.locale} className="[--brand-black:#0a0a0a]">
-        <body className="text-(--brand-black)">
+      <html
+        lang={params.locale}
+        className="scheme-light [--brand-black:#0a0a0a]"
+      >
+        <body>
           <ZodConfig></ZodConfig>
           <I18nProviderClient locale={params.locale}>
             <NuqsAdapter defaultOptions={{}}>

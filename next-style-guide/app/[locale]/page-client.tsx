@@ -8,14 +8,45 @@ import { z } from "@/lib/zod";
 import { useChangeLocale, useCurrentLocale, useI18n } from "@/locales/client";
 import { appDefaultApi, appSchema, petstorePetApi } from "@/openapi";
 import { env } from "@/utils/env";
-import FullCalendar from "@fullcalendar/react";
+import FullCalendar, { useCalendarController } from "@fullcalendar/react";
 import daygrid from "@fullcalendar/react/daygrid";
 import multimonth from "@fullcalendar/react/multimonth";
 import "@fullcalendar/react/skeleton.css";
+import themePlugin from "@fullcalendar/react/themes/monarch";
+import "@fullcalendar/react/themes/monarch/palettes/purple.css";
+import "@fullcalendar/react/themes/monarch/theme.css";
 import timegrid from "@fullcalendar/react/timegrid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { usePagination } from "@mantine/hooks";
+import { Button } from "@ui-sdk/react/button";
+import { Checkbox, CheckboxIndicator } from "@ui-sdk/react/checkbox";
+import { Field, FieldLabel } from "@ui-sdk/react/field";
+import { Input } from "@ui-sdk/react/input";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuViewport,
+} from "@ui-sdk/react/navigation-menu";
+import {
+  Pagination,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationList,
+  PaginationNext,
+  PaginationPrevious,
+} from "@ui-sdk/react/pagination";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@ui-sdk/react/select";
+import { Textarea } from "@ui-sdk/react/textarea";
 import { wrap } from "comlink";
 import Image from "next/image";
 import { createSerializer, parseAsStringLiteral, useQueryStates } from "nuqs";
@@ -34,40 +65,32 @@ export function PageClient() {
   const Guide = guide[query.guide as keyof typeof guide];
 
   return (
-    <>
-      <div className="utils flex-row">
-        <div className="flex-1 overflow-y-scroll">
+    <section className="container mx-auto flex h-screen max-w-3xl p-3">
+      <NavigationMenu
+        orientation="vertical"
+        className="w-4/12 overflow-y-scroll"
+      >
+        <NavigationMenuList>
           {guideKeys.map((item) => (
-            <div
-              key={item}
-              data-active={item === query.guide}
-              className="group relative data-[active=true]:not-hover:ring"
-            >
-              {item}
-              <span className="absolute top-1/2 right-0 -translate-y-1/2 group-hover:right-6 group-not-[&:hover]:group-data-[active=false]:hidden">
-                {`${guideKeys.indexOf(item) + 1}/${guideKeys.length}`}
-              </span>
-              <button
-                className="absolute top-1/2 right-0 -translate-y-1/2 group-not-[&:hover]:hidden"
-                onClick={() => {
-                  window.navigator.clipboard.writeText(`${item}()`);
-                }}
-              >
-                ⎘
-              </button>
-              <Link
-                href={serializeGuide("/", { guide: item })}
-                className="absolute top-0 right-6 bottom-0 left-0 ring group-not-[&:hover]:hidden"
-              ></Link>
-            </div>
+            <NavigationMenuItem key={item}>
+              <NavigationMenuLink
+                current={item === query.guide}
+                className="w-full"
+                render={
+                  <Link href={serializeGuide("/", { guide: item })}>
+                    {item}
+                  </Link>
+                }
+              ></NavigationMenuLink>
+            </NavigationMenuItem>
           ))}
-        </div>
-        <div className="flex-2 overflow-y-scroll">
-          <p>{query.guide}</p>
-          <Guide></Guide>
-        </div>
+        </NavigationMenuList>
+        <NavigationMenuViewport></NavigationMenuViewport>
+      </NavigationMenu>
+      <div className="flex flex-1 flex-col gap-1 overflow-y-scroll p-3">
+        <Guide></Guide>
       </div>
-    </>
+    </section>
   );
 }
 
@@ -77,13 +100,13 @@ const guide = {
     console.log(guide.Env.name);
 
     return (
-      <>
-        <textarea
+      <Field>
+        <Textarea
           rows={10}
           value={JSON.stringify(env, null, 2)}
           readOnly
-        ></textarea>
-      </>
+        ></Textarea>
+      </Field>
     );
   },
 
@@ -97,14 +120,16 @@ const guide = {
 
     return (
       <>
-        <input value={t("hello.world")} readOnly />
-        <button
+        <Field>
+          <Input value={t("hello.world")} readOnly></Input>
+        </Field>
+        <Button
           onClick={() => {
             changeLocale(currentLocale === "en" ? "ja" : "en");
           }}
         >
           {"⇄"}
-        </button>
+        </Button>
       </>
     );
   },
@@ -117,36 +142,45 @@ const guide = {
 
     return (
       <>
-        <label className="flex-row">
-          <input
-            type="checkbox"
-            checked={appQuery.isAdult}
-            onChange={(e) => {
-              setAppQuery({ isAdult: e.currentTarget.checked });
+        <Field>
+          <Input
+            value={appQuery.name}
+            onValueChange={(value) => {
+              setAppQuery({ name: value });
             }}
-          />
-          {"isAdult"}
-        </label>
-        <input
-          value={appQuery.name}
-          onChange={(e) => {
-            setAppQuery({ name: e.currentTarget.value });
-          }}
-        />
-        <input
-          type="number"
-          value={appQuery.age}
-          onChange={(e) => {
-            setAppQuery(() => ({ age: e.currentTarget.valueAsNumber }));
-          }}
-        />
-        <button
+          ></Input>
+        </Field>
+        <Field>
+          <Input
+            type="number"
+            value={`${appQuery.age}`}
+            onValueChange={(value) => {
+              setAppQuery(() => ({ age: +value }));
+            }}
+          ></Input>
+        </Field>
+        <Field>
+          <FieldLabel>
+            <Checkbox
+              checked={appQuery.isAdult}
+              onCheckedChange={(value) => {
+                if (value !== "indeterminate") {
+                  setAppQuery({ isAdult: value });
+                }
+              }}
+            >
+              <CheckboxIndicator></CheckboxIndicator>
+            </Checkbox>
+            {"isAdult"}
+          </FieldLabel>
+        </Field>
+        <Button
           onClick={() => {
             setAppQuery(null);
           }}
         >
           {"↻"}
-        </button>
+        </Button>
       </>
     );
   },
@@ -159,37 +193,49 @@ const guide = {
 
     return (
       <>
-        <select
-          value={+appStore.isActive}
-          onChange={(e) => {
-            useAppStore.setState({
-              isActive: { "0": false, "1": true }[e.currentTarget.value],
-            });
-          }}
-        >
-          <option value="0">{"isActive:false"}</option>
-          <option value="1">{"isActive:true"}</option>
-        </select>
-        <input
-          value={appStore.id}
-          onChange={(e) => {
-            useAppStore.setState({ id: e.currentTarget.value });
-          }}
-        />
-        <input
-          type="number"
-          value={`${appStore.count}`}
-          onChange={(e) => {
-            useAppStore.setState({ count: e.currentTarget.valueAsNumber });
-          }}
-        />
-        <button
+        <Field>
+          <Select
+            value={`${appStore.isActive}`}
+            onValueChange={(value) => {
+              useAppStore.setState({ isActive: JSON.parse(`${value}`) });
+            }}
+          >
+            <SelectTrigger>
+              <SelectValue></SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              {[true, false].map((item) => (
+                <SelectItem key={`${item}`} value={`${item}`}>
+                  {`${item}`}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </Field>
+        <Field>
+          <Input
+            value={appStore.id}
+            onValueChange={(value) => {
+              useAppStore.setState({ id: value });
+            }}
+          ></Input>
+        </Field>
+        <Field>
+          <Input
+            type="number"
+            value={`${appStore.count}`}
+            onValueChange={(value) => {
+              useAppStore.setState({ count: +value });
+            }}
+          ></Input>
+        </Field>
+        <Button
           onClick={() => {
             useAppStore.setState(useAppStore.getInitialState());
           }}
         >
           {"↻"}
-        </button>
+        </Button>
       </>
     );
   },
@@ -218,30 +264,34 @@ const guide = {
 
     return (
       <>
-        <textarea
-          rows={10}
-          value={JSON.stringify(repo, null, 2)}
-          readOnly
-        ></textarea>
-        <button
+        <Field>
+          <Textarea
+            rows={10}
+            value={JSON.stringify(repo, null, 2)}
+            readOnly
+          ></Textarea>
+        </Field>
+        <Button
           onClick={() => {
             repo.mutate();
           }}
         >
           {"→"}
-        </button>
-        <textarea
-          rows={10}
-          value={JSON.stringify(pet, null, 2)}
-          readOnly
-        ></textarea>
-        <button
+        </Button>
+        <Field>
+          <Textarea
+            rows={10}
+            value={JSON.stringify(pet, null, 2)}
+            readOnly
+          ></Textarea>
+        </Field>
+        <Button
           onClick={() => {
             pet.trigger([{ petId: 1 }]);
           }}
         >
           {"→"}
-        </button>
+        </Button>
       </>
     );
   },
@@ -265,34 +315,50 @@ const guide = {
           compute={formPersist.setState}
           render={() => <></>}
         ></Watch> */}
-        <form id={formId} onSubmit={form.handleSubmit(console.log)}></form>
-        <Controller
-          name="title"
-          control={form.control}
-          render={({ field }) => <input {...field} placeholder={field.name} />}
-        ></Controller>
-        <Controller
-          name="description"
-          control={form.control}
-          render={({ field }) => (
-            <textarea rows={10} {...field} placeholder={field.name}></textarea>
-          )}
-        ></Controller>
-        <Watch
-          name={["title", "description"]}
-          control={form.control}
-          render={(field) => (
-            <textarea
-              rows={10}
-              value={JSON.stringify(field, null, 2)}
-              readOnly
-            ></textarea>
-          )}
-        ></Watch>
-        <button type="submit" form={formId} disabled={!form.formState.isValid}>
+        <form
+          id={formId}
+          onSubmit={form.handleSubmit(console.log)}
+          hidden
+        ></form>
+        <Field>
+          <Controller
+            name="title"
+            control={form.control}
+            render={({ field }) => (
+              <Input {...field} placeholder={field.name}></Input>
+            )}
+          ></Controller>
+        </Field>
+        <Field>
+          <Controller
+            name="description"
+            control={form.control}
+            render={({ field }) => (
+              <Textarea
+                {...field}
+                rows={10}
+                placeholder={field.name}
+              ></Textarea>
+            )}
+          ></Controller>
+        </Field>
+        <Field>
+          <Watch
+            name={["title", "description"]}
+            control={form.control}
+            render={(field) => (
+              <Textarea
+                rows={10}
+                value={JSON.stringify(field, null, 2)}
+                readOnly
+              ></Textarea>
+            )}
+          ></Watch>
+        </Field>
+        <Button type="submit" form={formId} disabled={!form.formState.isValid}>
           {"→"}
-        </button>
-        <button
+        </Button>
+        <Button
           type="reset"
           form={formId}
           onClick={() => {
@@ -300,7 +366,7 @@ const guide = {
           }}
         >
           {"↻"}
-        </button>
+        </Button>
       </>
     );
   },
@@ -322,31 +388,40 @@ const guide = {
           name="_next"
           value={new URL("/", env.BASE_URL).href}
           form={formsubmitId}
-        />
-        <input type="hidden" name="_captcha" value="true" form={formsubmitId} />
+        ></input>
+        <input
+          type="hidden"
+          name="_captcha"
+          value="true"
+          form={formsubmitId}
+        ></input>
         <input
           type="hidden"
           name="_template"
           value="table"
           form={formsubmitId}
-        />
-        <input
-          type="text"
-          name="name"
-          placeholder="name"
-          defaultValue="John Doe"
-          form={formsubmitId}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="email"
-          defaultValue="john.doe@example.com"
-          form={formsubmitId}
-        />
-        <button type="submit" form={formsubmitId}>
+        ></input>
+        <Field>
+          <Input
+            type="text"
+            name="name"
+            placeholder="name"
+            defaultValue="John Doe"
+            form={formsubmitId}
+          ></Input>
+        </Field>
+        <Field>
+          <Input
+            type="email"
+            name="email"
+            placeholder="email"
+            defaultValue="john.doe@example.com"
+            form={formsubmitId}
+          ></Input>
+        </Field>
+        <Button type="submit" form={formsubmitId}>
           {"→"}
-        </button>
+        </Button>
       </>
     );
   },
@@ -365,7 +440,7 @@ const guide = {
           }
           @media print {
             @page {
-              size: 210mm calc(4.7 * 297mm);
+              size: 210mm calc(5 * 297mm);
               margin: 16px;
             }
             * {
@@ -381,15 +456,14 @@ const guide = {
             }
           }
         `}</style>
-        <button
+        <Button
           onClick={() => {
             print();
           }}
         >
           {"🖶"}
-        </button>
+        </Button>
         <div
-          data-isolate
           data-print
           className="typeset"
           dangerouslySetInnerHTML={{
@@ -774,34 +848,56 @@ export async function POST(req: Request) {
   // https://v7.fullcalendar.io/react
   // https://v7.fullcalendar.io/render-hook-index
   Fullcalendar() {
+    const calendarController = useCalendarController();
+    const buttonState = calendarController.getButtonState();
+
     return (
-      <GuideIsolate>
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-wrap gap-1">
+          {[
+            {
+              onClick() {
+                calendarController.prev();
+              },
+              children: buttonState.prev.text,
+            },
+            {
+              onClick() {
+                calendarController.today();
+              },
+              children: buttonState.today.text,
+            },
+            {
+              onClick() {
+                calendarController.next();
+              },
+              children: buttonState.next.text,
+            },
+          ].map((item, index) => (
+            <Button key={`${item.children}-${index}`} onClick={item.onClick}>
+              {item.children}
+            </Button>
+          ))}
+          {[daygrid, timegrid, multimonth].map((item) => {
+            return Object.keys(item.views || {}).map((item) => (
+              <Button
+                key={item}
+                disabled={item === calendarController.view?.type}
+                onClick={() => {
+                  calendarController.changeView(item);
+                }}
+              >
+                {item}
+              </Button>
+            ));
+          })}
+        </div>
+        <p>{calendarController.view?.title}</p>
         <FullCalendar
-          plugins={[daygrid, timegrid, multimonth]}
-          initialView="dayGridMonth"
-          headerToolbar={{
-            start: "prev,next",
-            center: "title",
-            right: "dayGridMonth,timeGridWeek,timeGridDay,multiMonthYear",
-          }}
-          buttonClass="bg-black p-1 text-white"
-          buttonGroupClass="flex gap-2"
-          toolbarClass="flex pb-2"
-          toolbarSectionClass="not-first:not-last:mx-auto first:mr-auto last:ml-auto"
-          dayHeaderClass="border p-1!"
-          dayHeaderDividerClass="border"
-          dayRowClass="border"
-          dayCellClass="border p-1!"
-          dayLaneClass="border"
-          allDayHeaderInnerClass="p-1!"
-          allDayDividerClass="border"
-          slotHeaderClass="border"
-          slotHeaderInnerClass="p-1!"
-          slotHeaderDividerClass="border"
-          slotLaneClass="border"
-          className="absolute inset-1"
+          controller={calendarController}
+          plugins={[themePlugin, daygrid, timegrid, multimonth]}
         ></FullCalendar>
-      </GuideIsolate>
+      </div>
     );
   },
 
@@ -819,15 +915,15 @@ export async function POST(req: Request) {
 
     return (
       <>
-        <div className="relative h-48 border">
+        <GuideIsolate>
           <video
+            className="absolute inset-0 h-full w-full object-cover"
             ref={(instance) => {
               qrRef.current.video = instance;
             }}
-            className="absolute inset-0 h-full w-full object-cover"
           ></video>
-        </div>
-        <button
+        </GuideIsolate>
+        <Button
           onClick={async () => {
             if (qrRef.current.video) {
               qrRef.current.camera = await rearCamera(qrRef.current.video);
@@ -846,9 +942,9 @@ export async function POST(req: Request) {
             }
           }}
         >
-          {"▶"}
-        </button>
-        <button
+          {"▶︎"}
+        </Button>
+        <Button
           onClick={() => {
             if (qrRef.current.video) {
               qrRef.current.video.srcObject = null;
@@ -857,22 +953,24 @@ export async function POST(req: Request) {
             }
           }}
         >
-          {"⏹"}
-        </button>
-        <div className="relative h-48 border">
+          {"⏹︎"}
+        </Button>
+        <GuideIsolate>
           <Image
             src={`data:image/svg+xml,${encodeURIComponent(encodeQR(inputValue, "svg"))}`}
             alt=""
             fill
             className="object-contain"
-          />
-        </div>
-        <input
-          value={inputValue}
-          onChange={(e) => {
-            setInputValue(e.currentTarget.value);
-          }}
-        />
+          ></Image>
+        </GuideIsolate>
+        <Field>
+          <Input
+            value={inputValue}
+            onValueChange={(value) => {
+              setInputValue(value);
+            }}
+          ></Input>
+        </Field>
       </>
     );
   },
@@ -903,11 +1001,13 @@ export async function POST(req: Request) {
     });
 
     return (
-      <textarea
-        rows={10}
-        value={JSON.stringify(data, null, 2)}
-        readOnly
-      ></textarea>
+      <Field>
+        <Textarea
+          rows={10}
+          value={JSON.stringify(data, null, 2)}
+          readOnly
+        ></Textarea>
+      </Field>
     );
   },
 
@@ -956,7 +1056,6 @@ export async function POST(req: Request) {
           autoplay
           loop
           renderConfig={{ autoResize: true }}
-          className="absolute inset-0 h-full w-full"
         ></DotLottieReact>
       </GuideIsolate>
     );
@@ -985,8 +1084,8 @@ export async function POST(req: Request) {
         <iframe
           src={`https://www.youtube.com/embed/${videoId}?controls=0&autoplay=1&mute=1&loop=1&playlist=${videoId}&rel=0`}
           loading="lazy"
-          className="pointer-events-none absolute -top-[calc(var(--h)/2-50%)] h-(--h) w-full touch-none select-none [--h:300%]"
           tabIndex={-1}
+          className="pointer-events-none absolute -top-[calc(var(--h)/2-50%)] h-(--h) w-full touch-none select-none [--h:300%]"
         ></iframe>
       </GuideIsolate>
     );
@@ -1005,6 +1104,7 @@ export async function POST(req: Request) {
           autoPlay
           muted
           loop
+          crossOrigin="anonymous"
           className="absolute inset-0 h-full w-full object-cover"
         ></video>
       </GuideIsolate>
@@ -1050,8 +1150,7 @@ export async function POST(req: Request) {
           ],
         }}
         transition={{ duration: 7, repeat: Infinity }}
-        data-isolate
-        className="relative m-auto aspect-square h-64 rotate-(--rotate) animate-[grayscale_7s_infinite] rounded-(--rounded) border"
+        className="relative m-auto aspect-square h-64 rotate-(--rotate) animate-[grayscale_7s_infinite] overflow-clip rounded-(--rounded) border border-(--ui-input)"
       >
         <style jsx>{`
           @keyframes grayscale {
@@ -1069,7 +1168,7 @@ export async function POST(req: Request) {
           alt=""
           unoptimized
           fill
-          className="rounded-(--rounded) object-contain"
+          className="object-contain"
         ></Image>
       </m.div>
     );
@@ -1090,42 +1189,33 @@ export async function POST(req: Request) {
   Pagination() {
     console.log(guide.Pagination.name);
 
-    const pagination = usePagination({ total: 10 });
+    const PAGE_COUNT = 10;
+    const pagination = usePagination({ total: PAGE_COUNT });
 
     return (
-      <div className="flex-row">
-        <button
-          onClick={() => {
-            pagination.previous();
-          }}
-        >
-          {"<"}
-        </button>
-        {pagination.range.map((item, index) => {
-          return pagination.active === item ? (
-            <u key={index}>{item}</u>
-          ) : (
-            <a
-              key={index}
-              href="#"
-              onClick={() => {
-                if (item !== "dots") {
-                  pagination.setPage(item);
-                }
-              }}
-            >
-              {item === "dots" ? "…" : item}
-            </a>
-          );
-        })}
-        <button
-          onClick={() => {
-            pagination.next();
-          }}
-        >
-          {">"}
-        </button>
-      </div>
+      <Pagination
+        pageCount={PAGE_COUNT}
+        page={pagination.active}
+        onPageChange={pagination.setPage}
+      >
+        <PaginationList>
+          <PaginationItem>
+            <PaginationPrevious></PaginationPrevious>
+          </PaginationItem>
+          {pagination.range.map((item, index) => (
+            <PaginationItem key={`${item}-${index}`}>
+              {item === "dots" ? (
+                <PaginationEllipsis></PaginationEllipsis>
+              ) : (
+                <PaginationLink page={item}>{item}</PaginationLink>
+              )}
+            </PaginationItem>
+          ))}
+          <PaginationItem>
+            <PaginationNext></PaginationNext>
+          </PaginationItem>
+        </PaginationList>
+      </Pagination>
     );
   },
 
@@ -1143,10 +1233,7 @@ function useGuide() {
 }
 function GuideIsolate(props: React.PropsWithChildren) {
   return (
-    <div
-      data-isolate
-      className="relative m-auto aspect-video h-80 overflow-hidden border"
-    >
+    <div className="relative m-auto aspect-video h-64 overflow-clip border border-(--ui-input)">
       {props.children}
     </div>
   );

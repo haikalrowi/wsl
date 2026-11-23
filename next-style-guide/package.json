@@ -20,6 +20,8 @@
     "@lottiefiles/dotlottie-react": "^0.x.x",
     "@mantine/hooks": "^9.0.0",
     "@storyblok/react": "~5.2.0",
+    "@ui-sdk/core": "beta",
+    "@ui-sdk/react": "beta",
     "comlink": "^4.0.0",
     "date-fns": "^4.0.0",
     "lenis": "^1.0.0",
