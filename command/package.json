@@ -15,26 +15,28 @@
   "contributes": {
     "commands": [
       {
-        "command": "command.gitDiff",
-        "category": "Command",
-        "title": "Git Diff",
-        "program": "git",
-        "args": [
-          "--no-pager",
-          "diff",
-          "--",
-          "${file}"
-        ]
-      },
-      {
         "command": "command.gitDiffHead",
         "category": "Command",
-        "title": "Git Diff (HEAD)",
+        "title": "Git Diff HEAD",
         "program": "git",
         "args": [
           "--no-pager",
           "diff",
           "HEAD",
+          "--",
+          "${file}"
+        ]
+      },
+      {
+        "command": "command.gitDiffHeadOutput",
+        "category": "Command",
+        "title": "Git Diff HEAD Output",
+        "program": "git",
+        "args": [
+          "--no-pager",
+          "diff",
+          "HEAD",
+          "--output=${file}.diff",
           "--",
           "${file}"
         ]
