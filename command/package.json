@@ -19,8 +19,8 @@
     "commands": [
       {
         "command": "command.gitDiffHead",
-        "category": "Command",
-        "title": "Git Diff HEAD",
+        "category": "command",
+        "title": "git diff head",
         "program": "git",
         "args": [
           "--no-pager",
@@ -32,8 +32,8 @@
       },
       {
         "command": "command.gitDiffHeadOutput",
-        "category": "Command",
-        "title": "Git Diff HEAD Output",
+        "category": "command",
+        "title": "git diff head output",
         "program": "git",
         "args": [
           "--no-pager",
