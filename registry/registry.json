@@ -101,6 +101,11 @@
           "target": "~/components/storyblok-richtext.tsx"
         },
         {
+          "path": "./src/next-storyblok/components-storyblok-page.tsx",
+          "type": "registry:item",
+          "target": "~/components/storyblok/page.tsx"
+        },
+        {
           "path": "./src/next-storyblok/lib-storyblok.ts",
           "type": "registry:item",
           "target": "~/lib/storyblok.ts"
