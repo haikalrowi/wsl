@@ -44,14 +44,17 @@
 //   async <T extends ComponentType = ComponentType>(
 //     slug: string,
 //     locale: string,
-//     flushCache?: boolean,
 //   ) => {
 //     const storyblokApi = getStoryblokApi();
-//     if (flushCache) {
-//       await storyblokApi.flushCache();
-//     }
+
+//     // The client keeps one cache version (`cv`) in memory and sends it with
+//     // every request, so without a flush it keeps getting old content until the
+//     // server restarts. Pages re-render only when they are refreshed, so always
+//     // ask for the latest version.
+//     await storyblokApi.flushCache();
 
 //     return storyblokApi.getStory(slug, {
+//       version: "published",
 //       language: locale,
 //       resolve_relations: ["page.items"],
 //     }) as Promise<GetStory<T>>;
@@ -68,7 +71,11 @@
 // ) {
 //   const storyblokApi = getStoryblokApi();
 
+//   // Same reason as in `cachedGetStory`.
+//   await storyblokApi.flushCache();
+
 //   return storyblokApi.getStories({
+//     version: "published",
 //     content_type: componentType,
 //     language: locale,
 //     filter_query: filterQuery,
@@ -76,6 +83,27 @@
 //     per_page: perPage,
 //     sort_by: sortBy,
 //   }) as Promise<GetStories<T>>;
+// }
+
+// // Slugs of all published pages (no folders, no global `config` entry). The
+// // sitemap and the list of prerendered pages both use it, so they list the same
+// // pages.
+// export async function getSlugs() {
+//   const storyblokApi = getStoryblokApi();
+
+//   // Same reason as in `cachedGetStory`.
+//   await storyblokApi.flushCache();
+
+//   const links = await storyblokApi.get("cdn/links", {
+//     version: "published",
+//     // Storyblok returns 25 links by default. 1000 is the maximum.
+//     per_page: 1000,
+//   });
+
+//   return Object.values(links.data.links || {})
+//     .filter((link) => link.published && !link.is_folder)
+//     .map((link) => link.slug || "")
+//     .filter((slug) => !!slug && slug !== CONFIG_SLUG);
 // }
 
 // export function getLinkProps(
